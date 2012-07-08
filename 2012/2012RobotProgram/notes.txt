@@ -1,0 +1,70 @@
+UINT32 startTime = GetMsecTime();
+//
+// Do something that you want to time.
+//
+printf("Elapsed time = %d msec\n", GetMsecTime() - startTime);
+
+Write to DS LCD:
+
+DriverStationLCD *ds = DriverStationLCD::GetInstance();
+int val = 42;
+ds->PrintfLine(DriverStationLCD::kUser_Line1, "My Value is: %d", val);
+ds->UpdateLCD();
+
+Driver station has analog and digital INs that can be used to control robot features.
+
+On a PC that is connected to your team's robot, you can use ftp to browse the robot's file system by opening a web browser and using the URL:
+ 
+ftp://10.XX.YY.2/
+ 10.XX.YY.2 being the standard FIRST defined IP address for your robot.
+ Note that the protocol part of the URL is ftp - not http like you see during
+ regular web browsing.
+ 
+This will give you a file listing of the root of the robot file system, and you can browse down into the various sub-directories.
+ 
+The web browser is a good place to start since it gives a read-only view of the file system. You want to be sure that you don't modify any of the existing files there, without fully understanding the consequences.
+
+Select autonomous program -- put this in DisabledPeriodic
+
+static Timer button_combo_timer;
+if (BUTTON_COMBO_SWITCH_AUTONOMOUS() == true)
+{
+    button_combo_timer.Start();
+}
+else
+{
+    button_combo_timer.Reset();
+    button_combo_timer.Stop();
+}
+
+if (button_combo_timer.Get() > 3.00)
+{
+    button_combo_timer.Reset();
+    switch (autonomousMode)
+    {
+    case AUTONOMOUS_MODE_1:
+        autonomousMode = AUTONOMOUS_MODE_2;
+    break;
+    case AUTONOMOUS_MODE_2:
+        autonomousMode = AUTONOMOUS_MODE_3;
+    break;
+    case AUTONOMOUS_MODE_3:
+        autonomousMode = AUTONOMOUS_MODE_1;
+    break;
+    }
+}
+switch (autonomousMode)
+{
+    default:
+    case AUTONOMOUS_MODE_1:
+    driverStationLCD->PrintfLine((DriverStationLCD::Line) 3, "Using 1");
+    break;
+    case AUTONOMOUS_MODE_2:
+    driverStationLCD->PrintfLine((DriverStationLCD::Line) 3, "Using 2");
+    break;
+    case AUTONOMOUS_MODE_3:
+    driverStationLCD->PrintfLine((DriverStationLCD::Line) 3, "Using 3");
+    break;
+}
+driverStationLCD->UpdateLCD(); 
+

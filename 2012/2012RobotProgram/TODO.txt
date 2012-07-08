@@ -1,0 +1,2 @@
+_ consider kinect mode in autonomous
+_ comment in optional stuff
