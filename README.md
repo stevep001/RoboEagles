@@ -1,4 +1,4 @@
 RoboEagles
 ==========
 
-FIRST Robotics Team 3081 - Kennedy RoboEaglez
+FIRST Robotics Team 3081 - Kennedy RoboEagles
