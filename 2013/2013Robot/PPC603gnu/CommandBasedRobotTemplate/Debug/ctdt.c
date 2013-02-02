@@ -15,7 +15,17 @@ void _GLOBAL__I__ZN14ExampleCommandC2Ev();
 
 void _GLOBAL__I__ZN16ExampleSubsystemC2Ev();
 
+void _GLOBAL__I__ZN16MovePBTopCommandC2Ev();
+
+void _GLOBAL__I__ZN17PizzaBoxSubsystemC2Ev();
+
+void _GLOBAL__I__ZN18LoaderIndexCommandC2Ev();
+
+void _GLOBAL__I__ZN19MovePBBottomCommandC2Ev();
+
 void _GLOBAL__I__ZN2OIC2Ev();
+
+void _GLOBAL__I__ZN7ChassisC2Ev();
 
 void _GLOBAL__I__ZN12PrintCommandC2EPKc();
 
@@ -24,8 +34,6 @@ void _GLOBAL__I__ZN9Scheduler9_instanceE();
 void _GLOBAL__I__ZN11WaitCommandC2Ed();
 
 void _GLOBAL__I_wpi_error_s_ModuleIndexOutOfRange();
-
-void _GLOBAL__I__ZN10LiveWindow10m_instanceE();
 
 void _GLOBAL__I__ZN17MotorSafetyHelper12m_headHelperE();
 
@@ -72,12 +80,16 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN11CommandBaseC2EPKc,
     _GLOBAL__I__ZN14ExampleCommandC2Ev,
     _GLOBAL__I__ZN16ExampleSubsystemC2Ev,
+    _GLOBAL__I__ZN16MovePBTopCommandC2Ev,
+    _GLOBAL__I__ZN17PizzaBoxSubsystemC2Ev,
+    _GLOBAL__I__ZN18LoaderIndexCommandC2Ev,
+    _GLOBAL__I__ZN19MovePBBottomCommandC2Ev,
     _GLOBAL__I__ZN2OIC2Ev,
+    _GLOBAL__I__ZN7ChassisC2Ev,
     _GLOBAL__I__ZN12PrintCommandC2EPKc,
     _GLOBAL__I__ZN9Scheduler9_instanceE,
     _GLOBAL__I__ZN11WaitCommandC2Ed,
     _GLOBAL__I_wpi_error_s_ModuleIndexOutOfRange,
-    _GLOBAL__I__ZN10LiveWindow10m_instanceE,
     _GLOBAL__I__ZN17MotorSafetyHelper12m_headHelperE,
     _GLOBAL__I__ZN8Notifier21kTimerInterruptNumberE,
     _GLOBAL__I__ZN8Resource12m_createLockE,
@@ -108,7 +120,17 @@ void _GLOBAL__D__ZN14ExampleCommandC2Ev();
 
 void _GLOBAL__D__ZN16ExampleSubsystemC2Ev();
 
+void _GLOBAL__D__ZN16MovePBTopCommandC2Ev();
+
+void _GLOBAL__D__ZN17PizzaBoxSubsystemC2Ev();
+
+void _GLOBAL__D__ZN18LoaderIndexCommandC2Ev();
+
+void _GLOBAL__D__ZN19MovePBBottomCommandC2Ev();
+
 void _GLOBAL__D__ZN2OIC2Ev();
+
+void _GLOBAL__D__ZN7ChassisC2Ev();
 
 void _GLOBAL__D__ZN9Scheduler9_instanceE();
 
@@ -155,7 +177,12 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN11CommandBaseC2EPKc,
     _GLOBAL__D__ZN14ExampleCommandC2Ev,
     _GLOBAL__D__ZN16ExampleSubsystemC2Ev,
+    _GLOBAL__D__ZN16MovePBTopCommandC2Ev,
+    _GLOBAL__D__ZN17PizzaBoxSubsystemC2Ev,
+    _GLOBAL__D__ZN18LoaderIndexCommandC2Ev,
+    _GLOBAL__D__ZN19MovePBBottomCommandC2Ev,
     _GLOBAL__D__ZN2OIC2Ev,
+    _GLOBAL__D__ZN7ChassisC2Ev,
     _GLOBAL__D__ZN9Scheduler9_instanceE,
     _GLOBAL__D_wpi_error_s_ModuleIndexOutOfRange,
     _GLOBAL__D__ZN17MotorSafetyHelper12m_headHelperE,

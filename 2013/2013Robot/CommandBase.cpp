@@ -9,13 +9,13 @@ CommandBase::CommandBase() : Command() {
 }
 
 // Initialize a single static instance of all of your subsystems to NULL
-ExampleSubsystem* CommandBase::examplesubsystem = NULL;
+PizzaBoxSubsystem* CommandBase::pizzaBoxSubsystem = NULL;
 OI* CommandBase::oi = NULL;
 
 void CommandBase::init() {
     // Create a single static instance of all of your subsystems. The following
 	// line should be repeated for each subsystem in the project.
-	examplesubsystem = new ExampleSubsystem();
+	pizzaBoxSubsystem = new PizzaBoxSubsystem();
 	
 	oi = new OI();
 }

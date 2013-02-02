@@ -1,22 +1,35 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
+// Digital I/O Sidecar slot 1
+#define TOP_LIMIT_SWITCH 1
+#define BOT_LIMIT_SWITCH 2
+#define UPPER_LIMIT_SWITCH 3
+#define LOWER_LIMIT_SWITCH 4
+#define FRISBEE_LIMIT_SWITCH 5
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
- 
-// For example to map the left and right motors, you could define the
-// following variables to use with your drivetrain subsystem.
-// #define LEFTMOTOR 1
-// #define RIGHTMOTOR 2
+// Digital I/O Sidecar slot 2
 
-// If you are using multiple modules, make sure to define both the port
-// number and the module. For example you with a rangefinder:
-// #define RANGE_FINDER_PORT 1
-// #define RANGE_FINDER_MODULE 1
+// Relay Sidecar slot 1
+
+// PWM Sidecar slot 1
+#define DRIVE_MOTOR 2
+#define PIZZA_BOX_MOTOR 5
+
+// Solinoid slot 1
+
+// Analog input
+#define HORIZONTAL_GYRO_CHANNEL 1
+// The analog board is jumpered to feed battery power into slot 8.
+// This feeds the driver station power value.
+#define BATTERY_POWER_CHANNEL 8
+
+// Settings for Jaguar coast/brake
+#define	JAGUAR_COAST 1
+#define JAGUAR_BRAKE 0
+
+// Joysticks
+#define DRIVE_JOYSTICK_PORT 1
+
 
 #endif

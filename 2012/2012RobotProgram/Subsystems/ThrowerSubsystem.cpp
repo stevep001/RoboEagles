@@ -5,6 +5,7 @@
 /**
  * Manages the throwing of the robot.
  */
+
 ThrowerSubsystem::ThrowerSubsystem() : Subsystem("ThrowerSubsystem") {
 	throwSolenoidOut = new Solenoid(THROW_SOLENOID_OUT);
 	throwSolenoidIn = new Solenoid(THROW_SOLENOID_IN);
