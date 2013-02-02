@@ -11,7 +11,11 @@ private:
 	DigitalInput *botLimitSwitch;
 	DigitalInput *upperLimitSwitch;
 	DigitalInput *lowerLimitSwitch;
-	DigitalInput *frisbeeLimitSwitch;
+	
+	void MoveUp();
+	void MoveDown();
+	
+	int state;
 	
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
@@ -20,15 +24,24 @@ public:
 	void InitDefaultCommand();
 	void MoveTop();  // here for testing but not necessarily use
 	void MoveBottom();
+	
+	void StartLoadIndex();
 	void LoadIndex();
+	
 	void FireIndex();
+	
+	void StartMoveFiring();
 	void MoveFiringPosition();
 	void Stop();
+	void SetNumberOfFrisbees(int numberOfFrisbees);
 	bool IsAtTop();
 	bool IsAtBottom();
-	bool IsThereAFrisbee();
+	bool IsBoxFull();
+	bool IsInFiringPosition();
+	bool IsInLoadingPosition();
 	bool SwitchLower();
 	bool SwitchUpper();
+
 	int FrisbeeCount;
 	int PizzaBoxPosition;
 	int TempPBPos;

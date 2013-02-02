@@ -19,9 +19,9 @@ void _GLOBAL__I__ZN16MovePBTopCommandC2Ev();
 
 void _GLOBAL__I__ZN17PizzaBoxSubsystemC2Ev();
 
-void _GLOBAL__I__ZN18LoaderIndexCommandC2Ev();
-
 void _GLOBAL__I__ZN19MovePBBottomCommandC2Ev();
+
+void _GLOBAL__I__ZN23OnFrisbeeArrivalCommandC2Ev();
 
 void _GLOBAL__I__ZN2OIC2Ev();
 
@@ -82,8 +82,8 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN16ExampleSubsystemC2Ev,
     _GLOBAL__I__ZN16MovePBTopCommandC2Ev,
     _GLOBAL__I__ZN17PizzaBoxSubsystemC2Ev,
-    _GLOBAL__I__ZN18LoaderIndexCommandC2Ev,
     _GLOBAL__I__ZN19MovePBBottomCommandC2Ev,
+    _GLOBAL__I__ZN23OnFrisbeeArrivalCommandC2Ev,
     _GLOBAL__I__ZN2OIC2Ev,
     _GLOBAL__I__ZN7ChassisC2Ev,
     _GLOBAL__I__ZN12PrintCommandC2EPKc,
@@ -124,9 +124,9 @@ void _GLOBAL__D__ZN16MovePBTopCommandC2Ev();
 
 void _GLOBAL__D__ZN17PizzaBoxSubsystemC2Ev();
 
-void _GLOBAL__D__ZN18LoaderIndexCommandC2Ev();
-
 void _GLOBAL__D__ZN19MovePBBottomCommandC2Ev();
+
+void _GLOBAL__D__ZN23OnFrisbeeArrivalCommandC2Ev();
 
 void _GLOBAL__D__ZN2OIC2Ev();
 
@@ -179,8 +179,8 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN16ExampleSubsystemC2Ev,
     _GLOBAL__D__ZN16MovePBTopCommandC2Ev,
     _GLOBAL__D__ZN17PizzaBoxSubsystemC2Ev,
-    _GLOBAL__D__ZN18LoaderIndexCommandC2Ev,
     _GLOBAL__D__ZN19MovePBBottomCommandC2Ev,
+    _GLOBAL__D__ZN23OnFrisbeeArrivalCommandC2Ev,
     _GLOBAL__D__ZN2OIC2Ev,
     _GLOBAL__D__ZN7ChassisC2Ev,
     _GLOBAL__D__ZN9Scheduler9_instanceE,

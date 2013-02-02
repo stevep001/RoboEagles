@@ -174,15 +174,15 @@ CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/Ex
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/LoaderIndexCommand.o : $(PRJ_ROOT_DIR)/Commands/LoaderIndexCommand.cpp $(FORCE_FILE_BUILD)
-	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
-
-
 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/MovePBBottomCommand.o : $(PRJ_ROOT_DIR)/Commands/MovePBBottomCommand.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/MovePBTopCommand.o : $(PRJ_ROOT_DIR)/Commands/MovePBTopCommand.cpp $(FORCE_FILE_BUILD)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
+CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/OnFrisbeeArrivalCommand.o : $(PRJ_ROOT_DIR)/Commands/OnFrisbeeArrivalCommand.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
@@ -205,9 +205,9 @@ CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Subsystems/
 OBJECTS_CommandBasedRobotTemplate_partialImage = CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/CommandBase.o \
 	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/CommandBasedRobot.o \
 	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/ExampleCommand.o \
-	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/LoaderIndexCommand.o \
 	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/MovePBBottomCommand.o \
 	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/MovePBTopCommand.o \
+	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/OnFrisbeeArrivalCommand.o \
 	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/OI.o \
 	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Subsystems/Chassis.o \
 	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Subsystems/ExampleSubsystem.o \
@@ -226,7 +226,7 @@ CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/CommandBasedRobotTemplate_par
 force : 
 
 DEP_FILES := CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/CommandBase.d CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/CommandBasedRobot.d CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/ExampleCommand.d \
-	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/LoaderIndexCommand.d CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/MovePBBottomCommand.d CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/MovePBTopCommand.d \
+	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/MovePBBottomCommand.d CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/MovePBTopCommand.d CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Commands/OnFrisbeeArrivalCommand.d \
 	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/OI.d CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Subsystems/Chassis.d CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Subsystems/ExampleSubsystem.d \
 	 CommandBasedRobotTemplate_partialImage/$(MODE_DIR)/Objects/2013Robot/Subsystems/PizzaBoxSubsystem.d
 -include $(DEP_FILES)
