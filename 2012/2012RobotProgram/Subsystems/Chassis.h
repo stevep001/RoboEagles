@@ -25,11 +25,11 @@ public:
 	void turnLeft(float rate);
 	void turnRight(float rate);
 	void stop();
-	void tankDrive(double left, double right);
 	void driveWithJoystick(Joystick *stick);
-	void driveWithKinectStick(KinectStick *stick);
 	void Chassis::MakeJoystickDriveDefault();
+	void driveWithKinectStick(KinectStick *stick);
 	void Chassis::MakeRampDriveDefault();
+	void tankDrive(double left, double right);
 };
 
 #endif

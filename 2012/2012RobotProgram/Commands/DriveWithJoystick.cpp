@@ -13,8 +13,12 @@ void DriveWithJoystick::Execute() {
 	float y = oi->getRightJoystick()->GetY();
 	float x = oi->getRightJoystick()->GetX();
 	
-	oi->getSmartDashboard()->PutDouble("Forward power", y);
-	oi->getSmartDashboard()->PutDouble("Left X", x);
+	SmartDashboard::PutNumber("Forward power", y);
+	SmartDashboard::PutNumber("Left X", x);
+	
+	
+	// oi->getSmartDashboard()->PutDouble("Forward power", y);
+	// oi->getSmartDashboard()->PutDouble("Left X", x);
 	chassis->driveWithJoystick(oi->getRightJoystick());
 	
 	//chassis->tankDrive(leftY, rightY);

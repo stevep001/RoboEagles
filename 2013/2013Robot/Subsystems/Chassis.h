@@ -12,9 +12,21 @@ class Chassis: public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
+	RobotDrive *drive;
+	DigitalOutput *leftCoastBrakeOutput;
+	DigitalOutput *rightCoastBrakeOutput;
+	
 public:
 	Chassis();
 	void InitDefaultCommand();
+	void enableBrakeMode();
+	void disableBrakeMode();
+	void goStraight(float rate);
+	void turnLeft(float rate);
+	void turnRight(float rate);
+	void stop();
+	void driveWithJoystick(Joystick *stick);
+	void Chassis::MakeJoystickDriveDefault();
 };
 
 #endif

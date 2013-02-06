@@ -3,9 +3,6 @@
 #include "../Commands/DriveWithJoystick.h"
 #include "../Commands/RampDriveCommand.h"
 
-/**
- * Controls the undercarriage of the robot.
- */
 Chassis::Chassis() : Subsystem("Chassis") {
 	printf("Chassis constructor");
 	leftCoastBrakeOutput = new DigitalOutput(LEFT_BRAKE_CHANNEL);
