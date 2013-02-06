@@ -13,7 +13,10 @@
 // Relay Sidecar slot 1
 
 // PWM Sidecar slot 1
+#define DRIVE_MOTOR 1
 #define DRIVE_MOTOR 2
+#define DRIVE_MOTOR 3
+#define DRIVE_MOTOR 4
 #define PIZZA_BOX_MOTOR 5
 
 // Solinoid slot 1

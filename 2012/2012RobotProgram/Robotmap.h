@@ -49,8 +49,8 @@
 // Digital (sidecar) -- slot 1
 #define PRESSURE_SWITCH_CHANNEL 2
 #define BALL_SENSOR_1_CHANNEL 3
-#define BALL_SENSOR_2_CHANNEL 4
-#define BALL_SENSOR_3_CHANNEL 5
+#define BALL_SENSOR_2_CHANNEL 4 // reserved and unused as of feb 5
+#define BALL_SENSOR_3_CHANNEL 5 //   ^
 #define	LEFT_BRAKE_CHANNEL 6
 #define	RIGHT_BRAKE_CHANNEL 7
 #define FLOOR_TRANSITION_SENSOR_CHANNEL 8

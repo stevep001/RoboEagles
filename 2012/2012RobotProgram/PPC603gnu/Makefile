@@ -32,7 +32,7 @@ MODE_DIR := NonDebug
 endif
 OBJ_DIR := .
 WS_ROOT_DIR := C:/WindRiver/workspace
-PRJ_ROOT_DIR := $(WS_ROOT_DIR)/RoboEagles/2012/2012RobotProgram
+PRJ_ROOT_DIR := C:/Users/robotics/Documents/GitHub/RoboEagles/2012/2012RobotProgram
 
 
 

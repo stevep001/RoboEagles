@@ -4,12 +4,16 @@
 
 
 Chassis::Chassis() : Subsystem("Chassis") {
+	printf("Chassis constructor");
+	drive = new RobotDrive(DRIVE_MOTOR_R_PWM, DRIVE_MOTOR_L_PWM);
+	drive->SetInvertedMotor(drive->kRearRightMotor, true);
+	drive->SetSafetyEnabled(false);
+	printf("Chassis constructor completed");
 	
 }
     
 void Chassis::InitDefaultCommand() {
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new DriveWithJoystick());
 }
 
 
