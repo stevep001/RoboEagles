@@ -30,6 +30,12 @@
 
 // Joysticks
 #define DRIVE_JOYSTICK_PORT 1
+#define TEST_JOYSTICK_PORT 3
+
+// Test Joystick buttons
+
+#define PB_TOP_BUTTON 6
+#define PB_BOTTOM_BUTTON 7
 
 
 #endif

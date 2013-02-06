@@ -13,6 +13,8 @@ void _GLOBAL__I__ZN11CommandBaseC2EPKc();
 
 void _GLOBAL__I__ZN14ExampleCommandC2Ev();
 
+void _GLOBAL__I__ZN15VisionSubsystemC2Ev();
+
 void _GLOBAL__I__ZN16ExampleSubsystemC2Ev();
 
 void _GLOBAL__I__ZN16MovePBTopCommandC2Ev();
@@ -34,6 +36,8 @@ void _GLOBAL__I__ZN9Scheduler9_instanceE();
 void _GLOBAL__I__ZN11WaitCommandC2Ed();
 
 void _GLOBAL__I_wpi_error_s_ModuleIndexOutOfRange();
+
+void _GLOBAL__I__ZN10LiveWindow10m_instanceE();
 
 void _GLOBAL__I__ZN17MotorSafetyHelper12m_headHelperE();
 
@@ -79,6 +83,7 @@ void (*_ctors[])() =
     _GLOBAL__I__Z20FRC_userClassFactoryv,
     _GLOBAL__I__ZN11CommandBaseC2EPKc,
     _GLOBAL__I__ZN14ExampleCommandC2Ev,
+    _GLOBAL__I__ZN15VisionSubsystemC2Ev,
     _GLOBAL__I__ZN16ExampleSubsystemC2Ev,
     _GLOBAL__I__ZN16MovePBTopCommandC2Ev,
     _GLOBAL__I__ZN17PizzaBoxSubsystemC2Ev,
@@ -90,6 +95,7 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN9Scheduler9_instanceE,
     _GLOBAL__I__ZN11WaitCommandC2Ed,
     _GLOBAL__I_wpi_error_s_ModuleIndexOutOfRange,
+    _GLOBAL__I__ZN10LiveWindow10m_instanceE,
     _GLOBAL__I__ZN17MotorSafetyHelper12m_headHelperE,
     _GLOBAL__I__ZN8Notifier21kTimerInterruptNumberE,
     _GLOBAL__I__ZN8Resource12m_createLockE,
@@ -117,6 +123,8 @@ void _GLOBAL__D__Z20FRC_userClassFactoryv();
 void _GLOBAL__D__ZN11CommandBaseC2EPKc();
 
 void _GLOBAL__D__ZN14ExampleCommandC2Ev();
+
+void _GLOBAL__D__ZN15VisionSubsystemC2Ev();
 
 void _GLOBAL__D__ZN16ExampleSubsystemC2Ev();
 
@@ -176,6 +184,7 @@ void (*_dtors[])() =
     _GLOBAL__D__Z20FRC_userClassFactoryv,
     _GLOBAL__D__ZN11CommandBaseC2EPKc,
     _GLOBAL__D__ZN14ExampleCommandC2Ev,
+    _GLOBAL__D__ZN15VisionSubsystemC2Ev,
     _GLOBAL__D__ZN16ExampleSubsystemC2Ev,
     _GLOBAL__D__ZN16MovePBTopCommandC2Ev,
     _GLOBAL__D__ZN17PizzaBoxSubsystemC2Ev,

@@ -1,9 +1,7 @@
  \
- CommandBasedRobotTemplate_partialImage/Debug/Objects/2013Robot/Commands/MovePBTopCommand.o:  \
- C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Commands/MovePBTopCommand.cpp \
-  C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Commands/MovePBTopCommand.h \
-  C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Commands/../CommandBase.h \
-  C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Commands/../Subsystems/PizzaBoxSubsystem.h \
+ CommandBasedRobotTemplate_partialImage/Debug/Objects/2013Robot/Subsystems/VisionSubsystem.o:  \
+ C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Subsystems/VisionSubsystem.cpp \
+  C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Subsystems/VisionSubsystem.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Commands/Subsystem.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/ErrorBase.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Base.h \
@@ -380,14 +378,13 @@
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/HSLImage.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/WPIErrors.h \
-  C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Commands/../OI.h \
-  C:/WindRiver/vxworks-6.3/target/h/WPILib/WPILib.h
+  C:/WindRiver/vxworks-6.3/target/h/Math.h \
+  C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/RGBImage.h \
+  C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h \
+  C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Subsystems/../Robotmap.h \
+  C:/WindRiver/vxworks-6.3/target/h/math.h
 
-C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Commands/MovePBTopCommand.h:
-
-C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Commands/../CommandBase.h:
-
-C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Commands/../Subsystems/PizzaBoxSubsystem.h:
+C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Subsystems/VisionSubsystem.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/Commands/Subsystem.h:
 
@@ -1141,6 +1138,12 @@ C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/WPIErrors.h:
 
-C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Commands/../OI.h:
+C:/WindRiver/vxworks-6.3/target/h/Math.h:
 
-C:/WindRiver/vxworks-6.3/target/h/WPILib/WPILib.h:
+C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/RGBImage.h:
+
+C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h:
+
+C:/WindRiver/workspace/RoboEagles/2013/2013Robot/Subsystems/../Robotmap.h:
+
+C:/WindRiver/vxworks-6.3/target/h/math.h:

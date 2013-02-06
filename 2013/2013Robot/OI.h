@@ -5,9 +5,12 @@
 
 class OI {
 private:
-
+	Joystick *driverJoystick;
+	Joystick *testJoystick;
 public:
 	OI();
+	Joystick *GetDriverJoystick();
+	Joystick *GetTestJoystick();
 };
 
 #endif
