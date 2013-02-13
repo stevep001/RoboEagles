@@ -1,5 +1,5 @@
-#ifndef EXAMPLE_COMMAND_H
-#define EXAMPLE_COMMAND_H
+#ifndef DRIVE_WITH_JOYSTICK_COMMAND_H
+#define DRIVE_WITH_JOYSTICK_COMMAND_H
 
 #include "../CommandBase.h"
 
@@ -8,14 +8,14 @@
  *
  * @author ExampleAuthor
  */
-class ExampleCommand: public CommandBase {
+class DriveWithJoystickCommand: public CommandBase {
 public:
-	ExampleCommand();
+	DriveWithJoystickCommand();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
-	virtual void Interrupted();
+	virtual void Interrupted();	
 };
 
 #endif

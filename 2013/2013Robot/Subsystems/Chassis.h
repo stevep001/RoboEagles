@@ -13,20 +13,17 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	RobotDrive *drive;
-	DigitalOutput *leftCoastBrakeOutput;
-	DigitalOutput *rightCoastBrakeOutput;
+	Encoder *leftEncoder;
+	Encoder *rightEncoder;
 	
 public:
 	Chassis();
 	void InitDefaultCommand();
-	void enableBrakeMode();
-	void disableBrakeMode();
-	void goStraight(float rate);
-	void turnLeft(float rate);
-	void turnRight(float rate);
-	void stop();
-	void driveWithJoystick(Joystick *stick);
-	void Chassis::MakeJoystickDriveDefault();
+	void Stop();
+	void TurnLeft(float rate);
+	void TurnRight(float rate);
+	void Drive(Joystick *stick);
+	void MoveForward(float rate);
 };
 
 #endif

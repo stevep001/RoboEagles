@@ -7,20 +7,20 @@ OnFrisbeeArrivalCommand::OnFrisbeeArrivalCommand() {
 
 // Called just before this Command runs the first time
 void OnFrisbeeArrivalCommand::Initialize() {
-	if(pizzaBoxSubsystem->IsBoxFull()){ // TODO finish the logic for telling when the box is full
+	if(pizzaBoxSubsystem->IsBoxFull()) {
 		prepareForFiring = true;
-		pizzaBoxSubsystem->StartMoveFiring();
+		pizzaBoxSubsystem->StartMoveFirstFiringPosition();
 	} else {
-		pizzaBoxSubsystem->StartLoadIndex();
+		pizzaBoxSubsystem->StartMoveNextLoadingPosition();
 	}
 }
 
 // Called repeatedly when this Command is scheduled to run
 void OnFrisbeeArrivalCommand::Execute() {
 	if(prepareForFiring){
-		pizzaBoxSubsystem->MoveFiringPosition();
+		pizzaBoxSubsystem->MoveFirstFiringPosition();
 	}else{
-		pizzaBoxSubsystem->LoadIndex();
+		pizzaBoxSubsystem->MoveToNextLoadingPosition();
 	}
 }
 

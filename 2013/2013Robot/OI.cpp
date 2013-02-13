@@ -2,6 +2,8 @@
 #include "Robotmap.h"
 #include "Commands/MovePBTopCommand.h"
 #include "Commands/MovePBBottomCommand.h"
+#include "Commands/ManualTiltUpCommand.h"
+#include "Commands/ManualTiltDownCommand.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -13,6 +15,12 @@ OI::OI() {
 
 	JoystickButton *pbBottomButton = new JoystickButton(this->testJoystick, PB_BOTTOM_BUTTON);
 	pbBottomButton->WhenPressed(new MovePBBottomCommand());
+	
+	JoystickButton *tiltUpButton = new JoystickButton(this->testJoystick, TILT_UP_BUTTON);
+	tiltUpButton->WhenPressed(new ManualTiltUpCommand());
+	
+	JoystickButton *tiltDownButton = new JoystickButton(this->testJoystick, TILT_DOWN_BUTTON);
+	tiltDownButton->WhenPressed(new ManualTiltDownCommand());
 }
 
 Joystick *OI::GetDriverJoystick() {

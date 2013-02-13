@@ -7,6 +7,7 @@
 class PizzaBoxSubsystem: public Subsystem {
 private:
 	Jaguar *pizzaBoxMotor;
+	Jaguar *frisbeeEjectMotor;
 	DigitalInput *topLimitSwitch;
 	DigitalInput *botLimitSwitch;
 	DigitalInput *upperLimitSwitch;
@@ -14,26 +15,48 @@ private:
 	
 	void MoveUp();
 	void MoveDown();
+
+	int FrisbeeCount;
+	int PizzaBoxPosition;
+	int TempPBPos;
 	
-	int state;
+	// This tracks the intermediate state while we are moving from
+	// place to place.
+	int intermediateState;
+	enum PizzaBoxState {
+		LoadPosition1,
+		LoadPosition2,
+		LoadPosition3,
+		LoadPosition4,
+		FirePosition1,
+		FirePosition2,
+		FirePosition3,
+		FirePosition4,
+		Unknown,
+		TopPosition,
+	};
+	PizzaBoxState currentState;
 	
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
 public:
 	PizzaBoxSubsystem();
 	void InitDefaultCommand();
 	void MoveTop();  // here for testing but not necessarily use
 	void MoveBottom();
 	
-	void StartLoadIndex();
-	void LoadIndex();
+	bool StartMoveNextLoadingPosition();
+	void MoveToNextLoadingPosition();
+	void StartMoveFirstLoadingPosition();
+	void MoveFirstLoadingPosition();
+	bool CanMoveNextLoadingPosition();
 	
-	void FireIndex();
+	void StartMoveFirstFiringPosition();
+	void MoveFirstFiringPosition();
+	bool StartMoveNextFiringPosition();
+	void MoveNextFiringPosition();
+	bool CanMoveNextFiringPosition();
 	
-	void StartMoveFiring();
-	void MoveFiringPosition();
 	void Stop();
-	void SetNumberOfFrisbees(int numberOfFrisbees);
+	
 	bool IsAtTop();
 	bool IsAtBottom();
 	bool IsBoxFull();
@@ -42,9 +65,6 @@ public:
 	bool SwitchLower();
 	bool SwitchUpper();
 
-	int FrisbeeCount;
-	int PizzaBoxPosition;
-	int TempPBPos;
 };
 
 #endif
