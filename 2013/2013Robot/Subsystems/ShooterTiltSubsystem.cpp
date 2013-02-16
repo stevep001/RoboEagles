@@ -1,6 +1,7 @@
 #include "ShooterTiltSubsystem.h"
 #include "../Robotmap.h"
 #include "../Commands/MaintainShooterPositionCommand.h"
+#include "../CommandBase.h"
 
 // TODO: this is a guess, need actual value
 #define TILT_SPEED (0.2)
@@ -11,16 +12,7 @@
 
 ShooterTiltSubsystem::ShooterTiltSubsystem() : Subsystem("ShooterTiltSubsystem") {
 	printf("ShooterTiltSubsystem: constructor started\n");
-	this->tiltEncoder = new Encoder(TILT_ENCODER_SLOT, TILT_ENCODER_1, TILT_ENCODER_SLOT, TILT_ENCODER_2, false, CounterBase::k4X);
-	this->tiltJaguar = new Jaguar(TILT_MOTOR);
-	this->tiltLowerLimit = new DigitalInput(TILT_LOW_LIMIT_SWITCH_SLOT, TILT_LOW_LIMIT_SWITCH);
-	this->tiltUpperLimit = new DigitalInput(TILT_HIGH_LIMIT_SWITCH_SLOT, TILT_HIGH_LIMIT_SWITCH);
-	
-	this->tiltEncoder->SetPIDSourceParameter(Encoder::kDistance);
-	this->tiltEncoder->SetDistancePerPulse(1);
-	this->tiltEncoder->SetMaxPeriod(1.0);
-	this->tiltEncoder->Reset();
-	this->tiltEncoder->Start();
+	this->tiltJaguar = new Jaguar(PWM_SLOT, TILT_MOTOR);
 	
 	this->currentAngle = 0;
 	
@@ -29,7 +21,7 @@ ShooterTiltSubsystem::ShooterTiltSubsystem() : Subsystem("ShooterTiltSubsystem")
 	float dGain = 0;
 
 	this->pidController = new PIDController(pGain, iGain, dGain, 
-			this->tiltEncoder, this->tiltJaguar);
+			CommandBase::sensorSubsystem->GetTiltEncoder(), this->tiltJaguar);
 	
 	// TODO: need to calculate actual input range here
 	this->pidController->SetInputRange(0, 500);
@@ -38,7 +30,8 @@ ShooterTiltSubsystem::ShooterTiltSubsystem() : Subsystem("ShooterTiltSubsystem")
 	this->pidController->SetOutputRange(-1, 1);
 	this->pidController->SetSetpoint(0);
 
-	this->pidController->Enable(); // start calculating PIDOutput values
+	// TODO enable this
+	//this->pidController->Enable(); // start calculating PIDOutput values
 	printf("ShooterTiltSubsystem: constructor completed\n");
 }
     

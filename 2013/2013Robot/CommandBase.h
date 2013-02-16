@@ -5,6 +5,8 @@
 #include "Subsystems/SensorSubsystem.h"
 #include "Subsystems/Chassis.h"
 #include "Subsystems/ShooterTiltSubsystem.h"
+#include "Subsystems/ShooterSubsystem.h"
+#include "Subsystems/VisionSubsystem.h"
 #include "OI.h"
 
 
@@ -23,6 +25,8 @@ public:
 	static SensorSubsystem *sensorSubsystem;
 	static Chassis *chassis;
 	static ShooterTiltSubsystem *shooterTiltSubsystem;
+	static ShooterSubsystem *shooterSubsystem;
+	static VisionSubsystem *visionSubsystem;
 	static OI *oi;
 };
 

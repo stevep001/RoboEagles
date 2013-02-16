@@ -1,5 +1,6 @@
 #include "PizzaBoxSubsystem.h"
 #include "../Robotmap.h"
+#include "../CommandBase.h"
 
 // Speed values for the motor
 #define MOTOR_SPEED_UP 0.2
@@ -41,12 +42,8 @@
 
 PizzaBoxSubsystem::PizzaBoxSubsystem() : Subsystem("PizzaBoxSubsystem") {
 	printf("PizzaBoxSubsystem: constructor starting\n");
-	pizzaBoxMotor = new Jaguar(PIZZA_BOX_MOTOR);
-	frisbeeEjectMotor = new Jaguar(FRISBEE_EJECT_MOTOR);
-	topLimitSwitch = new DigitalInput(TOP_LIMIT_SWITCH_SLOT, TOP_LIMIT_SWITCH);
-	botLimitSwitch = new DigitalInput(BOT_LIMIT_SWITCH_SLOT, BOT_LIMIT_SWITCH);
-	upperLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_SLOT, UPPER_LIMIT_SWITCH);
-	lowerLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_SLOT, LOWER_LIMIT_SWITCH);
+	pizzaBoxMotor = new Jaguar(PWM_SLOT, PIZZA_BOX_MOTOR);
+	frisbeeEjectMotor = new Jaguar(PWM_SLOT, FRISBEE_EJECT_MOTOR);
 	
 	// If the frisbee shooter is at the top position, we assume it is full.
 	// Otherwise it's empty.
@@ -348,7 +345,7 @@ void PizzaBoxSubsystem::MoveNextFiringPosition()
 
 void PizzaBoxSubsystem::MoveTop() {
 	if(this->IsAtTop()) {
-		pizzaBoxMotor->Set(0);
+		this->Stop();
 		PizzaBoxPosition = TOP_POSITION;
 	} else {
 		this->MoveUp();
@@ -357,7 +354,7 @@ void PizzaBoxSubsystem::MoveTop() {
 
 void PizzaBoxSubsystem::MoveBottom() {
 	if(this->IsAtBottom()) {
-		pizzaBoxMotor->Set(0);
+		this->Stop();
 		PizzaBoxPosition = LOAD_POSITION_1;
 	} else {
 		this->MoveDown();
@@ -370,19 +367,19 @@ void PizzaBoxSubsystem::Stop() {
 }
 
 bool PizzaBoxSubsystem::IsAtTop() {
-	return topLimitSwitch->Get() == 0;
+	return CommandBase::sensorSubsystem->GetPizzaTopLimitSwitch();
 }
 
 bool PizzaBoxSubsystem::IsAtBottom() {
-	return botLimitSwitch->Get() == 0;
+	return CommandBase::sensorSubsystem->GetPizzaBottomLimitSwitch();
 }
 
 bool PizzaBoxSubsystem::SwitchUpper() {
-	return upperLimitSwitch->Get() == 0;
+	return CommandBase::sensorSubsystem->GetPizzaUpperLimitSwitch();
 }
 
 bool PizzaBoxSubsystem::SwitchLower() {
-	return lowerLimitSwitch->Get() == 0;
+	return CommandBase::sensorSubsystem->GetPizzaLowerLimitSwitch();
 }
 
 bool PizzaBoxSubsystem::IsBoxFull()

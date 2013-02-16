@@ -12,6 +12,9 @@ PizzaBoxSubsystem* CommandBase::pizzaBoxSubsystem = NULL;
 SensorSubsystem* CommandBase::sensorSubsystem = NULL;
 ShooterTiltSubsystem* CommandBase::shooterTiltSubsystem = NULL;
 Chassis *CommandBase::chassis = NULL;
+ShooterSubsystem* CommandBase::shooterSubsystem = NULL;
+VisionSubsystem* CommandBase::visionSubsystem = NULL;
+
 OI* CommandBase::oi = NULL;
 
 void CommandBase::init() {
@@ -21,6 +24,8 @@ void CommandBase::init() {
 	sensorSubsystem = new SensorSubsystem();
 	chassis = new Chassis();
 	shooterTiltSubsystem = new ShooterTiltSubsystem();
+	shooterSubsystem = new ShooterSubsystem();
+	visionSubsystem = new VisionSubsystem();
 	
 	oi = new OI();
 }

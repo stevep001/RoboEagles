@@ -11,10 +11,8 @@
 class ShooterTiltSubsystem: public Subsystem {
 private:
 	Jaguar *tiltJaguar;
-	Encoder *tiltEncoder;
-	DigitalInput *tiltLowerLimit;
-	DigitalInput *tiltUpperLimit;
 	PIDController *pidController;
+	
 	float currentAngle;
 public:
 	ShooterTiltSubsystem();

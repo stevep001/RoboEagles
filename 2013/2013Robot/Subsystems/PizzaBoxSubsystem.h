@@ -8,10 +8,6 @@ class PizzaBoxSubsystem: public Subsystem {
 private:
 	Jaguar *pizzaBoxMotor;
 	Jaguar *frisbeeEjectMotor;
-	DigitalInput *topLimitSwitch;
-	DigitalInput *botLimitSwitch;
-	DigitalInput *upperLimitSwitch;
-	DigitalInput *lowerLimitSwitch;
 	
 	void MoveUp();
 	void MoveDown();

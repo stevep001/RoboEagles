@@ -4,9 +4,10 @@
 #include "Commands/MovePBBottomCommand.h"
 #include "Commands/ManualTiltUpCommand.h"
 #include "Commands/ManualTiltDownCommand.h"
+#include "Commands/RunShooterCommand.h"
+#include "Commands/TestVisionCommand.h"
 
 OI::OI() {
-	// Process operator interface input here.
 	this->driverJoystick = new Joystick(DRIVE_JOYSTICK_PORT);
 	this->testJoystick = new Joystick(TEST_JOYSTICK_PORT);
 	
@@ -21,6 +22,12 @@ OI::OI() {
 	
 	JoystickButton *tiltDownButton = new JoystickButton(this->testJoystick, TILT_DOWN_BUTTON);
 	tiltDownButton->WhenPressed(new ManualTiltDownCommand());
+	
+	JoystickButton *runShooterMotorButton = new JoystickButton(this->testJoystick, RUN_SHOOTER_BUTTON);
+	runShooterMotorButton->WhenPressed(new RunShooterCommand(.3));
+	
+	JoystickButton *testVisionButton = new JoystickButton(this->testJoystick, TEST_VISION_BUTTON);
+	testVisionButton->WhenPressed(new TestVisionCommand());
 }
 
 Joystick *OI::GetDriverJoystick() {

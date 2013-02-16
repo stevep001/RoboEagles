@@ -5,22 +5,9 @@
 
 Chassis::Chassis() : Subsystem("Chassis") {
 	printf("Chassis: constructor started");
-	this->drive = new RobotDrive(DRIVE_MOTOR_R_1, DRIVE_MOTOR_L_1);
+	this->drive = new RobotDrive(PWM_SLOT, DRIVE_MOTOR_R_1, PWM_SLOT, DRIVE_MOTOR_L_1);
 	this->drive->SetInvertedMotor(drive->kRearRightMotor, true);
 	this->drive->SetSafetyEnabled(false);
-	this->leftEncoder = new Encoder(LEFT_GEARBOX_ENCODER_1, LEFT_GEARBOX_ENCODER_2, false, CounterBase::k4X);
-	this->leftEncoder->SetPIDSourceParameter(Encoder::kDistance);
-	this->leftEncoder->SetDistancePerPulse(1);
-	this->leftEncoder->SetMaxPeriod(1.0);
-	this->leftEncoder->Reset();
-	this->leftEncoder->Start();
-	
-	this->rightEncoder = new Encoder(RIGHT_GEARBOX_ENCODER_1, RIGHT_GEARBOX_ENCODER_2, false, CounterBase::k4X);
-	this->rightEncoder->SetPIDSourceParameter(Encoder::kDistance);
-	this->rightEncoder->SetDistancePerPulse(1);
-	this->rightEncoder->SetMaxPeriod(1.0);
-	this->rightEncoder->Reset();
-	this->rightEncoder->Start();
 	
 	printf("Chassis: constructor completed");
 	

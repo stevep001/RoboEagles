@@ -4,18 +4,28 @@
 // Digital I/O Sidecar slot 1
 #define TOP_LIMIT_SWITCH_SLOT	1
 #define TOP_LIMIT_SWITCH		1
+
 #define BOT_LIMIT_SWITCH_SLOT	1
 #define BOT_LIMIT_SWITCH		2
+
 #define UPPER_LIMIT_SWITCH_SLOT	1
 #define UPPER_LIMIT_SWITCH		3
+
 #define LOWER_LIMIT_SWITCH_SLOT	1
 #define LOWER_LIMIT_SWITCH		4
+
 #define FRISBEE_LIMIT_SWITCH_SLOT	1
 #define FRISBEE_LIMIT_SWITCH	5
+
 #define TILT_HIGH_LIMIT_SWITCH_SLOT	1
 #define TILT_HIGH_LIMIT_SWITCH	6
+
 #define TILT_LOW_LIMIT_SWITCH_SLOT	1
 #define	TILT_LOW_LIMIT_SWITCH	7
+
+#define FLINGER_LIMIT_SWITCH_SLOT	1
+#define FLINGER_LIMIT_SWITCH	8
+
 
 // Digital I/O Sidecar slot 2
 #define LEFT_GEARBOX_ENCODER_SLOT	2
@@ -36,13 +46,16 @@
 // Relay Sidecar slot 1
 
 // PWM Sidecar slot 1
+#define PWM_SLOT		1
+
 #define DRIVE_MOTOR_L_1	1
 #define DRIVE_MOTOR_R_1	2
-#define DRIVE_MOTOR_L_2	3
-#define DRIVE_MOTOR_R_2	4
-#define PIZZA_BOX_MOTOR	5
-#define TILT_MOTOR		6
-#define	FRISBEE_EJECT_MOTOR	7
+#define PIZZA_BOX_MOTOR	3
+#define TILT_MOTOR		4
+#define	FRISBEE_EJECT_MOTOR	5
+#define SHOOTER_MOTOR	6
+#define	PAN_LIFTER_MOTOR	7
+#define BELT_MOTOR		8
 
 // Solenoid slot 1
 
@@ -62,10 +75,12 @@
 
 // Test Joystick buttons
 
+#define	RUN_SHOOTER_BUTTON	1
 #define TILT_UP_BUTTON		4
 #define TILT_DOWN_BUTTON	5
 #define PB_TOP_BUTTON		6
 #define PB_BOTTOM_BUTTON	7
+#define	TEST_VISION_BUTTON	8
 
 
 #endif
