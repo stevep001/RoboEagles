@@ -29,7 +29,8 @@ SensorSubsystem::SensorSubsystem() : Subsystem("SensorSubsystem") {
 	this->rightEncoder->Reset();
 	this->rightEncoder->Start();
 	
-	this->tiltEncoder = new Encoder(TILT_ENCODER_SLOT, TILT_ENCODER_1, TILT_ENCODER_SLOT, TILT_ENCODER_2, false, CounterBase::k4X);
+	this->tiltEncoder = new Encoder(TILT_ENCODER_SLOT, TILT_ENCODER_1, TILT_ENCODER_SLOT, TILT_ENCODER_2, 
+			true, CounterBase::k4X);
 	this->tiltEncoder->SetPIDSourceParameter(Encoder::kDistance);
 	this->tiltEncoder->SetDistancePerPulse(1);
 	this->tiltEncoder->SetMaxPeriod(1.0);
@@ -37,13 +38,12 @@ SensorSubsystem::SensorSubsystem() : Subsystem("SensorSubsystem") {
 	this->tiltEncoder->Start();
 	
 	this->shooterEncoder = new Encoder(SHOOTER_WHEEL_ENCODER_SLOT, SHOOTER_WHEEL_ENCODER_1, 
-			SHOOTER_WHEEL_ENCODER_SLOT, SHOOTER_WHEEL_ENCODER_2, false, CounterBase::k4X);
-	// TODO check this
-	this->tiltEncoder->SetPIDSourceParameter(Encoder::kDistance);
-	this->tiltEncoder->SetDistancePerPulse(1);
-	this->tiltEncoder->SetMaxPeriod(1.0);
-	this->tiltEncoder->Reset();
-	this->tiltEncoder->Start();
+			SHOOTER_WHEEL_ENCODER_SLOT, SHOOTER_WHEEL_ENCODER_2, false, CounterBase::k1X);
+	this->shooterEncoder->SetPIDSourceParameter(Encoder::kDistance);
+	this->shooterEncoder->SetDistancePerPulse(1);
+	this->shooterEncoder->SetMaxPeriod(1.0);
+	this->shooterEncoder->Reset();
+	this->shooterEncoder->Start();
 	
 	this->tiltLowerLimit = new DigitalInput(TILT_LOW_LIMIT_SWITCH_SLOT, TILT_LOW_LIMIT_SWITCH);
 	this->tiltUpperLimit = new DigitalInput(TILT_HIGH_LIMIT_SWITCH_SLOT, TILT_HIGH_LIMIT_SWITCH);
@@ -52,7 +52,7 @@ SensorSubsystem::SensorSubsystem() : Subsystem("SensorSubsystem") {
 	this->botLimitSwitch = new DigitalInput(BOT_LIMIT_SWITCH_SLOT, BOT_LIMIT_SWITCH);
 	this->upperLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_SLOT, UPPER_LIMIT_SWITCH);
 	this->lowerLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_SLOT, LOWER_LIMIT_SWITCH);
-	this->kickerLimitSwitch = new DigitalInput(FLINGER_LIMIT_SWITCH_SLOT, FLINGER_LIMIT_SWITCH);
+	this->kickerLimitSwitch = new DigitalInput(KICKER_LIMIT_SWITCH_SLOT, KICKER_LIMIT_SWITCH);
 	
 	printf("SensorSubsystem: constructor completed\n");
 }
@@ -98,6 +98,18 @@ int SensorSubsystem::GetTiltEncoderValue() {
 Encoder *SensorSubsystem::GetTiltEncoder()
 {
 	return this->tiltEncoder;
+}
+
+int SensorSubsystem::GetShooterEncoderValue() {
+	return this->shooterEncoder->Get();
+}
+
+bool SensorSubsystem::GetTiltLowerLimit() {
+	return this->tiltLowerLimit->Get() == 0;
+}
+
+bool SensorSubsystem::GetTiltUpperLimit() {
+	return this->tiltUpperLimit->Get() == 0;
 }
 
 bool SensorSubsystem::GetPizzaTopLimitSwitch()

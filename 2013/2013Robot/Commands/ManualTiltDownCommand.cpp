@@ -1,7 +1,7 @@
 #include "ManualTiltDownCommand.h"
 
 ManualTiltDownCommand::ManualTiltDownCommand() {
-	Requires(shooterTiltSubsystem);
+	
 }
 
 // Called just before this Command runs the first time
@@ -21,11 +21,11 @@ bool ManualTiltDownCommand::IsFinished() {
 
 // Called once after isFinished returns true
 void ManualTiltDownCommand::End() {
-	shooterTiltSubsystem->Stop();
+
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ManualTiltDownCommand::Interrupted() {
-	shooterTiltSubsystem->Stop();
+
 }

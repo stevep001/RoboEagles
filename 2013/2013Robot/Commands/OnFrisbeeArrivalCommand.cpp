@@ -7,30 +7,31 @@ OnFrisbeeArrivalCommand::OnFrisbeeArrivalCommand() {
 
 // Called just before this Command runs the first time
 void OnFrisbeeArrivalCommand::Initialize() {
-	if(pizzaBoxSubsystem->IsBoxFull()) {
-		prepareForFiring = true;
-		pizzaBoxSubsystem->StartMoveFirstFiringPosition();
-	} else {
-		pizzaBoxSubsystem->StartMoveNextLoadingPosition();
-	}
+//	if(pizzaBoxSubsystem->IsBoxFull()) {
+//		prepareForFiring = true;
+//		pizzaBoxSubsystem->StartMoveFirstFiringPosition();
+//	} else {
+//		pizzaBoxSubsystem->StartMoveNextLoadingPosition();
+//	}
 }
 
 // Called repeatedly when this Command is scheduled to run
 void OnFrisbeeArrivalCommand::Execute() {
-	if(prepareForFiring){
-		pizzaBoxSubsystem->MoveFirstFiringPosition();
-	}else{
-		pizzaBoxSubsystem->MoveToNextLoadingPosition();
-	}
+//	if(prepareForFiring){
+//		pizzaBoxSubsystem->MoveFirstFiringPosition();
+//	}else{
+//		pizzaBoxSubsystem->MoveToNextLoadingPosition();
+//	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool OnFrisbeeArrivalCommand::IsFinished() {
-	if(prepareForFiring){
-		return pizzaBoxSubsystem->IsInFiringPosition(); 
-	}else {	
-		return pizzaBoxSubsystem->IsInLoadingPosition();
-	}
+//	if(prepareForFiring){
+//		return pizzaBoxSubsystem->IsInFiringPosition(); 
+//	}else {	
+//		return pizzaBoxSubsystem->IsInLoadingPosition();
+//	}
+	return true; // temp
 }
 
 // Called once after isFinished returns true

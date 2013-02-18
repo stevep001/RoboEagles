@@ -1,404 +1,158 @@
 #include "PizzaBoxSubsystem.h"
 #include "../Robotmap.h"
 #include "../CommandBase.h"
+#include "../Commands/PizzaBoxSupervisorCommand.h"
 
 // Speed values for the motor
-#define MOTOR_SPEED_UP 0.2
-#define MOTOR_SPEED_DOWN -0.2
+#define MOTOR_SPEED_UP 0.3
+#define MOTOR_SPEED_DOWN -(MOTOR_SPEED_UP)
 
-#define MAX_FRISBEES	4
 
-// These intermediate states are used to track progress toward the
-// next position
-#define WAITING_FOR_LOWER_SWITCH_OFF 1
-#define WAITING_FOR_LOWER_SWITCH_ON 2
-#define WAITING_FOR_TOP_LIMIT_SWITCH_ON 3
-#define WAITING_FOR_UPPER_LIMIT_SWITCH_ON 4
-#define WAITING_FOR_UPPER_LIMIT_SWITCH_OFF 5
-#define WAITING_FOR_BOTTOM_LIMIT_SWITCH_ON 6
-
-// Known positions of the pizza box.
-
-// We load in the highest slot first
-#define LOAD_POSITION_1	1
-#define LOAD_POSITION_2	2
-#define	LOAD_POSITION_3	3
-#define LOAD_POSITION_4	4
-
-// We shoot from the lowest slot first
-#define FIRE_POSITION_1	5
-#define	FIRE_POSITION_2	6
-#define	FIRE_POSITION_3	7
-#define FIRE_POSITION_4	8
-
-// Other positions
-#define TOP_POSITION	9
-#define	UNKNOWN_POSITION	10
 
 /*
  * This subsystem controls the "pizza box" frisbee storage/lifter.
  * 
  */
 
-PizzaBoxSubsystem::PizzaBoxSubsystem() : Subsystem("PizzaBoxSubsystem") {
+PizzaBoxSubsystem::PizzaBoxSubsystem(SensorSubsystem *sensorSubsystem, LEDSubsystem *ledSubsystem) : Subsystem("PizzaBoxSubsystem") {
 	printf("PizzaBoxSubsystem: constructor starting\n");
+	this->sensorSubsystem = sensorSubsystem;
+	this->ledSubsystem = ledSubsystem;
 	pizzaBoxMotor = new Jaguar(PWM_SLOT, PIZZA_BOX_MOTOR);
-	frisbeeEjectMotor = new Jaguar(PWM_SLOT, FRISBEE_EJECT_MOTOR);
-	
-	// If the frisbee shooter is at the top position, we assume it is full.
-	// Otherwise it's empty.
-	if (this->IsAtTop())
-	{
-		this->FrisbeeCount = 4;
-		this->PizzaBoxPosition = TOP_POSITION;
-	}
-	else
-	{
-		this->FrisbeeCount = 0;
-		this->PizzaBoxPosition = UNKNOWN_POSITION;
-	}
+
 	printf("PizzaBoxSubsystem: constructor completed\n");
 }
     
 void PizzaBoxSubsystem::InitDefaultCommand() {
+//	SetDefaultCommand(new PizzaBoxSupervisorCommand());
 }
 
-bool PizzaBoxSubsystem::IsInLoadingPosition()
+PizzaBoxSubsystem::PizzaBoxState PizzaBoxSubsystem::GetCurrentState()
 {
-	switch (this->PizzaBoxPosition)
-	{
-		case LOAD_POSITION_1:
-		case LOAD_POSITION_2:
-		case LOAD_POSITION_3:
-		case LOAD_POSITION_4:
-			return true;
-		default:
-			return false;
-	}
+	return this->currentState;
 }
 
-bool PizzaBoxSubsystem::CanMoveNextLoadingPosition()
+void PizzaBoxSubsystem::SetCurrentState(PizzaBoxState newState)
 {
-	switch (this->PizzaBoxPosition)
-	{
-		case LOAD_POSITION_1:
-		case LOAD_POSITION_2:
-		case LOAD_POSITION_3:
-			return true;
-		default:
-			return false;
-	}
+	this->currentState = newState;
 }
 
-void PizzaBoxSubsystem::StartMoveFirstLoadingPosition()
+int PizzaBoxSubsystem::GetCurrentPosition()
 {
-	printf("StartMoveFirstLoadingPosition: ");
-	if (!this->IsAtBottom())
-	{
-		this->intermediateState = WAITING_FOR_BOTTOM_LIMIT_SWITCH_ON;
-		this->MoveDown();
-		printf("Moving to down position\n");
-	}
-	else
-	{
-		this->intermediateState = WAITING_FOR_LOWER_SWITCH_ON;
-		this->MoveUp();
-		printf("At top, moving down to first shooting position\n");
-	}}
+	return this->currentPosition;
+}
+
+void PizzaBoxSubsystem::SetCurrentPosition(int newPosition)
+{
+	this->currentPosition = newPosition;
+}
 
 void PizzaBoxSubsystem::MoveFirstLoadingPosition()
 {
-	printf("MoveFirstLoadingPosition: ");
-	if (this->intermediateState == WAITING_FOR_BOTTOM_LIMIT_SWITCH_ON)
-	{
-		if (this->IsAtBottom())
-		{
-			this->intermediateState = WAITING_FOR_LOWER_SWITCH_ON;
-			this->MoveUp();
-			printf("Reached bottom, starting move up.\n");
-		}
-		else
-		{
-			this->MoveDown();
-		}
-	}
-	else if (this->intermediateState == WAITING_FOR_LOWER_SWITCH_ON)
-	{
-		if (this->SwitchLower())
-		{
-			printf("Saw lower switch, stopping.\n");
-			this->Stop();
-			this->PizzaBoxPosition = FIRE_POSITION_1;
-		}
-		else
-		{
-			this->MoveUp();
-		}
-	}
-	else
-	{
-		printf("Unexpected intermediate state: %d", this->intermediateState);
-		this->Stop();
-	}
+	this->currentState = MovingToNextLoadingPosition;
+	this->currentPosition = 0;
 }
 
-bool PizzaBoxSubsystem::StartMoveNextLoadingPosition()
+void PizzaBoxSubsystem::MoveNextLoadingPosition()
 {
-	printf("StartMoveNextLoadingPosition: ");
-	if (this->PizzaBoxPosition == LOAD_POSITION_4)
+	if (this->CanMoveNextLoadingPosition())
 	{
-		printf("Error -- pizza box is already in loading position 4\n");
-		// Set this so that the box doesn't move.
-		this->intermediateState = WAITING_FOR_LOWER_SWITCH_ON;
-		return false;
-	}
-
-	printf("Starting move to next loading position\n");
-	if (this->SwitchLower())
-	{
-		this->intermediateState = WAITING_FOR_LOWER_SWITCH_OFF;
-	} else {
-		// Perhaps the box has been nudged a bit and it is below the limit switch.
-		// A crappy way to recover but we'll just wait for the lower switch to come on.
-		
-		// Maybe we'd be better off giving up here.
-		
-		printf("StartLoadIndex but lower switch is off.");
-		this->intermediateState = WAITING_FOR_LOWER_SWITCH_ON;
-	}
-	
-	pizzaBoxMotor->Set(MOTOR_SPEED_UP);\
-	return true;
-}
-
-// Called repeated from calling command until we're in position
-void PizzaBoxSubsystem::MoveToNextLoadingPosition() {
-	printf("MoveToNextLoadingPosition: ");
-	if (this->intermediateState == WAITING_FOR_LOWER_SWITCH_OFF)
-	{
-		if (!this->SwitchLower())
-		{
-			this->intermediateState = WAITING_FOR_LOWER_SWITCH_ON;
-		}
-		this->MoveUp();
-	}
-	else if (this->intermediateState == WAITING_FOR_LOWER_SWITCH_ON)
-	{
-		// Ahh, yes.  We're there.
-		if (this->SwitchLower())
-		{
-			this->Stop();
-			switch (this->PizzaBoxPosition)
-			{
-				case LOAD_POSITION_1:
-					this->PizzaBoxPosition = LOAD_POSITION_2;
-					break;
-				case LOAD_POSITION_2:
-					this->PizzaBoxPosition = LOAD_POSITION_3;
-					break;
-				case LOAD_POSITION_3:
-					this->PizzaBoxPosition = LOAD_POSITION_4;
-					break;
-				default:
-					printf("unknown ending state %d\n", this->PizzaBoxPosition);
-					break;
-			}
-		}
-	} else {
-		printf("Unknown intermediate state %d\n", this->intermediateState);
-		this->Stop();
-	}
-}
-
-bool PizzaBoxSubsystem::IsInFiringPosition()
-{
-	switch (this->PizzaBoxPosition)
-	{
-		case FIRE_POSITION_1:
-		case FIRE_POSITION_2:
-		case FIRE_POSITION_3:		
-		case FIRE_POSITION_4:
-			return true;
-		default:
-			return false;
-	}
-}
-
-bool PizzaBoxSubsystem::CanMoveNextFiringPosition()
-{
-	switch (this->PizzaBoxPosition)
-	{		case FIRE_POSITION_1:
-		case FIRE_POSITION_2:
-		case FIRE_POSITION_3:
-			return true;
-		default:
-			return false;
-	}
-}
-
-// Moving to the first firing position moves through two states.
-// First, we move to the top position.
-// Then we move down until we reach the first firing position.
-void PizzaBoxSubsystem::StartMoveFirstFiringPosition()
-{
-	printf("StartMoveFirstFiringPosition: ");
-	if (!this->IsAtTop())
-	{
-		this->intermediateState = WAITING_FOR_TOP_LIMIT_SWITCH_ON;
-		this->MoveUp();
-		printf("Moving to top position\n");
-	}
-	else
-	{
-		this->intermediateState = WAITING_FOR_UPPER_LIMIT_SWITCH_ON;
-		this->MoveDown();
-		printf("At top, moving down to first shooting position\n");
+		this->currentState = MovingToNextLoadingPosition;
 	}
 }
 
 void PizzaBoxSubsystem::MoveFirstFiringPosition()
 {
-	printf("MoveFirstFiringPosition");
-	if (this->intermediateState == WAITING_FOR_TOP_LIMIT_SWITCH_ON)
-	{
-		if (this->IsAtTop())
-		{
-			this->intermediateState = WAITING_FOR_UPPER_LIMIT_SWITCH_ON;
-			this->MoveDown();
-			printf("Reached top, starting move down.\n");
-		}
-		else
-		{
-			this->MoveUp();
-		}
-	}
-	else if (this->intermediateState == WAITING_FOR_UPPER_LIMIT_SWITCH_ON)
-	{
-		if (this->SwitchUpper())
-		{
-			printf("Saw upper switch, stopping.\n");
-			this->Stop();
-			this->PizzaBoxPosition = FIRE_POSITION_1;
-		}
-		else
-		{
-			this->MoveDown();
-		}
-	}
-	else
-	{
-		printf("Unexpected intermediate state: %d", this->intermediateState);
-		this->Stop();
-	}
-}
-
-bool PizzaBoxSubsystem::StartMoveNextFiringPosition()
-{
-	switch (this->PizzaBoxPosition)
-	{
-		case FIRE_POSITION_1:
-		case FIRE_POSITION_2:
-		case FIRE_POSITION_3:
-			if (this->SwitchUpper())
-			{
-				this->intermediateState = WAITING_FOR_UPPER_LIMIT_SWITCH_OFF;
-			}
-			else
-			{
-				printf("StartMoveNextFiringPosition: not in a known position\n");
-				this->intermediateState = WAITING_FOR_LOWER_SWITCH_ON;
-			}
-			this->MoveDown();
-			return true;
-			break;
-		default:
-			printf("StartMoveNextFiringPosition: can't move there from %d\n", this->PizzaBoxPosition);
-			return false;
-			break;
-	}
+	this->currentState = MovingToNextFiringPosition;
+	this->currentPosition = 0;
 }
 
 void PizzaBoxSubsystem::MoveNextFiringPosition()
 {
-	if (this->intermediateState == WAITING_FOR_UPPER_LIMIT_SWITCH_OFF)
+	if (this->CanMoveNextFiringPosition())
 	{
-		if (!this->SwitchUpper())
-		{
-			this->intermediateState = WAITING_FOR_UPPER_LIMIT_SWITCH_ON;
-		}
-		this->MoveDown();
-	} 
-	else if (this->intermediateState == WAITING_FOR_UPPER_LIMIT_SWITCH_ON)
-	{
-		if (this->SwitchUpper())
-		{
-			this->Stop();
-		}
-	}
-	else
-	{
-		printf("MoveNextFiringPosition: Unnown intermediate state: %d\n", this->intermediateState);
+		this->currentState = MovingToNextFiringPosition;
 	}
 }
 
-// Basic controls over subsystem
+bool PizzaBoxSubsystem::IsInLoadingPosition()
+{
+	return this->currentState == LoadingPosition;
+}
 
+bool PizzaBoxSubsystem::CanMoveNextLoadingPosition()
+{
+	return this->currentState == LoadingPosition && this->currentPosition < MAX_FRISBEES;
+}
+
+bool PizzaBoxSubsystem::IsInFiringPosition()
+{
+	return this->currentState == FiringPosition;
+}
+
+bool PizzaBoxSubsystem::CanMoveNextFiringPosition()
+{
+	return this->currentState == FiringPosition && this->currentPosition < MAX_FRISBEES;
+}
+
+// Basic controls over subsystem
+//
 void PizzaBoxSubsystem::MoveTop() {
-	if(this->IsAtTop()) {
+	if(this->IsAtTopLimit()) {
 		this->Stop();
-		PizzaBoxPosition = TOP_POSITION;
 	} else {
 		this->MoveUp();
 	}
 }
 
 void PizzaBoxSubsystem::MoveBottom() {
-	if(this->IsAtBottom()) {
+	if(this->IsAtBottomLimit()) {
 		this->Stop();
-		PizzaBoxPosition = LOAD_POSITION_1;
 	} else {
 		this->MoveDown();
 	}
 }
 
+bool PizzaBoxSubsystem::IsAtTopLimit() {
+	return CommandBase::sensorSubsystem->GetPizzaTopLimitSwitch();
+}
+
+bool PizzaBoxSubsystem::IsAtBottomLimit() {
+	return CommandBase::sensorSubsystem->GetPizzaBottomLimitSwitch();
+}
+
+bool PizzaBoxSubsystem::IsFiringSwitchOn() {
+	return CommandBase::sensorSubsystem->GetPizzaUpperLimitSwitch();
+}
+
+bool PizzaBoxSubsystem::IsLoadingSwitchOn() {
+	return CommandBase::sensorSubsystem->GetPizzaLowerLimitSwitch();
+}
 
 void PizzaBoxSubsystem::Stop() {
 	pizzaBoxMotor->Set(0);
 }
 
-bool PizzaBoxSubsystem::IsAtTop() {
-	return CommandBase::sensorSubsystem->GetPizzaTopLimitSwitch();
-}
-
-bool PizzaBoxSubsystem::IsAtBottom() {
-	return CommandBase::sensorSubsystem->GetPizzaBottomLimitSwitch();
-}
-
-bool PizzaBoxSubsystem::SwitchUpper() {
-	return CommandBase::sensorSubsystem->GetPizzaUpperLimitSwitch();
-}
-
-bool PizzaBoxSubsystem::SwitchLower() {
-	return CommandBase::sensorSubsystem->GetPizzaLowerLimitSwitch();
-}
-
-bool PizzaBoxSubsystem::IsBoxFull()
-{
-	return FrisbeeCount >= MAX_FRISBEES;
-}
-
 void PizzaBoxSubsystem::MoveUp()
 {
-	if (!this->IsAtTop())
+	if (this->IsAtTopLimit())
 	{
-		pizzaBoxMotor->Set(MOTOR_SPEED_UP);
+		this->pizzaBoxMotor->Set(0);
+	}
+	else
+	{
+		this->pizzaBoxMotor->Set(MOTOR_SPEED_UP);
 	}
 }
 
 void PizzaBoxSubsystem::MoveDown()
 {
-	if (!this->IsAtBottom())
+	if (this->IsAtBottomLimit())
 	{
-		pizzaBoxMotor->Set(MOTOR_SPEED_DOWN);
+		this->pizzaBoxMotor->Set(0);
+	}
+	else
+	{
+		this->pizzaBoxMotor->Set(MOTOR_SPEED_DOWN);
 	}
 }

@@ -14,18 +14,23 @@ ShooterTiltSubsystem* CommandBase::shooterTiltSubsystem = NULL;
 Chassis *CommandBase::chassis = NULL;
 ShooterSubsystem* CommandBase::shooterSubsystem = NULL;
 VisionSubsystem* CommandBase::visionSubsystem = NULL;
+LEDSubsystem* CommandBase::ledSubsystem = NULL;
+KickerSubsystem* CommandBase::kickerSubsystem = NULL;
 
 OI* CommandBase::oi = NULL;
 
 void CommandBase::init() {
-    // Create a single static instance of all of your subsystems. The following
-	// line should be repeated for each subsystem in the project.
-	pizzaBoxSubsystem = new PizzaBoxSubsystem();
+	// Sensor subsystem must be instantiated first.
 	sensorSubsystem = new SensorSubsystem();
+	visionSubsystem = new VisionSubsystem();
+	ledSubsystem = new LEDSubsystem();
+
+	// These subsystems can take dependencies on systems above.
+	pizzaBoxSubsystem = new PizzaBoxSubsystem(sensorSubsystem, ledSubsystem);
 	chassis = new Chassis();
 	shooterTiltSubsystem = new ShooterTiltSubsystem();
 	shooterSubsystem = new ShooterSubsystem();
-	visionSubsystem = new VisionSubsystem();
+	kickerSubsystem = new KickerSubsystem(pizzaBoxSubsystem, sensorSubsystem);
 	
 	oi = new OI();
 }

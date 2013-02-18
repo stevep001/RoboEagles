@@ -1,15 +1,20 @@
 #include "Chassis.h"
 #include "../Robotmap.h"
 #include "../Commands/DriveWithJoystickCommand.h"
+#include "stdlib.h"
 
 
 Chassis::Chassis() : Subsystem("Chassis") {
-	printf("Chassis: constructor started");
-	this->drive = new RobotDrive(PWM_SLOT, DRIVE_MOTOR_R_1, PWM_SLOT, DRIVE_MOTOR_L_1);
+	printf("Chassis: constructor started\n");
+	
+	this->leftMotor = new Talon(PWM_SLOT, DRIVE_MOTOR_L_1);
+	this->rightMotor = new Talon(PWM_SLOT, DRIVE_MOTOR_R_1);
+	this->drive = new RobotDrive(this->leftMotor, this->rightMotor);
 	this->drive->SetInvertedMotor(drive->kRearRightMotor, true);
+	this->drive->SetInvertedMotor(drive->kRearLeftMotor, true);
 	this->drive->SetSafetyEnabled(false);
 	
-	printf("Chassis: constructor completed");
+	printf("Chassis: constructor completed\n");
 	
 }
     
@@ -18,6 +23,7 @@ void Chassis::InitDefaultCommand() {
 }
 
 void Chassis::Drive(Joystick *stick) {
+	// TODO need to trim these values below .1
 	drive->ArcadeDrive(stick);
 }
 

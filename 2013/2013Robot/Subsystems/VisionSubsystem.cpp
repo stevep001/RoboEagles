@@ -125,7 +125,7 @@ bool VisionSubsystem::IsImageReady() {
 
 
 //Computes the estimated distance to the target using the hight from the particle form the captured image.
-double computeDistance (BinaryImage *image, ParticleAnalysisReport *report, bool outer) {
+double VisionSubsystem::computeDistance (BinaryImage *image, ParticleAnalysisReport *report, bool outer) {
 		double rectShort, height;
 		int targetHeight;
 		
@@ -139,7 +139,7 @@ double computeDistance (BinaryImage *image, ParticleAnalysisReport *report, bool
 		return X_IMAGE_RES * targetHeight / (height * 12 * 2 * tan(VIEW_ANGLE*PI/(180*2)));
 	}
 
-double scoreAspectRatio(BinaryImage *image, ParticleAnalysisReport *report, bool outer) {
+double VisionSubsystem::scoreAspectRatio(BinaryImage *image, ParticleAnalysisReport *report, bool outer) {
 	double rectLong, rectShort, idealAspectRatio, aspectRatio;
 	idealAspectRatio = outer ? (62/29) : (62/20);
 	
@@ -155,7 +155,7 @@ double scoreAspectRatio(BinaryImage *image, ParticleAnalysisReport *report, bool
 }
 
 
-bool scoreCompare(Scores scores, bool outer) {
+bool VisionSubsystem::scoreCompare(Scores scores, bool outer) {
 	bool isTarget = true;
 		isTarget &= scores.rectangularity > RECTANGULARITY_LIMIT;
  	if(outer){
@@ -170,7 +170,7 @@ bool scoreCompare(Scores scores, bool outer) {
 }
 
 
-double scoreRectangularity(ParticleAnalysisReport *report) {
+double VisionSubsystem::scoreRectangularity(ParticleAnalysisReport *report) {
 	if(report->boundingRect.width*report->boundingRect.height !=0){
 		return 100*report->particleArea/(report->boundingRect.width*report->boundingRect.height);
 	} else {
@@ -178,7 +178,7 @@ double scoreRectangularity(ParticleAnalysisReport *report) {
 	}
 }
 
-double scoreXEdge(BinaryImage *image, ParticleAnalysisReport *report) {
+double VisionSubsystem::scoreXEdge(BinaryImage *image, ParticleAnalysisReport *report) {
 	double total = 0;
 	LinearAverages *averages = imaqLinearAverages2(image->GetImaqImage(), IMAQ_COLUMN_AVERAGES, report->boundingRect);
 	for(int i=0; i < (averages->columnCount); i++) {
@@ -191,7 +191,7 @@ double scoreXEdge(BinaryImage *image, ParticleAnalysisReport *report) {
 	return total;
 }
 
-double scoreYEdge(BinaryImage *image, ParticleAnalysisReport *report) {
+double VisionSubsystem::scoreYEdge(BinaryImage *image, ParticleAnalysisReport *report) {
 	double total = 0;
 	LinearAverages *averages = imaqLinearAverages2(image->GetImaqImage(), IMAQ_ROW_AVERAGES, report->boundingRect);
 	for(int i=0; i < (averages->rowCount); i++){

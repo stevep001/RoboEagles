@@ -2,11 +2,12 @@
 #include "../Subsystems/SensorSubsystem.h"
 
 SensorDisplayCommand::SensorDisplayCommand() {
+	Requires(sensorSubsystem);
 }
 
 // Called just before this Command runs the first time
 void SensorDisplayCommand::Initialize() {
-	
+	printf("SensorDisplayCommand:  Initialized\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -19,13 +20,15 @@ void SensorDisplayCommand::Execute() {
 	SmartDashboard::PutNumber("Tilt", sensorSubsystem->GetTiltEncoderValue());
 	
 	// Pizza box
-	SmartDashboard::PutBoolean("Flinger", sensorSubsystem->GetKickerLimitSwitch());
+	SmartDashboard::PutBoolean("Kicker", sensorSubsystem->GetKickerLimitSwitch());
 	SmartDashboard::PutBoolean("Pizza box top", sensorSubsystem->GetPizzaTopLimitSwitch());
 	SmartDashboard::PutBoolean("Pizza box bottom", sensorSubsystem->GetPizzaBottomLimitSwitch());
 	SmartDashboard::PutBoolean("Pizza box upper", sensorSubsystem->GetPizzaUpperLimitSwitch());
 	SmartDashboard::PutBoolean("Pizza box lower", sensorSubsystem->GetPizzaLowerLimitSwitch());
 
 	// Shooter
+	// Checking to see whether this fixes reading encoder value in subsystem
+	//SmartDashboard::PutNumber("Shooter encoder", sensorSubsystem->GetShooterEncoderValue());
 	
 	// Chassis
 	SmartDashboard::PutNumber("Left drive", sensorSubsystem->GetLeftEncoderValue());
@@ -34,6 +37,9 @@ void SensorDisplayCommand::Execute() {
 	// Gyro
 	
 	SmartDashboard::PutNumber("Gyro heading", sensorSubsystem->GetHorizontalAngle());
+	
+	// Kicker
+	SmartDashboard::PutBoolean("Kicker", sensorSubsystem->GetKickerLimitSwitch());
 }
 
 // Make this return true when this Command no longer needs to run execute()

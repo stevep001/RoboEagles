@@ -40,10 +40,11 @@ public:
 	bool GetTiltEncoderMagDec();
 	bool GetTiltEncoderMagInc();
 	int GetTiltEncoderValue();
-	int GetTiltLowerLimit();
-	int GetTiltUpperLimit();
+	bool GetTiltLowerLimit();
+	bool GetTiltUpperLimit();
 	Encoder *GetTiltEncoder();
 
+	int GetShooterEncoderValue();
 	bool GetPizzaTopLimitSwitch();
 	bool GetPizzaUpperLimitSwitch();
 	bool GetPizzaLowerLimitSwitch();

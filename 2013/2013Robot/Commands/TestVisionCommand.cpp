@@ -7,6 +7,7 @@ TestVisionCommand::TestVisionCommand() {
 
 // Called just before this Command runs the first time
 void TestVisionCommand::Initialize() {
+	printf("TestVisionCommand: initializing.  This actually does the procesing.\n");
 	visionSubsystem->ProcessImage();
 	
 	if (visionSubsystem->IsTargetVisible(TOP_TARGET))
@@ -14,6 +15,7 @@ void TestVisionCommand::Initialize() {
 		printf("Top target visible: azimuth %f; distance %f; pitch %f", visionSubsystem->GetTargetAzimuth(TOP_TARGET),
 			visionSubsystem->GetTargetDistance(TOP_TARGET), visionSubsystem->GetTargetPitch(TOP_TARGET));
 	}
+	printf("TestVisionCommand: completed\n");
 }
 
 void TestVisionCommand::PrintTargetValues(int targetId)

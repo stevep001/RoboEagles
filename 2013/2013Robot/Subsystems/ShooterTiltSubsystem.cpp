@@ -1,59 +1,60 @@
 #include "ShooterTiltSubsystem.h"
 #include "../Robotmap.h"
-#include "../Commands/MaintainShooterPositionCommand.h"
+#include "../Commands/ShooterTiltSupervisorCommand.h"
 #include "../CommandBase.h"
 
-// TODO: this is a guess, need actual value
-#define TILT_SPEED (0.2)
-#define MIN_ANGLE	0
-#define MAX_ANGLE	90
-#define NUM_ROTATIONS_TO_LIFT_VERTICAL	8
-
-
+/*
+ * This subsystem teams with the ShooterTiltSupervisorCommand to 
+ * manage the angle of the shooting tilt.
+ */
 ShooterTiltSubsystem::ShooterTiltSubsystem() : Subsystem("ShooterTiltSubsystem") {
 	printf("ShooterTiltSubsystem: constructor started\n");
-	this->tiltJaguar = new Jaguar(PWM_SLOT, TILT_MOTOR);
-	
+	this->tiltMotor = new Victor(PWM_SLOT, TILT_MOTOR);
 	this->currentAngle = 0;
-	
-	float pGain = .0013;
-	float iGain = .0002;
-	float dGain = 0;
-
-	this->pidController = new PIDController(pGain, iGain, dGain, 
-			CommandBase::sensorSubsystem->GetTiltEncoder(), this->tiltJaguar);
-	
-	// TODO: need to calculate actual input range here
-	this->pidController->SetInputRange(0, 500);
-	// This is the range of the output device.  For a motor controller this is typically
-	// -1 to 1.
-	this->pidController->SetOutputRange(-1, 1);
-	this->pidController->SetSetpoint(0);
-
-	// TODO enable this
-	//this->pidController->Enable(); // start calculating PIDOutput values
+	this->mode = ShooterTiltSubsystem::Initializing;
 	printf("ShooterTiltSubsystem: constructor completed\n");
 }
     
 void ShooterTiltSubsystem::InitDefaultCommand() {
+	//SetDefaultCommand(new ShooterTiltSupervisorCommand());
 }
 
+void ShooterTiltSubsystem::SetMode(ShooterTiltSubsystem::ShooterTiltMode mode)
+{
+	this->mode = mode;
+}
+
+/*
+ * Returns the mode of the shooting tilt system.
+ */
+ShooterTiltSubsystem::ShooterTiltMode ShooterTiltSubsystem::GetMode()
+{
+	return this->mode;
+}
+
+SpeedController* ShooterTiltSubsystem::GetMotor()
+{
+	return this->tiltMotor;
+}
+
+/*
+ * Sets the desired angle of the tilt.  This is clipped to zero on the low side
+ * and our max angle on the top side.
+ */
 void ShooterTiltSubsystem::SetAngle(float desiredAngle)
 {
-	if (desiredAngle > MAX_ANGLE)
-		this->currentAngle = MAX_ANGLE;
-	else if (desiredAngle < MIN_ANGLE)
-		this->currentAngle = MIN_ANGLE;
+	if (desiredAngle > MAX_TILT_ANGLE)
+		this->currentAngle = MAX_TILT_ANGLE;
+	else if (desiredAngle < MIN_TILT_ANGLE)
+		this->currentAngle = MIN_TILT_ANGLE;
 	else
 		this->currentAngle = desiredAngle;
-	
-	float setpoint = (this->currentAngle / 90) * NUM_ROTATIONS_TO_LIFT_VERTICAL;
-	this->pidController->SetSetpoint(setpoint);
+	SmartDashboard::PutNumber("Shooter tilt angle", this->currentAngle);
 }
 
-void ShooterTiltSubsystem::Stop()
+float ShooterTiltSubsystem::GetAngle()
 {
-	this->tiltJaguar->Set(0);
+	return this->currentAngle;
 }
 
 void ShooterTiltSubsystem::IncreaseTilt(float amountToIncrease)

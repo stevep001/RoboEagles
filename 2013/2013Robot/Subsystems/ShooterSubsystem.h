@@ -10,11 +10,13 @@
  */
 class ShooterSubsystem: public Subsystem {
 private:
-	Jaguar *shooterJaguar;
+	SpeedController *shooterMotor;
+	int shootingPower;
 public:
 	ShooterSubsystem();
 	void InitDefaultCommand();
 	void SetShootingPower(float power);
+	SpeedController *GetMotor();
 };
 
 #endif
