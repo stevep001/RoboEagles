@@ -46,6 +46,19 @@ const double yMin[YMINSIZE] = {.4, .6, .05, .05, .05, .05, .05, .05, .05, .05, .
 #define MIDDLE_TARGET 1
 #define BOTTOM_TARGET 2
 
+const float cameraHight = 0.0;
+//#define CAMERAHIGHT
+const float targetHight[3] = {
+		0,	//Top Target Hight
+		0,	//Middle Target Hight
+		0,	//Bottom taget Hight
+};
+const float targetHalfWidth[3] = {
+		0,	//Width of Top target
+		0,	//Width of MIddle target
+		0,	//Width of Bottom Target
+};
+
 /**
  *
  *
@@ -68,10 +81,12 @@ private:
 	
 	Scores *scores;
 	
+	//const char* cameraIP = "10.30.81.12";
+	
 	bool targetVisable[3];
 	double targetDistances[3];
-	int targetAzimuth[3];
-	int targetPitch[3];
+	float targetAzimuth[3];
+	float targetPitch[3];
 	
 	double targetPositionX[3];
 	double targetPositionY[3];
@@ -83,6 +98,7 @@ private:
 	double scoreXEdge(BinaryImage *image, ParticleAnalysisReport *report);
 	double scoreYEdge(BinaryImage *image, ParticleAnalysisReport *report);
 	double VisionSubsystem::targetPosition(int targetID, bool XOrY);
+	float inverseTan(float opposite, float adjacent);
 	
 public:
 	VisionSubsystem();
