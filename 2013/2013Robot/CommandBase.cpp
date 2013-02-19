@@ -16,6 +16,7 @@ ShooterSubsystem* CommandBase::shooterSubsystem = NULL;
 VisionSubsystem* CommandBase::visionSubsystem = NULL;
 LEDSubsystem* CommandBase::ledSubsystem = NULL;
 KickerSubsystem* CommandBase::kickerSubsystem = NULL;
+LcdDisplaySubsystem* CommandBase::lcdDisplaySubsystem = NULL;
 
 OI* CommandBase::oi = NULL;
 
@@ -24,6 +25,7 @@ void CommandBase::init() {
 	sensorSubsystem = new SensorSubsystem();
 	visionSubsystem = new VisionSubsystem();
 	ledSubsystem = new LEDSubsystem();
+	lcdDisplaySubsystem = new LcdDisplaySubsystem();
 
 	// These subsystems can take dependencies on systems above.
 	pizzaBoxSubsystem = new PizzaBoxSubsystem(sensorSubsystem, ledSubsystem);

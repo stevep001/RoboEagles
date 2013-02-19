@@ -24,6 +24,7 @@ private:
 	DigitalInput *upperLimitSwitch;
 	DigitalInput *lowerLimitSwitch;
 	DigitalInput *kickerLimitSwitch;
+	DigitalInput *frisbeeInBoxSwitch;
 	
 	// Shooter
 	Encoder *shooterEncoder;
@@ -50,6 +51,7 @@ public:
 	bool GetPizzaLowerLimitSwitch();
 	bool GetPizzaBottomLimitSwitch();
 	bool GetKickerLimitSwitch();
+	bool GetFrisbeeInBoxSwitch();
 };
 
 #endif

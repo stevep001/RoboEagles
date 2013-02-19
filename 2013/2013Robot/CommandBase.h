@@ -9,6 +9,7 @@
 #include "Subsystems/VisionSubsystem.h"
 #include "Subsystems/LEDSubsystem.h"
 #include "Subsystems/KickerSubsystem.h"
+#include "Subsystems/LcdDisplaySubsystem.h"
 #include "OI.h"
 
 
@@ -31,6 +32,7 @@ public:
 	static VisionSubsystem *visionSubsystem;
 	static LEDSubsystem *ledSubsystem;
 	static KickerSubsystem *kickerSubsystem;
+	static LcdDisplaySubsystem *lcdDisplaySubsystem;
 	static OI *oi;
 };
 

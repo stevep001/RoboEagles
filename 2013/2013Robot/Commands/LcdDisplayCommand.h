@@ -1,24 +1,21 @@
-#ifndef ON_FRISBEE_ARRIVAL_COMMAND_H
-#define ON_FRISBEE_ARRIVAL_COMMAND_H
+#ifndef LCDDISPLAYCOMMAND_H
+#define LCDDISPLAYCOMMAND_H
 
 #include "../CommandBase.h"
 
 /**
  *
  *
- * @author ExampleAuthor
+ * @author speterson
  */
-
-class OnFrisbeeArrivalCommand: public CommandBase {
-private:
+class LcdDisplayCommand: public CommandBase {
 public:
-	OnFrisbeeArrivalCommand();
+	LcdDisplayCommand();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
 };
-
 
 #endif

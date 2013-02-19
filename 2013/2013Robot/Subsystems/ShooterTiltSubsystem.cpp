@@ -16,7 +16,7 @@ ShooterTiltSubsystem::ShooterTiltSubsystem() : Subsystem("ShooterTiltSubsystem")
 }
     
 void ShooterTiltSubsystem::InitDefaultCommand() {
-	//SetDefaultCommand(new ShooterTiltSupervisorCommand());
+	SetDefaultCommand(new ShooterTiltSupervisorCommand());
 }
 
 void ShooterTiltSubsystem::SetMode(ShooterTiltSubsystem::ShooterTiltMode mode)
@@ -49,6 +49,7 @@ void ShooterTiltSubsystem::SetAngle(float desiredAngle)
 		this->currentAngle = MIN_TILT_ANGLE;
 	else
 		this->currentAngle = desiredAngle;
+	printf("Angle set to %f\n", desiredAngle);
 	SmartDashboard::PutNumber("Shooter tilt angle", this->currentAngle);
 }
 

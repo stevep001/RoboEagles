@@ -1,24 +1,23 @@
-#ifndef ON_FRISBEE_ARRIVAL_COMMAND_H
-#define ON_FRISBEE_ARRIVAL_COMMAND_H
+#ifndef SETSHOOTERTILTCOMMAND_H
+#define SETSHOOTERTILTCOMMAND_H
 
 #include "../CommandBase.h"
 
 /**
  *
  *
- * @author ExampleAuthor
+ * @author speterson
  */
-
-class OnFrisbeeArrivalCommand: public CommandBase {
+class SetShooterTiltCommand: public CommandBase {
 private:
+	float angle;
 public:
-	OnFrisbeeArrivalCommand();
+	SetShooterTiltCommand(float angle);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
 };
-
 
 #endif

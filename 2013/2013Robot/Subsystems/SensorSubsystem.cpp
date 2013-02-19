@@ -53,6 +53,7 @@ SensorSubsystem::SensorSubsystem() : Subsystem("SensorSubsystem") {
 	this->upperLimitSwitch = new DigitalInput(UPPER_LIMIT_SWITCH_SLOT, UPPER_LIMIT_SWITCH);
 	this->lowerLimitSwitch = new DigitalInput(LOWER_LIMIT_SWITCH_SLOT, LOWER_LIMIT_SWITCH);
 	this->kickerLimitSwitch = new DigitalInput(KICKER_LIMIT_SWITCH_SLOT, KICKER_LIMIT_SWITCH);
+	this->frisbeeInBoxSwitch = new DigitalInput(FRISBEE_LIMIT_SWITCH_SLOT, FRISBEE_LIMIT_SWITCH);
 	
 	printf("SensorSubsystem: constructor completed\n");
 }
@@ -110,6 +111,11 @@ bool SensorSubsystem::GetTiltLowerLimit() {
 
 bool SensorSubsystem::GetTiltUpperLimit() {
 	return this->tiltUpperLimit->Get() == 0;
+}
+
+bool SensorSubsystem::GetFrisbeeInBoxSwitch()
+{
+	return this->frisbeeInBoxSwitch->Get() == 0;
 }
 
 bool SensorSubsystem::GetPizzaTopLimitSwitch()

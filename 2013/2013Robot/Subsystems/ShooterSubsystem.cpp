@@ -13,7 +13,7 @@ ShooterSubsystem::ShooterSubsystem() : Subsystem("ShooterSubsystem") {
 }
     
 void ShooterSubsystem::InitDefaultCommand() {
-	SetDefaultCommand(new ShooterSupervisorCommand());
+	//SetDefaultCommand(new ShooterSupervisorCommand());
 }
 
 void ShooterSubsystem::SetShootingPower(float power) {

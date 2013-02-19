@@ -7,8 +7,6 @@
 #define MOTOR_SPEED_UP 0.3
 #define MOTOR_SPEED_DOWN -(MOTOR_SPEED_UP)
 
-
-
 /*
  * This subsystem controls the "pizza box" frisbee storage/lifter.
  * 
@@ -24,7 +22,7 @@ PizzaBoxSubsystem::PizzaBoxSubsystem(SensorSubsystem *sensorSubsystem, LEDSubsys
 }
     
 void PizzaBoxSubsystem::InitDefaultCommand() {
-//	SetDefaultCommand(new PizzaBoxSupervisorCommand());
+	SetDefaultCommand(new PizzaBoxSupervisorCommand());
 }
 
 PizzaBoxSubsystem::PizzaBoxState PizzaBoxSubsystem::GetCurrentState()
@@ -130,7 +128,7 @@ bool PizzaBoxSubsystem::IsLoadingSwitchOn() {
 }
 
 void PizzaBoxSubsystem::Stop() {
-	pizzaBoxMotor->Set(0);
+	this->pizzaBoxMotor->Set(0);
 }
 
 void PizzaBoxSubsystem::MoveUp()

@@ -6,10 +6,10 @@
 #define	TILT_DEGREES_PER_REVOLUTION	(50)
 
 // Max time to run initialization before giving up
-#define	TILT_INITIALIZATION_TIMEOUT_SECS	(1.5)
+#define	TILT_INITIALIZATION_TIMEOUT_SECS	(3)
 
 #define TILT_UP_POWER	(.8)
-#define	TILT_DOWN_POWER	(.4)
+#define	TILT_DOWN_POWER	(.3)
 
 ShooterTiltSupervisorCommand::ShooterTiltSupervisorCommand() {
 	Requires(shooterTiltSubsystem);
@@ -19,16 +19,18 @@ ShooterTiltSupervisorCommand::ShooterTiltSupervisorCommand() {
 // Called just before this Command runs the first time
 void ShooterTiltSupervisorCommand::Initialize() {
 	printf("ShooterTiltSupervisorCommand: initialize\n");
-	float pGain = .0013;
-	float iGain = .0002;
-	float dGain = 0;
+	float pGain = -.035;
+	float iGain = -.004;
+	float dGain = 0; 
 
 	this->controller = new PIDController(pGain, iGain, dGain, 
 			sensorSubsystem->GetTiltEncoder(), shooterTiltSubsystem->GetMotor());
 	
 	this->controller->SetInputRange(0, TILT_MAX_COUNT);
-	this->controller->SetOutputRange(-(TILT_DOWN_POWER), TILT_UP_POWER);
+	this->controller->SetOutputRange(-(TILT_UP_POWER), TILT_DOWN_POWER);
 	
+	this->initializationTimer->Stop();
+	this->initializationTimer->Reset();
 	this->initializationTimer->Start();
 	shooterTiltSubsystem->SetMode(ShooterTiltSubsystem::Initializing);
 
@@ -43,10 +45,14 @@ void ShooterTiltSupervisorCommand::Execute() {
 		if (sensorSubsystem->GetTiltLowerLimit())
 		{
 			shooterTiltSubsystem->GetMotor()->Set(0);
+			shooterTiltSubsystem->SetAngle(0);
+
 			this->controller->SetSetpoint(0);
 			this->controller->Reset();
 			this->controller->Enable();
 			this->shooterTiltSubsystem->SetMode(ShooterTiltSubsystem::Running);
+			this->initializationTimer->Stop();
+
 			printf("ShooterTiltSupervisorCommand:  tilt initialized\n");
 		}
 		else
@@ -60,14 +66,18 @@ void ShooterTiltSupervisorCommand::Execute() {
 				shooterTiltSubsystem->GetMotor()->Set(0);
 				this->shooterTiltSubsystem->SetMode(ShooterTiltSubsystem::CalibrationError);
 				printf("ShooterTiltSupervisorCommand: disabling: initialization didn't complete in time\n");
+				// TODO: This might be a bit picky
 			}
 		}
 		break;
 	case ShooterTiltSubsystem::Running:
 		if (sensorSubsystem->GetTiltLowerLimit() && shooterTiltSubsystem->GetAngle() == MIN_TILT_ANGLE)
 		{
-			printf("ShooterTiltSupervisorCommand: calling for 0 and at low limit, resetting and disabling\n");
-			this->controller->Reset();
+			if (this->controller->IsEnabled())
+			{
+				printf("ShooterTiltSupervisorCommand: calling for 0 and at low limit, resetting and disabling\n");
+				this->controller->Reset();
+			}
 			
 			// TODO: We could test here to see if PID loop thinks we're at low limit without limit switch.
 		}
@@ -100,6 +110,8 @@ void ShooterTiltSupervisorCommand::Execute() {
 		setpoint = TILT_MAX_COUNT;
 	}
 	this->controller->SetSetpoint(setpoint);
+	SmartDashboard::PutNumber("Tilt setpoint", setpoint);
+	SmartDashboard::PutNumber("Tilt PID output", this->controller->Get());
 
 }
 

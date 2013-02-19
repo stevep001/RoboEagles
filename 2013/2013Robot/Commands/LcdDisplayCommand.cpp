@@ -1,31 +1,30 @@
-#include "ManualTiltUpCommand.h"
+#include "LcdDisplayCommand.h"
 
-ManualTiltUpCommand::ManualTiltUpCommand() {
-
+LcdDisplayCommand::LcdDisplayCommand() {
+	Requires(lcdDisplaySubsystem);
 }
 
 // Called just before this Command runs the first time
-void ManualTiltUpCommand::Initialize() {
+void LcdDisplayCommand::Initialize() {
 	
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ManualTiltUpCommand::Execute() {
-	shooterTiltSubsystem->IncreaseTilt(2);
+void LcdDisplayCommand::Execute() {
+	lcdDisplaySubsystem->UpdateLines();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ManualTiltUpCommand::IsFinished() {
-	return true;
+bool LcdDisplayCommand::IsFinished() {
+	return false;
 }
 
 // Called once after isFinished returns true
-void ManualTiltUpCommand::End() {
-
+void LcdDisplayCommand::End() {
+	
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ManualTiltUpCommand::Interrupted() {
-
+void LcdDisplayCommand::Interrupted() {
 }
