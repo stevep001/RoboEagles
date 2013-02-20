@@ -99,6 +99,7 @@ void VisionSubsystem::ProcessImage() {
 	 */
 	printf("Vision: Setting camera IP to 10.30.81.12/n");
 	AxisCamera &camera = AxisCamera::GetInstance("10.30.81.12");
+	
 	//AxisCamera &camera = AxisCamera::GetInstance("192.168.0.90"); //
 	
 	// This creates a Color image, then on the second line it fills it with the image from the camera.
@@ -106,7 +107,7 @@ void VisionSubsystem::ProcessImage() {
 	ColorImage *image;
 	
 	printf("Vision: Getting the Image from the camera \n");
-	camera.GetImage(image);
+	image = camera.GetImage();
 	
 	//////////////////////////////
 	// Image processing section //

@@ -49,6 +49,7 @@ public:
 	KickerState GetKickerState();
 	void SetKickerState(KickerState newState);
 	void Kick();
+	bool CanKick();
+	bool IsStowed();
 };
-
 #endif

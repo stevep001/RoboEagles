@@ -10,6 +10,8 @@
 #include "Subsystems/LEDSubsystem.h"
 #include "Subsystems/KickerSubsystem.h"
 #include "Subsystems/LcdDisplaySubsystem.h"
+#include "Subsystems/PanSubsystem.h"
+#include "Subsystems/PanLiftSubsystem.h"
 #include "OI.h"
 
 
@@ -33,6 +35,8 @@ public:
 	static LEDSubsystem *ledSubsystem;
 	static KickerSubsystem *kickerSubsystem;
 	static LcdDisplaySubsystem *lcdDisplaySubsystem;
+	static PanSubsystem *panSubsystem;
+	static PanLiftSubsystem *panLiftSubsystem;
 	static OI *oi;
 };
 

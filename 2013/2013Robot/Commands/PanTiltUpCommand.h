@@ -1,5 +1,5 @@
-#ifndef LEDCONTROLCOMMAND_H
-#define LEDCONTROLCOMMAND_H
+#ifndef PANTILTUPCOMMAND_H
+#define PANTILTUPCOMMAND_H
 
 #include "../CommandBase.h"
 
@@ -8,11 +8,9 @@
  *
  * @author speterson
  */
-class LedControlCommand: public CommandBase {
-private:
-	int count;
+class PanTiltUpCommand: public CommandBase {
 public:
-	LedControlCommand();
+	PanTiltUpCommand();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

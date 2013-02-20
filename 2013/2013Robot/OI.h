@@ -8,7 +8,12 @@ private:
 	Joystick *driverJoystick;
 	Joystick *testJoystick;
 	Joystick *testJoystick2;
+
+	// Driver joystick
+	Button *liftPanButton;
+	Button *lowerPanButton;
 	
+	// Test joystick
 	Button *pbTopButton;
 	Button *pbBottomButton;
 	Button *runShooterMotorButton;
@@ -17,8 +22,10 @@ private:
 	Button *tiltUpCommandedButton;
 	Button *tiltDownCommandedButton;
 	Button *shooterTilt45Button;
-	
+	Button *shootFrisbeeIndexButton;
 	Button *frisbeeArrivalButton;
+	
+
 	
 	
 public:

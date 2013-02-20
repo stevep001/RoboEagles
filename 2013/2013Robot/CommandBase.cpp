@@ -17,6 +17,8 @@ VisionSubsystem* CommandBase::visionSubsystem = NULL;
 LEDSubsystem* CommandBase::ledSubsystem = NULL;
 KickerSubsystem* CommandBase::kickerSubsystem = NULL;
 LcdDisplaySubsystem* CommandBase::lcdDisplaySubsystem = NULL;
+PanSubsystem* CommandBase::panSubsystem = NULL;
+PanLiftSubsystem* CommandBase::panLiftSubsystem = NULL;
 
 OI* CommandBase::oi = NULL;
 
@@ -33,6 +35,8 @@ void CommandBase::init() {
 	shooterTiltSubsystem = new ShooterTiltSubsystem();
 	shooterSubsystem = new ShooterSubsystem();
 	kickerSubsystem = new KickerSubsystem(pizzaBoxSubsystem, sensorSubsystem);
+	panSubsystem = new PanSubsystem();
+	panLiftSubsystem = new PanLiftSubsystem();
 	
 	oi = new OI();
 }

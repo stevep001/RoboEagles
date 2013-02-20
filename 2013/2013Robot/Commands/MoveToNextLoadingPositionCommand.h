@@ -1,5 +1,5 @@
-#ifndef LEDCONTROLCOMMAND_H
-#define LEDCONTROLCOMMAND_H
+#ifndef MOVETONEXTLOADINGPOSITIONCOMMAND_H
+#define MOVETONEXTLOADINGPOSITIONCOMMAND_H
 
 #include "../CommandBase.h"
 
@@ -8,11 +8,9 @@
  *
  * @author speterson
  */
-class LedControlCommand: public CommandBase {
-private:
-	int count;
+class MoveToNextLoadingPositionCommand: public CommandBase {
 public:
-	LedControlCommand();
+	MoveToNextLoadingPositionCommand();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

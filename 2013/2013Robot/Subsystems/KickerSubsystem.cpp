@@ -37,16 +37,23 @@ KickerSubsystem::KickerState KickerSubsystem::GetKickerState()
 // This is used by other commands to tell the subsystem to start doing something.
 void KickerSubsystem::Kick()
 {
-	
-	// TODO change this back
-	//if (this->pizzaBoxSubsystem->IsInFiringPosition())
-	if (this->sensorSubsystem->GetPizzaUpperLimitSwitch())
+	if (this->pizzaBoxSubsystem->IsInFiringPosition() && this->CanKick())
 	{
 		printf("KickerSubsystem: Kick!\n");
 		this->kickerState = KickerSubsystem::KickingWaitingForSwitchOff;
 	}
 	else
 	{
-		printf("KickerSubsystem: Someone requested a kick but not in firing position\n");
+		printf("KickerSubsystem: Someone requested a kick but not in firing position or kicker is moving\n");
 	}
+}
+
+bool KickerSubsystem::CanKick()
+{
+	return this->kickerState == Stowed;
+}
+
+bool KickerSubsystem::IsStowed()
+{
+	return this->kickerState == Stowed;
 }

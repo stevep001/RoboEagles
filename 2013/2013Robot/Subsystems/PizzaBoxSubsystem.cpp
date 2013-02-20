@@ -8,10 +8,10 @@
 #define MOTOR_SPEED_DOWN -(MOTOR_SPEED_UP)
 
 /*
- * This subsystem controls the "pizza box" frisbee storage/lifter.
+ * This subsystem controls the "pizza box" frisbee storage/lifter, teamed with 
+ * PizzaBoxSupervisorCommand for higher level function.
  * 
  */
-
 PizzaBoxSubsystem::PizzaBoxSubsystem(SensorSubsystem *sensorSubsystem, LEDSubsystem *ledSubsystem) : Subsystem("PizzaBoxSubsystem") {
 	printf("PizzaBoxSubsystem: constructor starting\n");
 	this->sensorSubsystem = sensorSubsystem;

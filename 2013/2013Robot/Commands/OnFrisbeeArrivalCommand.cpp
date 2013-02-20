@@ -5,19 +5,22 @@ OnFrisbeeArrivalCommand::OnFrisbeeArrivalCommand() {
 
 // Called just before this Command runs the first time
 void OnFrisbeeArrivalCommand::Initialize() {
+	printf("OnFrisbeeArrivalCommand:  Frisbee arrived - ");
 	if (pizzaBoxSubsystem->IsInLoadingPosition()) {
 		if (pizzaBoxSubsystem->CanMoveNextLoadingPosition())
 		{
+			printf("moving to next loading position\n");
 			pizzaBoxSubsystem->MoveNextLoadingPosition();
 		}
 		else
 		{
+			printf("moving to first firing position\n");
 			pizzaBoxSubsystem->MoveFirstFiringPosition();
 		}
 	}
 	else
 	{
-		pizzaBoxSubsystem->MoveFirstLoadingPosition();
+		printf("Not in loading position - ignoring\n");
 	}
 }
 

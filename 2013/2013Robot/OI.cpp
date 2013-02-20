@@ -10,6 +10,10 @@
 #include "Commands/TestTiltCommand.h"
 #include "Commands/SetShooterTiltCommand.h"
 #include "Commands/OnFrisbeeArrivalCommand.h"
+#include "Commands/ShootFrisbeeAndIndexCommand.h"
+#include "Commands/LiftPanCommand.h"
+#include "Commands/MoveToNextFiringPositionCommand.h"
+#include "Commands/MoveToNextLoadingPositionCommand.h"
 #include "FrisbeeArrivalButton.h"
 
 OI::OI() {
@@ -20,8 +24,19 @@ OI::OI() {
 	this->frisbeeArrivalButton = new FrisbeeArrivalButton();
 	this->frisbeeArrivalButton->WhenPressed(new OnFrisbeeArrivalCommand());
 	
+	// Driver joystick buttons
+	
+	this->liftPanButton = new JoystickButton(this->driverJoystick, LIFT_PAN_BUTTON);
+	this->liftPanButton->WhenPressed(new LiftPanCommand(true));
+	
+	this->lowerPanButton = new JoystickButton(this->driverJoystick, LOWER_PAN_BUTTON);
+	this->lowerPanButton->WhenPressed(new LiftPanCommand(false));
+			
 	// Test joystick 1
 	this->testJoystick = new Joystick(TEST_JOYSTICK_PORT);
+	
+	this->shootFrisbeeIndexButton = new JoystickButton(this->testJoystick, SHOOT_FRISBEE_INDEX_COMMAND);
+	this->shootFrisbeeIndexButton->WhenPressed(new ShootFrisbeeAndIndexCommand());
 	
 	this->pbTopButton = new JoystickButton(this->testJoystick, PB_TOP_BUTTON);
 	this->pbTopButton->WhenPressed(new MovePBTopCommand());
@@ -46,6 +61,12 @@ OI::OI() {
 	
 	this->shooterTilt45Button = new JoystickButton(this->testJoystick, SHOOTER_TILT_45_BUTTON);
 	this->shooterTilt45Button->WhenPressed(new SetShooterTiltCommand(45));
+	
+	// Buttons for smart dashboard
+	SmartDashboard::PutData("Move next firing position", new MoveToNextFiringPositionCommand());
+	SmartDashboard::PutData("Move next loading position", new MoveToNextLoadingPositionCommand());
+	SmartDashboard::PutData("Move PB Top", new MovePBTopCommand());
+	SmartDashboard::PutData("Move PB Bottom", new MovePBBottomCommand());
 			
 }
 

@@ -37,8 +37,8 @@ SensorSubsystem::SensorSubsystem() : Subsystem("SensorSubsystem") {
 	this->tiltEncoder->Reset();
 	this->tiltEncoder->Start();
 	
-	this->shooterEncoder = new Encoder(SHOOTER_WHEEL_ENCODER_SLOT, SHOOTER_WHEEL_ENCODER_1, 
-			SHOOTER_WHEEL_ENCODER_SLOT, SHOOTER_WHEEL_ENCODER_2, false, CounterBase::k1X);
+	this->shooterEncoder = new Encoder(SHOOTER_WHEEL_ENCODER_1_SLOT, SHOOTER_WHEEL_ENCODER_1_PORT_1, 
+			SHOOTER_WHEEL_ENCODER_1_SLOT, SHOOTER_WHEEL_ENCODER_1_PORT_2, false, CounterBase::k1X);
 	this->shooterEncoder->SetPIDSourceParameter(Encoder::kDistance);
 	this->shooterEncoder->SetDistancePerPulse(1);
 	this->shooterEncoder->SetMaxPeriod(1.0);

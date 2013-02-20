@@ -21,29 +21,18 @@ class PizzaBoxSupervisorCommand: public CommandBase {
 private:
 	
 	void StartMoveToNextLoadingPosition();
-	void StartMoveToNextFirePosition();
+	void StartMoveToNextFiringPosition();
 	void UpdateDashboard(PizzaBoxSubsystem::PizzaBoxState state);
-//	
-//	bool StartMoveNextLoadingPosition();
-//	void MoveToNextLoadingPosition();
-//	void StartMoveFirstLoadingPosition();
-//	void MoveFirstLoadingPosition();
-//	bool CanMoveNextLoadingPosition();
-//	
-//	void StartMoveFirstFiringPosition();
-//	void MoveFirstFiringPosition();
-//	bool StartMoveNextFiringPosition();
-//	void MoveNextFiringPosition();
-//	bool CanMoveNextFiringPosition();
+
 	
 	enum IntermediateState {
 		MovingToBottom,
 		MovingToTop,
-		MovingToFireSwitchOff,
-		MovingToFireSwitchOn,
+		MovingToFiringSwitchOff,
+		MovingToFiringSwitchOn,
 		MovingToLoadingSwitchOff,
 		MovingToLoadingSwitchOn,
-		InPosition,
+		Idle,
 	};
 	IntermediateState intermediateState;
 
