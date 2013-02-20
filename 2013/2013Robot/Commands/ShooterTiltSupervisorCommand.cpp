@@ -20,14 +20,15 @@ ShooterTiltSupervisorCommand::ShooterTiltSupervisorCommand() {
 void ShooterTiltSupervisorCommand::Initialize() {
 	printf("ShooterTiltSupervisorCommand: initialize\n");
 	float pGain = -.035;
-	float iGain = -.004;
-	float dGain = 0; 
+	float iGain = -.003;
+	float dGain = 0;
 
-	this->controller = new PIDController(pGain, iGain, dGain, 
+	this->controller = new PIDController(pGain, iGain, dGain,
 			sensorSubsystem->GetTiltEncoder(), shooterTiltSubsystem->GetMotor());
 	
 	this->controller->SetInputRange(0, TILT_MAX_COUNT);
-	this->controller->SetOutputRange(-(TILT_UP_POWER), TILT_DOWN_POWER);
+//	this->controller->SetOutputRange(-(TILT_UP_POWER), TILT_DOWN_POWER);
+	this->controller->SetOutputRange(-1, 1);
 	
 	this->initializationTimer->Stop();
 	this->initializationTimer->Reset();
