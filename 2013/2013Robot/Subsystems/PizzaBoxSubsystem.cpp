@@ -88,6 +88,11 @@ bool PizzaBoxSubsystem::IsInFiringPosition()
 	return this->currentState == FiringPosition;
 }
 
+bool PizzaBoxSubsystem::FiringSoon()
+{
+	return this->currentState == FiringPosition || this->currentState == MovingToNextFiringPosition;
+}
+
 bool PizzaBoxSubsystem::CanMoveNextFiringPosition()
 {
 	return this->currentState == FiringPosition && this->currentPosition < MAX_FRISBEES;

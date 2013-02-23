@@ -19,8 +19,11 @@ ShooterTiltSupervisorCommand::ShooterTiltSupervisorCommand() {
 // Called just before this Command runs the first time
 void ShooterTiltSupervisorCommand::Initialize() {
 	printf("ShooterTiltSupervisorCommand: initialize\n");
-	float pGain = -.035;
-	float iGain = -.003;
+//	float pGain = -.035;
+//	float iGain = -.003;
+//	float dGain = 0;
+	float pGain = .002;
+	float iGain = .0004;
 	float dGain = 0;
 
 	this->controller = new PIDController(pGain, iGain, dGain,

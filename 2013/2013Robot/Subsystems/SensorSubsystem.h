@@ -27,7 +27,8 @@ private:
 	DigitalInput *frisbeeInBoxSwitch;
 	
 	// Shooter
-	Encoder *shooterEncoder;
+	Encoder *shooterEncoder1;
+	Encoder *shooterEncoder2;
 	
 public:
 	SensorSubsystem();
@@ -45,7 +46,8 @@ public:
 	bool GetTiltUpperLimit();
 	Encoder *GetTiltEncoder();
 
-	int GetShooterEncoderValue();
+	int GetShooterEncoder1Value();
+	int GetShooterEncoder2Value();
 	bool GetPizzaTopLimitSwitch();
 	bool GetPizzaUpperLimitSwitch();
 	bool GetPizzaLowerLimitSwitch();

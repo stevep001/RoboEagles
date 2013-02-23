@@ -30,10 +30,12 @@ void ShooterSupervisorCommand::Initialize() {
 	this->timer->Reset();
 	this->timer->Start();
 	this->lastTime = timer->Get();
-	this->lastCount = sensorSubsystem->GetShooterEncoderValue();
-	printf("ShooterSupervisorCommand: initial count is this->lastCount\n");
+	this->lastCountEncoder1 = sensorSubsystem->GetShooterEncoder1Value();
+	this->lastCountEncoder2 = sensorSubsystem->GetShooterEncoder2Value();
 	
-	controller->SetSetpoint(-5000);
+	controller->SetSetpoint(-5500);
+//	controller->SetSetpoint(-5000);
+//	controller->SetSetpoint(-4200);		// This is a good setting for lofting frisbees into the pyramid
 	controller->Enable();
 	printf("ShooterSupervisorCommand: initialize completed\n");
 }
@@ -45,9 +47,9 @@ void ShooterSupervisorCommand::Execute() {
 	double timeDifference = currentTime - lastTime;
 	lastTime = currentTime;
 	
-	int currentCount = sensorSubsystem->GetShooterEncoderValue();
-	int countDifference = currentCount - lastCount;
-	lastCount = currentCount;
+	int currentCount = sensorSubsystem->GetShooterEncoder1Value();
+	int countDifference = currentCount - lastCountEncoder1;
+	lastCountEncoder1 = currentCount;
 
 	double rpm = countDifference * (60.0 / countsPerRevolution) / timeDifference;
 	rpmSource->inputRpm(rpm);
@@ -62,9 +64,21 @@ void ShooterSupervisorCommand::Execute() {
 	SmartDashboard::PutNumber("Motor speed", shooterSubsystem->GetMotor()->Get());
 	
 	SmartDashboard::PutNumber("PID target", this->controller->Get());
-//	
-//	sd->PutDouble("Counts per revolution", countsPerRevolution);
+
+	int currentCount2 = sensorSubsystem->GetShooterEncoder2Value();
+	int countDifference2 = currentCount2 - lastCountEncoder2;
+	lastCountEncoder2 = currentCount2;
+
+	SmartDashboard::PutNumber("Encoder 2 difference", countDifference2);
 	
+	if (pizzaBoxSubsystem->FiringSoon())
+	{
+		controller->Enable();
+	}
+	else
+	{
+		controller->Disable();
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

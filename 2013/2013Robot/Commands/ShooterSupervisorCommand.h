@@ -9,7 +9,8 @@ private:
 	PIDController *controller;
 	Timer *timer;
 	double lastTime;
-	int lastCount;
+	int lastCountEncoder1;
+	int lastCountEncoder2;
 	RpmSource *rpmSource;
 public:
 	ShooterSupervisorCommand();

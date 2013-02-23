@@ -37,14 +37,22 @@ SensorSubsystem::SensorSubsystem() : Subsystem("SensorSubsystem") {
 	this->tiltEncoder->Reset();
 	this->tiltEncoder->Start();
 	
-	this->shooterEncoder = new Encoder(SHOOTER_WHEEL_ENCODER_1_SLOT, SHOOTER_WHEEL_ENCODER_1_PORT_1, 
+	this->shooterEncoder1 = new Encoder(SHOOTER_WHEEL_ENCODER_1_SLOT, SHOOTER_WHEEL_ENCODER_1_PORT_1, 
 			SHOOTER_WHEEL_ENCODER_1_SLOT, SHOOTER_WHEEL_ENCODER_1_PORT_2, false, CounterBase::k1X);
-	this->shooterEncoder->SetPIDSourceParameter(Encoder::kDistance);
-	this->shooterEncoder->SetDistancePerPulse(1);
-	this->shooterEncoder->SetMaxPeriod(1.0);
-	this->shooterEncoder->Reset();
-	this->shooterEncoder->Start();
+	this->shooterEncoder1->SetPIDSourceParameter(Encoder::kDistance);
+	this->shooterEncoder1->SetDistancePerPulse(1);
+	this->shooterEncoder1->SetMaxPeriod(1.0);
+	this->shooterEncoder1->Reset();
+	this->shooterEncoder1->Start();
 	
+	this->shooterEncoder2 = new Encoder(SHOOTER_WHEEL_ENCODER_2_SLOT, SHOOTER_WHEEL_ENCODER_2_PORT_1, 
+			false, CounterBase::k1X);
+	this->shooterEncoder2->SetPIDSourceParameter(Encoder::kDistance);
+	this->shooterEncoder2->SetDistancePerPulse(1);
+	this->shooterEncoder2->SetMaxPeriod(1.0);
+	this->shooterEncoder2->Reset();
+	this->shooterEncoder2->Start();
+
 	this->tiltLowerLimit = new DigitalInput(TILT_LOW_LIMIT_SWITCH_SLOT, TILT_LOW_LIMIT_SWITCH);
 	this->tiltUpperLimit = new DigitalInput(TILT_HIGH_LIMIT_SWITCH_SLOT, TILT_HIGH_LIMIT_SWITCH);
 	
@@ -101,8 +109,12 @@ Encoder *SensorSubsystem::GetTiltEncoder()
 	return this->tiltEncoder;
 }
 
-int SensorSubsystem::GetShooterEncoderValue() {
-	return this->shooterEncoder->Get();
+int SensorSubsystem::GetShooterEncoder1Value() {
+	return this->shooterEncoder1->Get();
+}
+
+int SensorSubsystem::GetShooterEncoder2Value() {
+	return this->shooterEncoder2->Get();
 }
 
 bool SensorSubsystem::GetTiltLowerLimit() {

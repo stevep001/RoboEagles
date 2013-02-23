@@ -35,6 +35,7 @@ public:
 	// These are used by clients
 	bool IsInLoadingPosition();
 	bool IsInFiringPosition();
+	bool FiringSoon();
 
 	void MoveFirstLoadingPosition();
 	void MoveNextLoadingPosition();

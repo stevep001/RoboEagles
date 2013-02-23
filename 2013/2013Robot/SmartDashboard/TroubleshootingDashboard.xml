@@ -1,5 +1,35 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Encoder 2 difference" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="226"/>
+	</widget>
+	<widget field="Shooter encoder 2" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="153"/>
+	</widget>
+	<widget field="Shooter encoder 1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="132"/>
+	</widget>
+	<widget field="Move PB Bottom" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="774" y="120"/>
+	</widget>
+	<widget field="Move PB Top" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="790" y="-1"/>
+	</widget>
+	<widget field="Move next loading position" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="729" y="62"/>
+	</widget>
+	<widget field="Move next firing position" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="736" y="30"/>
+	</widget>
+	<widget field="Slider 1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="111"/>
+	</widget>
+	<widget field="Checkbox 2" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="90"/>
+	</widget>
+	<widget field="Checkbox 1" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="69"/>
+	</widget>
 	<widget field="Pizza box positiion" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="15" y="184"/>
 	</widget>
