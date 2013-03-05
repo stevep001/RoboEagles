@@ -19,18 +19,8 @@ void LcdDisplaySubsystem::SetTiltAngle(float tiltAngle)
 
 void LcdDisplaySubsystem::UpdateLines()
 {
-	bool updated = false;
 	DriverStationLCD *lcd = DriverStationLCD::GetInstance();
 	
-	if (this->line1Updated)
-	{
-		lcd->PrintfLine(DriverStationLCD::kUser_Line1, "Tilt angle: %f", this->tiltAngle);
-		this->line1Updated = false;
-		updated = true;
-	}
-	
-	if (updated)
-	{
-		lcd->UpdateLCD();
-	}
+	lcd->PrintfLine(DriverStationLCD::kUser_Line1, "Tilt angle: %f", this->tiltAngle);
+	lcd->UpdateLCD();
 }

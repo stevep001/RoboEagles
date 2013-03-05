@@ -1,5 +1,5 @@
-#ifndef PANSUPERVISORCOMMAND_H
-#define PANSUPERVISORCOMMAND_H
+#ifndef ATLOADINGSTATIONCOMMAND_H
+#define ATLOADINGSTATIONCOMMAND_H
 
 #include "../CommandBase.h"
 
@@ -8,9 +8,9 @@
  *
  * @author speterson
  */
-class PanSupervisorCommand: public CommandBase {
+class AtLoadingStationCommand: public CommandBase {
 public:
-	PanSupervisorCommand();
+	AtLoadingStationCommand();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

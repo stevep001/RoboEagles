@@ -6,12 +6,14 @@
 class OI {
 private:
 	Joystick *driverJoystick;
+	Joystick *shooterJoystick;
 	Joystick *testJoystick;
 	Joystick *testJoystick2;
 
 	// Driver joystick
-	Button *liftPanButton;
-	Button *lowerPanButton;
+	Button *atLoadingStationButton;
+	Button *stowPanButton;
+	Button *deployPanButton;
 	
 	// Test joystick
 	Button *pbTopButton;
@@ -22,8 +24,10 @@ private:
 	Button *tiltUpCommandedButton;
 	Button *tiltDownCommandedButton;
 	Button *shooterTilt45Button;
-	Button *shootFrisbeeIndexButton;
+	Button *shootAllFrisbeesCommand;
 	Button *frisbeeArrivalButton;
+	
+	
 	
 
 	

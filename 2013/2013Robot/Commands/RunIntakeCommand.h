@@ -1,5 +1,5 @@
-#ifndef LIFTPANCOMMAND_H
-#define LIFTPANCOMMAND_H
+#ifndef RUNINTAKECOMMAND_H
+#define RUNINTAKECOMMAND_H
 
 #include "../CommandBase.h"
 
@@ -8,11 +8,9 @@
  *
  * @author speterson
  */
-class LiftPanCommand: public CommandBase {
-private:
-	bool up;
+class RunIntakeCommand: public CommandBase {
 public:
-	LiftPanCommand(bool up);
+	RunIntakeCommand();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

@@ -63,6 +63,17 @@ SensorSubsystem::SensorSubsystem() : Subsystem("SensorSubsystem") {
 	this->kickerLimitSwitch = new DigitalInput(KICKER_LIMIT_SWITCH_SLOT, KICKER_LIMIT_SWITCH);
 	this->frisbeeInBoxSwitch = new DigitalInput(FRISBEE_LIMIT_SWITCH_SLOT, FRISBEE_LIMIT_SWITCH);
 	
+	this->loaderFrisbeeDetector = new DigitalInput(LOADER_FRISBEE_DETECTOR_SLOT, LOADER_FRISBEE_DETECTOR_PORT);
+	this->loaderLowLimitSwitch = new DigitalInput(LOADER_LOW_LIMIT_SWITCH_SLOT, LOADER_LOW_LIMIT_SWITCH_PORT);
+	
+	this->panLiftEncoder = new Encoder(PAN_LIFT_ENCODER_1, PAN_LIFT_ENCODER_2, false, CounterBase::k4X);
+	
+	this->panLiftEncoder->SetPIDSourceParameter(Encoder::kDistance);
+	this->panLiftEncoder->SetDistancePerPulse(1);
+	this->panLiftEncoder->SetMaxPeriod(1.0);
+	this->panLiftEncoder->Reset();
+	this->panLiftEncoder->Start();
+	
 	printf("SensorSubsystem: constructor completed\n");
 }
 
@@ -153,4 +164,20 @@ bool SensorSubsystem::GetPizzaBottomLimitSwitch()
 bool SensorSubsystem::GetKickerLimitSwitch()
 {
 	return this->kickerLimitSwitch->Get() == 0;
+}
+
+bool SensorSubsystem::IsFrisbeeInLoader() {
+	return this->loaderFrisbeeDetector->Get() == 0;
+}
+
+bool SensorSubsystem::IsLoaderAtLowLimit() {
+	return this->loaderLowLimitSwitch->Get() == 0;
+}
+
+int SensorSubsystem::GetPanLiftEncoderCount() {
+	return this->panLiftEncoder->Get();
+}
+
+Encoder* SensorSubsystem::GetPanLiftEncoder() {
+	return this->panLiftEncoder;
 }

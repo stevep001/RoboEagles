@@ -41,6 +41,12 @@ void SensorDisplayCommand::Execute() {
 	
 	// Kicker
 	SmartDashboard::PutBoolean("Kicker", sensorSubsystem->GetKickerLimitSwitch());
+	
+	// Pan
+	SmartDashboard::PutBoolean("Frisbee in loader", sensorSubsystem->IsFrisbeeInLoader());
+	SmartDashboard::PutBoolean("Loader is at low limit", sensorSubsystem->IsLoaderAtLowLimit());
+	SmartDashboard::PutNumber("Pan lift encoder", sensorSubsystem->GetPanLiftEncoderCount());
+	SmartDashboard::PutBoolean("DS Digital input 1", DriverStation::GetInstance()->GetDigitalIn(1));
 }
 
 // Make this return true when this Command no longer needs to run execute()

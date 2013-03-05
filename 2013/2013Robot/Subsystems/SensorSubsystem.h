@@ -30,6 +30,11 @@ private:
 	Encoder *shooterEncoder1;
 	Encoder *shooterEncoder2;
 	
+	// Frisbee Pan
+	DigitalInput	*loaderFrisbeeDetector;
+	DigitalInput	*loaderLowLimitSwitch;
+	Encoder			*panLiftEncoder;
+	
 public:
 	SensorSubsystem();
 	
@@ -54,6 +59,11 @@ public:
 	bool GetPizzaBottomLimitSwitch();
 	bool GetKickerLimitSwitch();
 	bool GetFrisbeeInBoxSwitch();
+	
+	bool IsFrisbeeInLoader();
+	bool IsLoaderAtLowLimit();
+	int GetPanLiftEncoderCount();
+	Encoder* GetPanLiftEncoder();
 };
 
 #endif

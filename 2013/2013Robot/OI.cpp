@@ -11,13 +11,16 @@
 #include "Commands/SetShooterTiltCommand.h"
 #include "Commands/OnFrisbeeArrivalCommand.h"
 #include "Commands/ShootFrisbeeAndIndexCommand.h"
-#include "Commands/LiftPanCommand.h"
 #include "Commands/MoveToNextFiringPositionCommand.h"
 #include "Commands/MoveToNextLoadingPositionCommand.h"
+#include "Commands/AtLoadingStationCommand.h"
+#include "Commands/StowPanCommand.h"
+#include "Commands/DeployPanCommand.h"
 #include "FrisbeeArrivalButton.h"
 
 OI::OI() {
 	this->driverJoystick = new Joystick(DRIVE_JOYSTICK_PORT);
+	this->shooterJoystick = new Joystick(SHOOTER_JOYSTICK_PORT);
 	
 	// Automation buttons
 	
@@ -26,17 +29,28 @@ OI::OI() {
 	
 	// Driver joystick buttons
 	
-	this->liftPanButton = new JoystickButton(this->driverJoystick, LIFT_PAN_BUTTON);
-	this->liftPanButton->WhenPressed(new LiftPanCommand(true));
+	this->atLoadingStationButton = new JoystickButton(this->driverJoystick, PAN_FEEDER_STATION_BUTTON);
+	this->atLoadingStationButton->WhileHeld(new AtLoadingStationCommand());
+
+	this->stowPanButton = new JoystickButton(this->driverJoystick, STOW_PAN_BUTTON);
+	this->stowPanButton->WhenPressed(new StowPanCommand());
 	
-	this->lowerPanButton = new JoystickButton(this->driverJoystick, LOWER_PAN_BUTTON);
-	this->lowerPanButton->WhenPressed(new LiftPanCommand(false));
-			
+	this->deployPanButton = new JoystickButton(this->driverJoystick, DEPLOY_PAN_BUTTON);
+	this->deployPanButton->WhenPressed(new DeployPanCommand());		
+	
+	// Shooter joystick buttons
+	
+	this->shootAllFrisbeesCommand = new JoystickButton(this->shooterJoystick, SHOOT_FRISBEE_INDEX_COMMAND);
+	this->shootAllFrisbeesCommand->WhenPressed(new ShootFrisbeeAndIndexCommand());
+	
+	this->tiltUpCommandedButton = new JoystickButton(this->shooterJoystick, TILT_UP_COMMANDED_BUTTON);
+	this->tiltUpCommandedButton->WhenPressed(new ManualTiltUpCommand());
+
+	this->tiltDownCommandedButton = new JoystickButton(this->shooterJoystick, TILT_DOWN_COMMANDED_BUTTON);
+	this->tiltDownCommandedButton->WhenPressed(new ManualTiltDownCommand());
+	
 	// Test joystick 1
 	this->testJoystick = new Joystick(TEST_JOYSTICK_PORT);
-	
-	this->shootFrisbeeIndexButton = new JoystickButton(this->testJoystick, SHOOT_FRISBEE_INDEX_COMMAND);
-	this->shootFrisbeeIndexButton->WhenPressed(new ShootFrisbeeAndIndexCommand());
 	
 	this->pbTopButton = new JoystickButton(this->testJoystick, PB_TOP_BUTTON);
 	this->pbTopButton->WhenPressed(new MovePBTopCommand());
@@ -52,12 +66,6 @@ OI::OI() {
 	
 	this->testVisionButton = new JoystickButton(this->testJoystick, TEST_VISION_BUTTON);
 	this->testVisionButton->WhenPressed(new TestVisionCommand());
-	
-	this->tiltUpCommandedButton = new JoystickButton(this->testJoystick, TILT_UP_COMMANDED_BUTTON);
-	this->tiltUpCommandedButton->WhenPressed(new ManualTiltUpCommand());
-
-	this->tiltDownCommandedButton = new JoystickButton(this->testJoystick, TILT_DOWN_COMMANDED_BUTTON);
-	this->tiltDownCommandedButton->WhenPressed(new ManualTiltDownCommand());
 	
 	this->shooterTilt45Button = new JoystickButton(this->testJoystick, SHOOTER_TILT_45_BUTTON);
 	this->shooterTilt45Button->WhenPressed(new SetShooterTiltCommand(45));
