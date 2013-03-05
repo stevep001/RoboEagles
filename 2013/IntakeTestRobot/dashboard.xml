@@ -1,0 +1,24 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="DIO 1" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="57"/>
+	</widget>
+	<widget field="Ingest Tilt on target" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="36"/>
+	</widget>
+	<widget field="Loader is at low limit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="0" y="21"/>
+	</widget>
+	<widget field="Frisbee in loader" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="0" y="0"/>
+	</widget>
+	<widget field="Pan lift encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="431" y="477"/>
+	</widget>
+	<widget field="Ingest Tilt Power" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="427" y="141"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
