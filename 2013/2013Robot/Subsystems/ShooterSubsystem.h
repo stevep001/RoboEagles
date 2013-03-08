@@ -8,14 +8,21 @@
  *
  * @author speterson
  */
-class ShooterSubsystem: public Subsystem {
+class ShooterSubsystem: public Subsystem {\
+public:
+	enum ShooterPower {
+		Test,
+		Low,
+		Normal
+	};
 private:
 	SpeedController *shooterMotor;
-	int shootingPower;
+	ShooterPower shootingPower;
 public:
 	ShooterSubsystem();
 	void InitDefaultCommand();
-	void SetShootingPower(float power);
+	void SetShootingPower(ShooterPower desiredPower);
+	ShooterPower ShooterSubsystem::GetShootingPower();
 	SpeedController *GetMotor();
 };
 

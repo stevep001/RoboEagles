@@ -5,7 +5,7 @@
 #define PAN_LIFT_POWER	(-.8)
 
 
-#define	PAN_INGEST_POWER	(.5)
+#define	PAN_INGEST_POWER	(.4)
 #define	PAN_LATERAL_POWER	(.4)
 
 // Encoder counts for various 
@@ -20,7 +20,7 @@ FrisbeePanSubsystem::FrisbeePanSubsystem(SensorSubsystem *sensorSubsystem) : Sub
 	this->panTiltMotor = new Jaguar(PWM_SLOT, PAN_LIFT_MOTOR);
 	this->sensorSubsystem = sensorSubsystem;
 	this->initializationCount = 0;
-	printf("FrisbeePanSubsystem:: constructor started\n");
+	printf("FrisbeePanSubsystem:: constructor completed\n");
 }
     
 void FrisbeePanSubsystem::InitDefaultCommand() {

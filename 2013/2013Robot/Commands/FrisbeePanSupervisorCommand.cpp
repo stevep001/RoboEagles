@@ -171,6 +171,7 @@ void FrisbeePanSupervisorCommand::Execute() {
 		this->controller->Reset();
 		this->controller->SetSetpoint(STOW_TILT_COUNT);
 		this->controller->Enable();
+		frisbeePanSubsystem->StopIntake();
 		frisbeePanSubsystem->SetMode(FrisbeePanSubsystem::RunStow);
 		break;
 		
@@ -188,9 +189,16 @@ void FrisbeePanSupervisorCommand::Execute() {
 		}
 		else
 		{
-			frisbeePanSubsystem->RunIntake();
+			if (pizzaBoxSubsystem->FiringSoon())
+			{
+				frisbeePanSubsystem->StopIntake();
+			}
+			else
+			{
+				frisbeePanSubsystem->RunIntake();
+			}
 		}
-		printf("FrisbeePanSupervisorCommand: pickup\n");
+		//printf("FrisbeePanSupervisorCommand: pickup\n");
 		break;
 	default:
 		printf("Unknown frisbee pan state; transitioning to Pickup\n");

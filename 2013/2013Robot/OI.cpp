@@ -16,6 +16,10 @@
 #include "Commands/AtLoadingStationCommand.h"
 #include "Commands/StowPanCommand.h"
 #include "Commands/DeployPanCommand.h"
+#include "Commands/CenterAutonomousCommandGroup.h"
+#include "Commands/LeftPyramidAutonomousCommandGroup.h"
+#include "Commands/SetTestShootingPowerCommand.h"
+#include "Commands/ShootAllCommandGroup.h"
 #include "FrisbeeArrivalButton.h"
 
 OI::OI() {
@@ -41,7 +45,7 @@ OI::OI() {
 	// Shooter joystick buttons
 	
 	this->shootAllFrisbeesCommand = new JoystickButton(this->shooterJoystick, SHOOT_FRISBEE_INDEX_COMMAND);
-	this->shootAllFrisbeesCommand->WhenPressed(new ShootFrisbeeAndIndexCommand());
+	this->shootAllFrisbeesCommand->WhenPressed(new ShootAllCommandGroup());
 	
 	this->tiltUpCommandedButton = new JoystickButton(this->shooterJoystick, TILT_UP_COMMANDED_BUTTON);
 	this->tiltUpCommandedButton->WhenPressed(new ManualTiltUpCommand());
@@ -58,8 +62,8 @@ OI::OI() {
 	this->pbBottomButton = new JoystickButton(this->testJoystick, PB_BOTTOM_BUTTON);
 	this->pbBottomButton->WhenPressed(new MovePBBottomCommand());
 
-	this->runShooterMotorButton = new JoystickButton(this->testJoystick, RUN_SHOOTER_BUTTON);
-	this->runShooterMotorButton->WhileHeld(new RunShooterAtPowerCommand(.8));
+//	this->runShooterMotorButton = new JoystickButton(this->testJoystick, RUN_SHOOTER_BUTTON);
+//	this->runShooterMotorButton->WhileHeld(new RunShooterAtPowerCommand(.8));
 	
 	this->testKickerButton = new JoystickButton(this->testJoystick, TEST_KICKER_BUTTON);
 	this->testKickerButton->WhenPressed(new TestKickerCommand());
@@ -75,7 +79,10 @@ OI::OI() {
 	SmartDashboard::PutData("Move next loading position", new MoveToNextLoadingPositionCommand());
 	SmartDashboard::PutData("Move PB Top", new MovePBTopCommand());
 	SmartDashboard::PutData("Move PB Bottom", new MovePBBottomCommand());
+	SmartDashboard::PutData("Center Autonomous", new CenterAutonomousCommandGroup());
+	SmartDashboard::PutData("Left Autonomous", new LeftPyramidAutonomousCommandGroup());
 			
+	SmartDashboard::PutData("Set test shooter power", new SetTestShootingPowerCommand());
 }
 
 Joystick *OI::GetDriverJoystick() {

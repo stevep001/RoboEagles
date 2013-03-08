@@ -28,7 +28,7 @@ private:
 	
 	// Shooter
 	Encoder *shooterEncoder1;
-	Encoder *shooterEncoder2;
+//	Encoder *shooterEncoder2;
 	
 	// Frisbee Pan
 	DigitalInput	*loaderFrisbeeDetector;
@@ -52,7 +52,7 @@ public:
 	Encoder *GetTiltEncoder();
 
 	int GetShooterEncoder1Value();
-	int GetShooterEncoder2Value();
+	//int GetShooterEncoder2Value();
 	bool GetPizzaTopLimitSwitch();
 	bool GetPizzaUpperLimitSwitch();
 	bool GetPizzaLowerLimitSwitch();

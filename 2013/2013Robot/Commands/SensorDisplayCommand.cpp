@@ -29,7 +29,7 @@ void SensorDisplayCommand::Execute() {
 	// Shooter
 	// Checking to see whether this fixes reading encoder value in subsystem
 	SmartDashboard::PutNumber("Shooter encoder 1", sensorSubsystem->GetShooterEncoder1Value());
-	SmartDashboard::PutNumber("Shooter encoder 2", sensorSubsystem->GetShooterEncoder2Value());
+	//SmartDashboard::PutNumber("Shooter encoder 2", sensorSubsystem->GetShooterEncoder2Value());
 	
 	// Chassis
 	SmartDashboard::PutNumber("Left drive", sensorSubsystem->GetLeftEncoderValue());

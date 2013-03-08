@@ -10,8 +10,7 @@
  */
 class LcdDisplaySubsystem: public Subsystem {
 private:
-	bool line1Updated;
-	float tiltAngle;
+
 public:
 	LcdDisplaySubsystem();
 	void InitDefaultCommand();

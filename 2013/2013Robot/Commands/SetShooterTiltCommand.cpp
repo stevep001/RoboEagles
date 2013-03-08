@@ -1,7 +1,9 @@
 #include "SetShooterTiltCommand.h"
 
 SetShooterTiltCommand::SetShooterTiltCommand(float angle) {
+	printf("SetShooterTiltCommand: constructing\n");
 	this->angle = angle;
+	printf("SetShooterTiltCommand: constructed\n");
 }
 
 // Called just before this Command runs the first time

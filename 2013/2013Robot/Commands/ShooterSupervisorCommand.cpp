@@ -1,6 +1,10 @@
 #include "ShooterSupervisorCommand.h"
 #include "../RpmSource.h"
 
+#define NORMAL_POWER	(5500)
+#define LOFT_POWER		(4200)
+#define TEST_POWER		(2000)
+
 ShooterSupervisorCommand::ShooterSupervisorCommand() {
 	printf("ShooterSupervisorCommand: constructing\n");
 	Requires(shooterSubsystem);
@@ -31,9 +35,9 @@ void ShooterSupervisorCommand::Initialize() {
 	this->timer->Start();
 	this->lastTime = timer->Get();
 	this->lastCountEncoder1 = sensorSubsystem->GetShooterEncoder1Value();
-	this->lastCountEncoder2 = sensorSubsystem->GetShooterEncoder2Value();
+//	this->lastCountEncoder2 = sensorSubsystem->GetShooterEncoder2Value();
 	
-	controller->SetSetpoint(-5500);
+	controller->SetSetpoint(- NORMAL_POWER);
 //	controller->SetSetpoint(-5000);
 //	controller->SetSetpoint(-4200);		// This is a good setting for lofting frisbees into the pyramid
 	controller->Enable();
@@ -54,6 +58,19 @@ void ShooterSupervisorCommand::Execute() {
 	double rpm = countDifference * (60.0 / countsPerRevolution) / timeDifference;
 	rpmSource->inputRpm(rpm);
 
+	switch (shooterSubsystem->GetShootingPower())
+	{
+	case ShooterSubsystem::Low:
+		controller->SetSetpoint(- LOFT_POWER);
+		break;
+	case ShooterSubsystem::Test:
+		controller->SetSetpoint(- TEST_POWER);
+		break;
+	case ShooterSubsystem::Normal:
+		controller->SetSetpoint(- NORMAL_POWER);
+		break;
+	}
+	
 	//printf("RPM %f count %d; difference %d; timeDifference %f\n", rpm, currentCount, countDifference, timeDifference);
 	
 	//printf("setpoint %f RPM %f result %f error %f \n", controller->GetSetpoint(), rpm, controller->Get(), controller->GetError());
@@ -65,11 +82,11 @@ void ShooterSupervisorCommand::Execute() {
 	
 	SmartDashboard::PutNumber("PID target", this->controller->Get());
 
-	int currentCount2 = sensorSubsystem->GetShooterEncoder2Value();
-	int countDifference2 = currentCount2 - lastCountEncoder2;
-	lastCountEncoder2 = currentCount2;
-
-	SmartDashboard::PutNumber("Encoder 2 difference", countDifference2);
+//	int currentCount2 = sensorSubsystem->GetShooterEncoder2Value();
+//	int countDifference2 = currentCount2 - lastCountEncoder2;
+//	lastCountEncoder2 = currentCount2;
+//
+//	SmartDashboard::PutNumber("Encoder 2 difference", countDifference2);
 	
 	if (pizzaBoxSubsystem->FiringSoon())
 	{
