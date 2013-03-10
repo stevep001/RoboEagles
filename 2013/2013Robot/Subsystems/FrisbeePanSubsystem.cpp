@@ -4,8 +4,8 @@
 
 #define PAN_LIFT_POWER	(-.8)
 
-
-#define	PAN_INGEST_POWER	(.4)
+// Reduced from .4 to slightly slow intake
+#define	PAN_INGEST_POWER	(.38)
 #define	PAN_LATERAL_POWER	(.4)
 
 // Encoder counts for various 

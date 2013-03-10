@@ -20,7 +20,7 @@ void SensorDisplayCommand::Execute() {
 	SmartDashboard::PutNumber("Tilt", sensorSubsystem->GetTiltEncoderValue());
 	
 	// Pizza box
-	SmartDashboard::PutBoolean("Kicker", sensorSubsystem->GetKickerLimitSwitch());
+	SmartDashboard::PutBoolean("Kicker", sensorSubsystem->IsKickerStowed());
 	SmartDashboard::PutBoolean("Pizza box top", sensorSubsystem->GetPizzaTopLimitSwitch());
 	SmartDashboard::PutBoolean("Pizza box bottom", sensorSubsystem->GetPizzaBottomLimitSwitch());
 	SmartDashboard::PutBoolean("Pizza box upper", sensorSubsystem->GetPizzaUpperLimitSwitch());
@@ -40,7 +40,7 @@ void SensorDisplayCommand::Execute() {
 	SmartDashboard::PutNumber("Gyro heading", sensorSubsystem->GetHorizontalAngle());
 	
 	// Kicker
-	SmartDashboard::PutBoolean("Kicker", sensorSubsystem->GetKickerLimitSwitch());
+	SmartDashboard::PutBoolean("Kicker", sensorSubsystem->IsKickerStowed());
 	
 	// Pan
 	SmartDashboard::PutBoolean("Frisbee in loader", sensorSubsystem->IsFrisbeeInLoader());

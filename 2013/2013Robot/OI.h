@@ -14,6 +14,8 @@ private:
 	Button *atLoadingStationButton;
 	Button *stowPanButton;
 	Button *deployPanButton;
+	Button *pizzaBoxUpButton;
+	Button *pizzaBoxDownButton;
 	
 	// Test joystick
 	Button *pbTopButton;

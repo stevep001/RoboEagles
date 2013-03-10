@@ -8,5 +8,5 @@ FrisbeeArrivalButton::FrisbeeArrivalButton()
 
 bool FrisbeeArrivalButton::Get()
 {
-	return CommandBase::sensorSubsystem->GetFrisbeeInBoxSwitch();
+	return CommandBase::sensorSubsystem->IsFrisbeeInBox();
 }

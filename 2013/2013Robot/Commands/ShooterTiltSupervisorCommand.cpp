@@ -22,11 +22,13 @@ void ShooterTiltSupervisorCommand::Initialize() {
 //	float pGain = -.035;
 //	float iGain = -.003;
 //	float dGain = 0;
-	float pGain = .002;
-	float iGain = .0004;
+	// Was: 0.002
+	float pGain = .0028;
+	float iGain = .0008;
 	float dGain = 0;
+	float feedForward = 0.0;
 
-	this->controller = new PIDController(pGain, iGain, dGain,
+	this->controller = new PIDController(pGain, iGain, dGain, feedForward,
 			sensorSubsystem->GetTiltEncoder(), shooterTiltSubsystem->GetMotor());
 	
 	this->controller->SetInputRange(0, TILT_MAX_COUNT);
@@ -116,7 +118,9 @@ void ShooterTiltSupervisorCommand::Execute() {
 	this->controller->SetSetpoint(setpoint);
 	SmartDashboard::PutNumber("Tilt setpoint", setpoint);
 	SmartDashboard::PutNumber("Tilt PID output", this->controller->Get());
-
+	SmartDashboard::PutNumber("Tilt encoder output", sensorSubsystem->GetTiltEncoder()->Get());
+	float tiltError = setpoint - sensorSubsystem->GetTiltEncoder()->Get();
+	SmartDashboard::PutNumber("Tilt error", tiltError);
 }
 
 

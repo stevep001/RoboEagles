@@ -5,7 +5,7 @@
 
 // Speed values for the motor
 #define MOTOR_SPEED_UP 0.3
-#define MOTOR_SPEED_DOWN -(MOTOR_SPEED_UP)
+#define MOTOR_SPEED_DOWN -(0.3)
 
 /*
  * This subsystem controls the "pizza box" frisbee storage/lifter, teamed with 

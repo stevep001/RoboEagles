@@ -1,0 +1,147 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="Tilt error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="1252" y="330"/>
+	</widget>
+	<widget field="Tilt" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="1245" y="5"/>
+	</widget>
+	<widget field="Ingest Tilt setpoint
+" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="383"/>
+	</widget>
+	<widget field="Tilt encoder output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="223"/>
+	</widget>
+	<widget field="Tilt setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="847" y="328"/>
+	</widget>
+	<widget field="Ingest Tilt setpoint " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="244" y="516"/>
+	</widget>
+	<widget field="Ingest Tilt Power" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="188" y="491"/>
+	</widget>
+	<widget field="Time difference" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="177" y="252"/>
+	</widget>
+	<widget field="Slider 1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="183" y="189"/>
+	</widget>
+	<widget field="Shooter encoder 1" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="177" y="168"/>
+	</widget>
+	<widget field="Shooter RPM" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="177" y="147"/>
+	</widget>
+	<widget field="Right drive" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="177" y="126"/>
+	</widget>
+	<widget field="Pizza box upper" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="177" y="105"/>
+	</widget>
+	<widget field="Pizza box top" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="177" y="84"/>
+	</widget>
+	<widget field="Pizza box state" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="177" y="63"/>
+	</widget>
+	<widget field="Pizza box positiion" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="177" y="42"/>
+	</widget>
+	<widget field="Pizza box lower" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="177" y="21"/>
+	</widget>
+	<widget field="Pizza box bottom" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="177" y="0"/>
+	</widget>
+	<widget field="Pan lift encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="831"/>
+	</widget>
+	<widget field="PID target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="362"/>
+	</widget>
+	<widget field="Move next loading position" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="797"/>
+	</widget>
+	<widget field="Move next firing position" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="763"/>
+	</widget>
+	<widget field="Move PB Top" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="729"/>
+	</widget>
+	<widget field="Move PB Bottom" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="695"/>
+	</widget>
+	<widget field="Motor speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="341"/>
+	</widget>
+	<widget field="Loader is at low limit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="320"/>
+	</widget>
+	<widget field="Left drive" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="299"/>
+	</widget>
+	<widget field="Left Autonomous" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="265"/>
+	</widget>
+	<widget field="Kicker" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="244"/>
+	</widget>
+	<widget field="Ingest Tilt on target" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="202"/>
+	</widget>
+	<widget field="Gyro heading" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="160"/>
+	</widget>
+	<widget field="Frisbee in loader" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="139"/>
+	</widget>
+	<widget field="DS Digital input 1" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="118"/>
+	</widget>
+	<widget field="Current count" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="97"/>
+	</widget>
+	<widget field="Count Difference" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="76"/>
+	</widget>
+	<widget field="Checkbox 2" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="55"/>
+	</widget>
+	<widget field="Checkbox 1" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="34"/>
+	</widget>
+	<widget field="Center Autonomous" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="0"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="630" y="255"/>
+		<property name="Text" value="Tilt angle"/>
+	</static-widget>
+	<widget field="Shooter tilt angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="527" y="286"/>
+	</widget>
+	<widget field="Set test shooter power" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="860"/>
+	</widget>
+	<widget field="Tilt PID output" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="843" y="12"/>
+		<width>380</width>
+	</widget>
+	<widget field="Tilt Encoder MagDec" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="477" y="124"/>
+	</widget>
+	<widget field="Tilt Encoder MagInc" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="479" y="101"/>
+	</widget>
+	<widget field="Tilt lower" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="532" y="30"/>
+	</widget>
+	<widget field="Tilt upper" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="529" y="11"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>

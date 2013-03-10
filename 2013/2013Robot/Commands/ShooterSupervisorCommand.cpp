@@ -67,6 +67,7 @@ void ShooterSupervisorCommand::Execute() {
 		controller->SetSetpoint(- TEST_POWER);
 		break;
 	case ShooterSubsystem::Normal:
+	default:
 		controller->SetSetpoint(- NORMAL_POWER);
 		break;
 	}

@@ -23,7 +23,9 @@ private:
 	void StartMoveToNextLoadingPosition();
 	void StartMoveToNextFiringPosition();
 	void UpdateDashboard(PizzaBoxSubsystem::PizzaBoxState state);
-
+	void MovePizzaBoxUp();
+	void MovePizzaBoxDown();
+	void StopPizzaBox();
 	
 	enum IntermediateState {
 		MovingToBottom,

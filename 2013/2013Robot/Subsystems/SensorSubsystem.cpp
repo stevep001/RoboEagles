@@ -144,7 +144,7 @@ bool SensorSubsystem::GetTiltUpperLimit() {
 	return this->tiltUpperLimit->Get() == 0;
 }
 
-bool SensorSubsystem::GetFrisbeeInBoxSwitch()
+bool SensorSubsystem::IsFrisbeeInBox()
 {
 	return this->frisbeeInBoxSwitch->Get() == 0;
 }
@@ -169,7 +169,7 @@ bool SensorSubsystem::GetPizzaBottomLimitSwitch()
 	return this->botLimitSwitch->Get() == 0;
 }
 
-bool SensorSubsystem::GetKickerLimitSwitch()
+bool SensorSubsystem::IsKickerStowed()
 {
 	return this->kickerLimitSwitch->Get() == 0;
 }

@@ -57,8 +57,8 @@ public:
 	bool GetPizzaUpperLimitSwitch();
 	bool GetPizzaLowerLimitSwitch();
 	bool GetPizzaBottomLimitSwitch();
-	bool GetKickerLimitSwitch();
-	bool GetFrisbeeInBoxSwitch();
+	bool IsKickerStowed();
+	bool IsFrisbeeInBox();
 	
 	bool IsFrisbeeInLoader();
 	bool IsLoaderAtLowLimit();

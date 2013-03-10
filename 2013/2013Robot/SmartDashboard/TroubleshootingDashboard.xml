@@ -1,7 +1,47 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="Encoder 2 difference" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="226"/>
+	<widget field="Ingest Tilt setpoint
+" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="195"/>
+	</widget>
+	<widget field="Tilt setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="1310" y="618"/>
+		<width>327</width>
+		<height>175</height>
+	</widget>
+	<widget field="Ingest Tilt setpoint " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="174"/>
+	</widget>
+	<widget field="Ingest Tilt Power" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="1308" y="399"/>
+		<width>332</width>
+		<height>209</height>
+	</widget>
+	<widget field="Pan lift encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="1310" y="180"/>
+		<width>331</width>
+		<height>206</height>
+	</widget>
+	<widget field="Ingest Tilt on target" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="325" y="7"/>
+	</widget>
+	<widget field="DS Digital input 1" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="168" y="21"/>
+	</widget>
+	<widget field="Loader is at low limit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="476" y="243"/>
+	</widget>
+	<widget field="Frisbee in loader" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="496" y="215"/>
+	</widget>
+	<widget field="Set test shooter power" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="860"/>
+	</widget>
+	<widget field="Left Autonomous" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="1204" y="799"/>
+	</widget>
+	<widget field="Center Autonomous" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="1188" y="763"/>
 	</widget>
 	<widget field="Shooter encoder 2" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="153"/>
@@ -31,10 +71,10 @@
 		<location x="0" y="69"/>
 	</widget>
 	<widget field="Pizza box positiion" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="15" y="184"/>
+		<location x="733" y="184"/>
 	</widget>
 	<widget field="Pizza box state" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="26" y="205"/>
+		<location x="748" y="162"/>
 		<width>286</width>
 	</widget>
 	<widget field="Tilt" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
@@ -46,15 +86,12 @@
 		<location x="413" y="297"/>
 	</widget>
 	<widget field="Shooter tilt angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="71" y="316"/>
-	</widget>
-	<widget field="Tilt setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="98" y="352"/>
+		<location x="949" y="490"/>
 	</widget>
 	<widget field="Motor speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
 		<location x="1312" y="20"/>
 		<width>327</width>
-		<height>221</height>
+		<height>151</height>
 	</widget>
 	<widget field="Gyro heading" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="219" y="245"/>
@@ -62,12 +99,12 @@
 	<widget field="PID target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
 		<location x="1017" y="19"/>
 		<width>280</width>
-		<height>219</height>
+		<height>150</height>
 	</widget>
 	<widget field="Shooter RPM" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
 		<location x="864" y="277"/>
-		<width>599</width>
-		<height>406</height>
+		<width>309</width>
+		<height>151</height>
 	</widget>
 	<widget field="Time difference" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
 		<location x="29" y="630"/>

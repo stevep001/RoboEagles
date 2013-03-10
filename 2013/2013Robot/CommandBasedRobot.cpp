@@ -18,8 +18,10 @@ private:
 	
 	virtual void AutonomousInit() {
 		printf("Starting autonomous initialization\n");
-		this->autonomousCommand = new CenterAutonomousCommandGroup();
-		// TODO select autonomous here
+		if (DriverStation::GetInstance()->GetDigitalIn(1))
+		{
+			this->autonomousCommand = new CenterAutonomousCommandGroup();
+		}
 		this->autonomousCommand->Start();
 		printf("Autonomous initialization completed.\n");
 	}

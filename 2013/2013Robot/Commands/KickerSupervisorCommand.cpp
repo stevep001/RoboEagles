@@ -1,6 +1,6 @@
 #include "KickerSupervisorCommand.h"
 
-#define	MOTOR_SPEED	.5
+#define	MOTOR_SPEED	.8
 
 KickerSupervisorCommand::KickerSupervisorCommand() {
 	Requires(kickerSubsystem);
@@ -14,7 +14,7 @@ void KickerSupervisorCommand::Execute() {
 	switch (kickerSubsystem->GetKickerState())
 	{
 	case KickerSubsystem::Initializing:
-		if (sensorSubsystem->GetKickerLimitSwitch())
+		if (sensorSubsystem->IsKickerStowed())
 		{
 			kickerSubsystem->SetKickerState(KickerSubsystem::Stowed);
 			this->StopMotor();
@@ -31,14 +31,14 @@ void KickerSupervisorCommand::Execute() {
 		break;
 	case KickerSubsystem::KickingWaitingForSwitchOff:
 		this->RunMotor();
-		if (!sensorSubsystem->GetKickerLimitSwitch())
+		if (!sensorSubsystem->IsKickerStowed())
 		{
 			kickerSubsystem->SetKickerState(KickerSubsystem::KickingWaitingForSwitchOn);
 			printf("KickerSupervisorCommand: waiting for switch on\n");
 		}
 		break;
 	case KickerSubsystem::KickingWaitingForSwitchOn:
-		if (sensorSubsystem->GetKickerLimitSwitch())
+		if (sensorSubsystem->IsKickerStowed())
 		{
 			this->StopMotor();
 			kickerSubsystem->SetKickerState(KickerSubsystem::Stowed);

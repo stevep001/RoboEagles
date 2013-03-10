@@ -44,7 +44,7 @@ OI::OI() {
 	
 	// Shooter joystick buttons
 	
-	this->shootAllFrisbeesCommand = new JoystickButton(this->shooterJoystick, SHOOT_FRISBEE_INDEX_COMMAND);
+	this->shootAllFrisbeesCommand = new JoystickButton(this->shooterJoystick, SHOOT_FRISBEE_INDEX_BUTTON);
 	this->shootAllFrisbeesCommand->WhenPressed(new ShootAllCommandGroup());
 	
 	this->tiltUpCommandedButton = new JoystickButton(this->shooterJoystick, TILT_UP_COMMANDED_BUTTON);
@@ -52,6 +52,12 @@ OI::OI() {
 
 	this->tiltDownCommandedButton = new JoystickButton(this->shooterJoystick, TILT_DOWN_COMMANDED_BUTTON);
 	this->tiltDownCommandedButton->WhenPressed(new ManualTiltDownCommand());
+	
+	this->pizzaBoxUpButton = new JoystickButton(this->shooterJoystick, PIZZA_BOX_UP_BUTTON);
+	this->pizzaBoxUpButton->WhenPressed(new MovePBTopCommand());
+	
+	this->pizzaBoxDownButton = new JoystickButton(this->shooterJoystick, PIZZA_BOX_DOWN_BUTTON);
+	this->pizzaBoxDownButton->WhenPressed(new MovePBBottomCommand());
 	
 	// Test joystick 1
 	this->testJoystick = new Joystick(TEST_JOYSTICK_PORT);

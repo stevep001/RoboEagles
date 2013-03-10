@@ -8,7 +8,7 @@
 #define INGEST_TILT_COUNT	130
 
 // Setpoint for loading station tilt
-#define LOAD_TILT_COUNT		160
+#define LOAD_TILT_COUNT		200
 
 // Setpoint for stowed tilt
 #define	STOW_TILT_COUNT		280
@@ -23,8 +23,12 @@
 #define	INGEST_AFTER_SWITCH_TIME	(.10)
 
 // PID tuning values
-#define	P_GAIN	(-.006)
-#define I_GAIN	(-.0004)
+// was -0.006
+// was -.0055
+#define	P_GAIN	(-.0055)
+
+// was -.0004
+#define I_GAIN	(0)
 
 // The pan is lowered in two power levels;  the first is to get it started from the top,
 // and the second is to get it down below the top.
@@ -138,23 +142,18 @@ void FrisbeePanSupervisorCommand::Execute() {
 				frisbeePanSubsystem->RunIntake();
 			}
 		}
-		SmartDashboard::PutNumber("Ingest Tilt Power", this->controller->Get());
-		SmartDashboard::PutBoolean("Ingest Tilt on target", this->controller->OnTarget());
 		break;
 	case FrisbeePanSubsystem::Load:
-		printf("FrisbeePanSupervisorCommand: Load\n");
+		printf("FrisbeePanSupervisorCommand: Load target count %d\n", LOAD_TILT_COUNT);
 		this->controller->Reset();
 		this->controller->SetSetpoint(LOAD_TILT_COUNT);
 		this->controller->Enable();
-		
 		frisbeePanSubsystem->RunIntake();
 		frisbeePanSubsystem->SetMode(FrisbeePanSubsystem::RunLoad);
 		
-		SmartDashboard::PutNumber("Ingest Tilt Power", this->controller->Get());
 		break;
 	case FrisbeePanSubsystem::RunLoad:
-		printf("FrisbeePanSupervisorCommand: RunLoad\n");
-		SmartDashboard::PutNumber("Ingest Tilt Power", this->controller->Get());
+//		printf("FrisbeePanSupervisorCommand: RunLoad\n");
 		break;
 	case FrisbeePanSubsystem::ExitLoad:
 		// Command can be pushed into this state externally to get 
@@ -167,7 +166,7 @@ void FrisbeePanSupervisorCommand::Execute() {
 		frisbeePanSubsystem->SetMode(FrisbeePanSubsystem::Pickup);
 		break;
 	case FrisbeePanSubsystem::Stow:
-		printf("FrisbeePanSupervisorCommand: Stow\n");
+//		printf("FrisbeePanSupervisorCommand: Stow\n");
 		this->controller->Reset();
 		this->controller->SetSetpoint(STOW_TILT_COUNT);
 		this->controller->Enable();
@@ -205,6 +204,9 @@ void FrisbeePanSupervisorCommand::Execute() {
 		frisbeePanSubsystem->SetMode(FrisbeePanSubsystem::Pickup);
 		break;
 	}
+
+	SmartDashboard::PutNumber("Ingest Tilt setpoint\n", this->controller->GetSetpoint());
+	SmartDashboard::PutNumber("Ingest Tilt Power", this->controller->Get());
 }
 
 bool FrisbeePanSupervisorCommand::OnTarget(float setpoint, float currentValue, float tolerance)
