@@ -17,6 +17,9 @@ private:
 	Button *pizzaBoxUpButton;
 	Button *pizzaBoxDownButton;
 	
+	//Shooter Joystick
+	Button *shootOnceAndIndexButton;
+	
 	// Test joystick
 	Button *pbTopButton;
 	Button *pbBottomButton;
@@ -28,7 +31,6 @@ private:
 	Button *shooterTilt45Button;
 	Button *shootAllFrisbeesCommand;
 	Button *frisbeeArrivalButton;
-	
 	
 	
 

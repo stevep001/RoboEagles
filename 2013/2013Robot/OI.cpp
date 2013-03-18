@@ -20,6 +20,7 @@
 #include "Commands/LeftPyramidAutonomousCommandGroup.h"
 #include "Commands/SetTestShootingPowerCommand.h"
 #include "Commands/ShootAllCommandGroup.h"
+#include "Commands/ShootOnceAndIndexCommand.h"
 #include "FrisbeeArrivalButton.h"
 
 OI::OI() {
@@ -46,6 +47,9 @@ OI::OI() {
 	
 	this->shootAllFrisbeesCommand = new JoystickButton(this->shooterJoystick, SHOOT_FRISBEE_INDEX_BUTTON);
 	this->shootAllFrisbeesCommand->WhenPressed(new ShootAllCommandGroup());
+	
+	this->shootOnceAndIndexButton = new JoystickButton(this->shooterJoystick, SHOOT_ONE_FRISBEE_AND_INDEX_BUTTON);
+	this->shootOnceAndIndexButton->WhenPressed(new ShootOnceAndIndexCommand);
 	
 	this->tiltUpCommandedButton = new JoystickButton(this->shooterJoystick, TILT_UP_COMMANDED_BUTTON);
 	this->tiltUpCommandedButton->WhenPressed(new ManualTiltUpCommand());
