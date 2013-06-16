@@ -23,9 +23,9 @@ void ShooterTiltSupervisorCommand::Initialize() {
 //	float iGain = -.003;
 //	float dGain = 0;
 	// Was: 0.002
-	float pGain = .0028;
-	float iGain = .0008;
-	float dGain = 0;
+	float pGain = .0025; // .0028, .0027,.0025
+	float iGain = .0009; //was .0008, .0009
+	float dGain = .0015;
 	float feedForward = 0.0;
 
 	this->controller = new PIDController(pGain, iGain, dGain, feedForward,

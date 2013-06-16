@@ -65,7 +65,9 @@ void ShootOnceAndIndexCommand::Execute() {
 		break;
 		
 	case PostFireMovingToFirstLoadingPosition:
-		printf("Waiting for PB to move to first loading position\n");
+		printf("PB is moving to first loading position\n");
+		//shooterTiltSubsystem->SetAngle(0);
+		
 		if (pizzaBoxSubsystem->IsInLoadingPosition()) {
 			this->state = Done;
 		}

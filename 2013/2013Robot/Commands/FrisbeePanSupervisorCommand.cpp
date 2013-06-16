@@ -25,10 +25,10 @@
 // PID tuning values
 // was -0.006
 // was -.0055
-#define	P_GAIN	(-.0055)
+#define	P_GAIN	(-.0055)	//Pid gain
 
 // was -.0004
-#define I_GAIN	(0)
+#define I_GAIN	(0)		//Pid gain
 
 // The pan is lowered in two power levels;  the first is to get it started from the top,
 // and the second is to get it down below the top.
@@ -47,6 +47,7 @@ FrisbeePanSupervisorCommand::FrisbeePanSupervisorCommand() {
 			sensorSubsystem->GetPanLiftEncoder(), frisbeePanSubsystem->GetLiftMotor());
 	this->controller->SetInputRange(0, TILT_MAX_COUNT);
 	this->controller->SetOutputRange(-1, 1);
+	
 	this->controller->SetPID(P_GAIN, I_GAIN, 0);
 	this->ingestTimer = new Timer();
 }

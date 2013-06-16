@@ -19,6 +19,9 @@ private:
 	
 	//Shooter Joystick
 	Button *shootOnceAndIndexButton;
+	Button *tiltToZeroButton;
+	//Button *tiltAngle;
+	Button *tiltTo26DegreeButton;
 	
 	// Test joystick
 	Button *pbTopButton;
