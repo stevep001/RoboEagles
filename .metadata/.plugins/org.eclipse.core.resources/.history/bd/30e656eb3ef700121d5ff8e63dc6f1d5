@@ -7,7 +7,6 @@
 #include "Subsystems/ShooterTiltSubsystem.h"
 #include "Subsystems/ShooterSubsystem.h"
 #include "Subsystems/VisionSubsystem.h"
-#include "Subsystems/VisionSubsystemV2.h"
 #include "Subsystems/LEDSubsystem.h"
 #include "Subsystems/KickerSubsystem.h"
 #include "Subsystems/LcdDisplaySubsystem.h"
@@ -32,7 +31,6 @@ public:
 	static ShooterTiltSubsystem *shooterTiltSubsystem;
 	static ShooterSubsystem *shooterSubsystem;
 	static VisionSubsystem *visionSubsystem;
-	static VisionSubsystemV2 *visionSubsystemV2;
 	static LEDSubsystem *ledSubsystem;
 	static KickerSubsystem *kickerSubsystem;
 	static LcdDisplaySubsystem *lcdDisplaySubsystem;

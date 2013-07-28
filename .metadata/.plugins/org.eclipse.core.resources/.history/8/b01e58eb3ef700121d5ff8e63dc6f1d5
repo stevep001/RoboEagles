@@ -14,7 +14,6 @@ ShooterTiltSubsystem* CommandBase::shooterTiltSubsystem = NULL;
 Chassis *CommandBase::chassis = NULL;
 ShooterSubsystem* CommandBase::shooterSubsystem = NULL;
 VisionSubsystem* CommandBase::visionSubsystem = NULL;
-VisionSubsystemV2* CommandBase::visionSubsystemV2 = NULL;
 LEDSubsystem* CommandBase::ledSubsystem = NULL;
 KickerSubsystem* CommandBase::kickerSubsystem = NULL;
 LcdDisplaySubsystem* CommandBase::lcdDisplaySubsystem = NULL;
@@ -26,7 +25,6 @@ void CommandBase::init() {
 	// Sensor subsystem must be instantiated first.
 	sensorSubsystem = new SensorSubsystem();
 	visionSubsystem = new VisionSubsystem();
-	visionSubsystemV2 = new VisionSubsystemV2();
 	ledSubsystem = new LEDSubsystem();
 	lcdDisplaySubsystem = new LcdDisplaySubsystem();
 
