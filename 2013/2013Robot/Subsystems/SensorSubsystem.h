@@ -64,6 +64,8 @@ public:
 	bool IsLoaderAtLowLimit();
 	int GetPanLiftEncoderCount();
 	Encoder* GetPanLiftEncoder();
+	
+	Gyro* GetHorizontalGyro();
 };
 
 #endif

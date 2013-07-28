@@ -41,3 +41,11 @@ void Chassis::TurnLeft(float rate) {
 void Chassis::TurnRight(float rate) {
 	drive->ArcadeDrive(0.0, -rate);
 }
+
+void Chassis::TankDrive(float rateLeft, float rateRight){
+	drive->TankDrive(rateLeft, rateRight);
+}
+
+RobotDrive *Chassis::GetRobotDrive() {
+	return this->drive;
+}

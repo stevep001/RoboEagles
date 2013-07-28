@@ -17,6 +17,8 @@ public:
 	void TurnRight(float rate);
 	void Drive(Joystick *stick);
 	void MoveForward(float rate);
+	void TankDrive(float rateLeft, float rateRight);
+	RobotDrive *GetRobotDrive();
 };
 
 #endif

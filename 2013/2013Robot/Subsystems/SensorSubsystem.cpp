@@ -189,3 +189,7 @@ int SensorSubsystem::GetPanLiftEncoderCount() {
 Encoder* SensorSubsystem::GetPanLiftEncoder() {
 	return this->panLiftEncoder;
 }
+
+Gyro* SensorSubsystem::GetHorizontalGyro() {
+	return this->horizontalGyro;
+}
