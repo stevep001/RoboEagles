@@ -3,18 +3,24 @@
 TurnSpecifiedDegreesPIDCommand::TurnSpecifiedDegreesPIDCommand(float degrees) {
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
+	printf("[TurnSpecifiedDegreesPIDCommand] Starting construction\n");
 	Requires(chassis);
 	this->setPoint = degrees;
+	printf("[TurnSpecifiedDegreesPIDCommand] Has constructed\n");
 }
 
 // Called just before this Command runs the first time
 void TurnSpecifiedDegreesPIDCommand::Initialize() {
+	printf("[TurnSpecifiedDegreesPIDCommand] Reseting Gyro\n");
+	sensorSubsystem->GetHorizontalGyro()->Reset();
+	
 	this->pGain = 0.0;
 	this->iGain = 0.0;
 	this->dGain = 0.0;
 	this->feedforward = 0.0;
 	
 	this->pidOutput = new DrivetrainPIDOutput(chassis->GetRobotDrive());
+	printf("[TurnSpecifiedDegreesPIDCommand] Ccreating new Pid controller with P:%f,I:%f,D:%f\n",pGain,iGain,dGain);
 	this->controller = new PIDController(pGain, iGain, dGain, feedforward, sensorSubsystem->GetHorizontalGyro(), this->pidOutput);
 	
 	this->pidGyroMin = -180.0;
@@ -22,6 +28,7 @@ void TurnSpecifiedDegreesPIDCommand::Initialize() {
 	this->controller->SetInputRange(pidGyroMin, pidGyroMax);
 	this->controller->SetOutputRange(-1.0, 1.0);
 	
+	printf("[TurnSpecifiedDegreesPIDCommand] The PID controller set point is %f\n", setPoint);
 	this->controller->SetSetpoint(setPoint);
 	
 	this->setPointTolerance = 2.0;
@@ -42,12 +49,14 @@ bool TurnSpecifiedDegreesPIDCommand::IsFinished() {
 
 // Called once after isFinished returns true
 void TurnSpecifiedDegreesPIDCommand::End() {
+	printf("[TurnSpecifiedDegreesPIDCommand] Is going to end\n");
 	this->cleanUp();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void TurnSpecifiedDegreesPIDCommand::Interrupted() {
+	printf("[TurnSpecifiedDegreesPIDCommand] Has Been Interrupted\n");
 	this->cleanUp();
 }
 
