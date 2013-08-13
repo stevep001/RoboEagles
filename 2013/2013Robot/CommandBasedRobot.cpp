@@ -3,21 +3,29 @@
 #include "Commands/ExampleCommand.h"
 #include "Commands/CenterAutonomousCommandGroup.h"
 #include "Commands/LeftPyramidAutonomousCommandGroup.h"
+//#include "Commands/ShooterTiltSupervisorCommand.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {
 private:
 	Command *autonomousCommand;
+	Command *shooterTiltCommand;
 	LiveWindow *lw;
 	
 	virtual void RobotInit() {
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
 		this->autonomousCommand = NULL;
+		//this->shooterTiltCommand = NULL;
+		//SmartDashboard::PutData(Scheduler::GetInstance());
 	}
 	
 	virtual void AutonomousInit() {
 		printf("Starting autonomous initialization\n");
+		//if(this->shooterTiltCommand != NULL) {
+		//			this->shooterTiltCommand->Cancel();
+		//		}
+				
 		if (DriverStation::GetInstance()->GetDigitalIn(1))
 		{
 			this->autonomousCommand = new CenterAutonomousCommandGroup();
@@ -36,6 +44,10 @@ private:
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		//if(this->shooterTiltCommand != NULL) {
+		//	this->shooterTiltCommand->Cancel();
+		//}
+		
 		if (this->autonomousCommand != NULL)
 		{
 			this->autonomousCommand->Cancel();
@@ -45,6 +57,11 @@ private:
 	
 	virtual void TeleopPeriodic() {
 		Scheduler::GetInstance()->Run();
+	}
+	
+	virtual void TestInit() {
+		//this->shooterTiltCommand = new ShooterTiltSupervisorCommand();
+		//this->shooterTiltCommand->Start();
 	}
 	
 	virtual void TestPeriodic() {

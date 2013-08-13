@@ -40,6 +40,9 @@ void ShooterTiltSupervisorCommand::Initialize() {
 	this->initializationTimer->Start();
 	shooterTiltSubsystem->SetMode(ShooterTiltSubsystem::Initializing);
 
+	//This I believe will display the PID controller in the smart Dashboard to be tuned
+	//LiveWindow::GetInstance()->AddActuator("ShooterTiltSupervisorCommand","PID COntroller", this->controller);
+	
 	printf("ShooterTiltSupervisorCommand: initialize completed\n");
 }
 
