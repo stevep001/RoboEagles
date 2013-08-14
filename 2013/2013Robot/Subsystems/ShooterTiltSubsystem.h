@@ -1,6 +1,9 @@
 #ifndef SHOOTERTILTSUBSYSTEM_H
 #define SHOOTERTILTSUBSYSTEM_H
 #include "Commands/Subsystem.h"
+#include "Commands/PIDSubsystem.h"
+#include "PIDController.h"
+#include "float.h"
 #include "WPILib.h"
 
 // Tilt angle is defined with reference to standing on the stand.
@@ -13,7 +16,7 @@
  *
  * @author speterson
  */
-class ShooterTiltSubsystem: public Subsystem {
+class ShooterTiltSubsystem: public PIDSubsystem {
 public:
 	enum ShooterTiltMode {
 		/*
@@ -38,6 +41,11 @@ private:
 	SpeedController *tiltMotor;
 	float currentAngle;
 	ShooterTiltMode mode;
+	Encoder *tiltEncoder;
+	
+	static const double pGain = 0.0025;
+	static const double iGain = 0.0009;
+	static const double dGain = 0.0015;
 public:
 	ShooterTiltSubsystem();
 	void InitDefaultCommand();
@@ -51,6 +59,12 @@ public:
 	
 	ShooterTiltSubsystem::ShooterTiltMode GetMode();
 	void SetMode(ShooterTiltSubsystem::ShooterTiltMode mode);
+	
+	double ReturnPIDInput();
+	void UsePIDOutput(double output);
+	
+	PIDController *GetTiltPIDController();
+	Encoder *GetTiltEncoder();
 };
 
 #endif

@@ -49,7 +49,7 @@ public:
 	int GetTiltEncoderValue();
 	bool GetTiltLowerLimit();
 	bool GetTiltUpperLimit();
-	Encoder *GetTiltEncoder();
+	//Encoder *GetTiltEncoder();
 
 	int GetShooterEncoder1Value();
 	//int GetShooterEncoder2Value();

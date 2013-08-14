@@ -28,21 +28,24 @@ void ShooterTiltSupervisorCommand::Initialize() {
 	float dGain = .0015;
 	float feedForward = 0.0;
 
-	this->controller = new PIDController(pGain, iGain, dGain, feedForward,
-			sensorSubsystem->GetTiltEncoder(), shooterTiltSubsystem->GetMotor());
+	//this->controller = new PIDController(pGain, iGain, dGain, feedForward,
+	//		sensorSubsystem->GetTiltEncoder(), shooterTiltSubsystem->GetMotor());
+	shooterTiltSubsystem->GetTiltPIDController()->Disable();
+	shooterTiltSubsystem->GetTiltPIDController()->Reset();
+	shooterTiltSubsystem->GetTiltPIDController()->SetPID(pGain, iGain, dGain, feedForward);
+
 	
-	this->controller->SetInputRange(0, TILT_MAX_COUNT);
-//	this->controller->SetOutputRange(-(TILT_UP_POWER), TILT_DOWN_POWER);
-	this->controller->SetOutputRange(-1, 1);
+	//this->controller->SetInputRange(0, TILT_MAX_COUNT);
+	shooterTiltSubsystem->GetTiltPIDController()->SetInputRange(0, TILT_MAX_COUNT);
+	
+	//this->controller->SetOutputRange(-1, 1);
+	shooterTiltSubsystem->GetTiltPIDController()->SetOutputRange(-1, 0);
 	
 	this->initializationTimer->Stop();
 	this->initializationTimer->Reset();
 	this->initializationTimer->Start();
 	shooterTiltSubsystem->SetMode(ShooterTiltSubsystem::Initializing);
 
-	//This I believe will display the PID controller in the smart Dashboard to be tuned
-	//LiveWindow::GetInstance()->AddActuator("ShooterTiltSupervisorCommand","PID COntroller", this->controller);
-	
 	printf("ShooterTiltSupervisorCommand: initialize completed\n");
 }
 
@@ -56,9 +59,12 @@ void ShooterTiltSupervisorCommand::Execute() {
 			shooterTiltSubsystem->GetMotor()->Set(0);
 			shooterTiltSubsystem->SetAngle(0);
 
-			this->controller->SetSetpoint(0);
-			this->controller->Reset();
-			this->controller->Enable();
+			//this->controller->SetSetpoint(0);
+			shooterTiltSubsystem->GetTiltPIDController()->SetSetpoint(0);
+			//this->controller->Reset();
+			shooterTiltSubsystem->GetTiltPIDController()->Reset();
+			//this->controller->Enable();
+			shooterTiltSubsystem->GetTiltPIDController()->Enable();
 			this->shooterTiltSubsystem->SetMode(ShooterTiltSubsystem::Running);
 			this->initializationTimer->Stop();
 
@@ -82,25 +88,28 @@ void ShooterTiltSupervisorCommand::Execute() {
 	case ShooterTiltSubsystem::Running:
 		if (sensorSubsystem->GetTiltLowerLimit() && shooterTiltSubsystem->GetAngle() == MIN_TILT_ANGLE)
 		{
-			if (this->controller->IsEnabled())
+			if (shooterTiltSubsystem->GetTiltPIDController()->IsEnabled())
 			{
 				printf("ShooterTiltSupervisorCommand: calling for 0 and at low limit, resetting and disabling\n");
-				this->controller->Reset();
+				//this->controller->Reset();
+				shooterTiltSubsystem->GetTiltPIDController()->Reset();
 			}
 			
 			// TODO: We could test here to see if PID loop thinks we're at low limit without limit switch.
 		}
 		else if (sensorSubsystem->GetTiltUpperLimit())
 		{
-			this->controller->Disable();
+			//this->controller->Disable();
+			shooterTiltSubsystem->GetTiltPIDController()->Disable();
 			printf("ShooterTiltSupervisorCommand: disabling: high limit\n");
 			this->shooterTiltSubsystem->SetMode(ShooterTiltSubsystem::HighLimitError);
 		}
 		else
 		{
-			if (!this->controller->IsEnabled()) {
+			if (!shooterTiltSubsystem->GetTiltPIDController()->IsEnabled()) {
 				printf("ShooterTiltSupervisorCommand: enabling\n");
-				this->controller->Enable();
+				//this->controller->Enable();
+				shooterTiltSubsystem->GetTiltPIDController()->Enable();
 			}
 		}
 		break;
@@ -118,11 +127,12 @@ void ShooterTiltSupervisorCommand::Execute() {
 	{
 		setpoint = TILT_MAX_COUNT;
 	}
-	this->controller->SetSetpoint(setpoint);
+	//this->controller->SetSetpoint(setpoint);
+	shooterTiltSubsystem->GetTiltPIDController()->SetSetpoint(setpoint);
 	SmartDashboard::PutNumber("Tilt setpoint", setpoint);
 	SmartDashboard::PutNumber("Tilt PID output", this->controller->Get());
-	SmartDashboard::PutNumber("Tilt encoder output", sensorSubsystem->GetTiltEncoder()->Get());
-	float tiltError = setpoint - sensorSubsystem->GetTiltEncoder()->Get();
+	SmartDashboard::PutNumber("Tilt encoder output", shooterTiltSubsystem->GetTiltEncoder()->Get());
+	float tiltError = setpoint - shooterTiltSubsystem->GetTiltEncoder()->Get();
 	SmartDashboard::PutNumber("Tilt error", tiltError);
 }
 
@@ -144,10 +154,6 @@ void ShooterTiltSupervisorCommand::Interrupted() {
 }
 
 void ShooterTiltSupervisorCommand::Cleanup() {
-	if (this->controller != NULL)
-	{
-		this->controller->Disable();
-		delete this->controller;
-		this->controller = NULL;
-	}
+	shooterTiltSubsystem->GetTiltPIDController()->Disable();
+	shooterTiltSubsystem->GetTiltPIDController()->Reset();
 }

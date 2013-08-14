@@ -31,13 +31,13 @@ SensorSubsystem::SensorSubsystem() : Subsystem("SensorSubsystem") {
 	this->rightEncoder->Start();
 	printf("3");
 
-	this->tiltEncoder = new Encoder(TILT_ENCODER_SLOT, TILT_ENCODER_1, TILT_ENCODER_SLOT, TILT_ENCODER_2, 
+/*	this->tiltEncoder = new Encoder(TILT_ENCODER_SLOT, TILT_ENCODER_1, TILT_ENCODER_SLOT, TILT_ENCODER_2, 
 			true, CounterBase::k4X);
 	this->tiltEncoder->SetPIDSourceParameter(Encoder::kDistance);
 	this->tiltEncoder->SetDistancePerPulse(1);
 	this->tiltEncoder->SetMaxPeriod(1.0);
 	this->tiltEncoder->Reset();
-	this->tiltEncoder->Start();
+	this->tiltEncoder->Start(); */
 	printf("4");
 
 	this->shooterEncoder1 = new Encoder(SHOOTER_WHEEL_ENCODER_1_SLOT, SHOOTER_WHEEL_ENCODER_1_PORT_1, 
@@ -123,10 +123,10 @@ int SensorSubsystem::GetTiltEncoderValue() {
 	return this->tiltEncoder->Get();
 }
 
-Encoder *SensorSubsystem::GetTiltEncoder()
-{
-	return this->tiltEncoder;
-}
+//Encoder *SensorSubsystem::GetTiltEncoder()
+//{
+//	return this->tiltEncoder;
+//}
 
 int SensorSubsystem::GetShooterEncoder1Value() {
 	return this->shooterEncoder1->Get();

@@ -7,10 +7,20 @@
  * This subsystem teams with the ShooterTiltSupervisorCommand to 
  * manage the angle of the shooting tilt.
  */
-ShooterTiltSubsystem::ShooterTiltSubsystem() : Subsystem("ShooterTiltSubsystem") {
+ShooterTiltSubsystem::ShooterTiltSubsystem() : PIDSubsystem("ShooterTiltSubsystem", pGain, iGain, dGain) {
 	printf("ShooterTiltSubsystem: constructor started\n");
 	this->tiltMotor = new Victor(PWM_SLOT, TILT_MOTOR);
 	this->currentAngle = 0;
+	
+	this->tiltEncoder = new Encoder(TILT_ENCODER_SLOT, TILT_ENCODER_1, TILT_ENCODER_SLOT, TILT_ENCODER_2, 
+			true, CounterBase::k4X);
+	this->tiltEncoder->SetPIDSourceParameter(Encoder::kDistance);
+	this->tiltEncoder->SetDistancePerPulse(1);
+	this->tiltEncoder->SetMaxPeriod(1.0);
+	this->tiltEncoder->Reset();
+	this->tiltEncoder->Start();
+	
+	LiveWindow::GetInstance()->AddActuator("ShooterTiltUbsystem", "PID Controller", this->GetPIDController());
 	this->mode = ShooterTiltSubsystem::Initializing;
 	printf("ShooterTiltSubsystem: constructor completed\n");
 }
@@ -66,4 +76,19 @@ void ShooterTiltSubsystem::IncreaseTilt(float amountToIncrease)
 void ShooterTiltSubsystem::DecreaseTilt(float amountToDecrease)
 {
 	this->SetAngle(this->currentAngle - amountToDecrease);
+}
+
+double ShooterTiltSubsystem::ReturnPIDInput() {
+	return tiltEncoder->PIDGet();
+}
+void ShooterTiltSubsystem::UsePIDOutput(double output) {
+	this->tiltMotor->PIDWrite(output);
+}
+
+PIDController *ShooterTiltSubsystem::GetTiltPIDController() {
+	return this->GetPIDController();
+}
+
+Encoder *ShooterTiltSubsystem::GetTiltEncoder() {
+	return this->tiltEncoder;
 }
