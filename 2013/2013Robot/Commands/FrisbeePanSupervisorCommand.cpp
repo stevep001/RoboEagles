@@ -25,10 +25,11 @@
 // PID tuning values
 // was -0.006
 // was -.0055
-#define	P_GAIN	(-.0055)	//Pid gain
+#define	P_GAIN	(-.006)	//Pid gain
 
 // was -.0004
-#define I_GAIN	(0)		//Pid gain
+// was 0
+#define I_GAIN	(-0.0002)		//Pid gain
 
 // The pan is lowered in two power levels;  the first is to get it started from the top,
 // and the second is to get it down below the top.
