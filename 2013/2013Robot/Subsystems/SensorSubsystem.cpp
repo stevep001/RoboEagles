@@ -193,3 +193,11 @@ Encoder* SensorSubsystem::GetPanLiftEncoder() {
 Gyro* SensorSubsystem::GetHorizontalGyro() {
 	return this->horizontalGyro;
 }
+
+Encoder *SensorSubsystem::GetLeftDriveEncoder() {
+	return this->leftEncoder;
+}
+
+Encoder *SensorSubsystem::GetRightDriveEncoder() {
+	return this->rightEncoder;
+}

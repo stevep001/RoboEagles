@@ -19,6 +19,8 @@ public:
 	void MoveForward(float rate);
 	void TankDrive(float rateLeft, float rateRight);
 	RobotDrive *GetRobotDrive();
+	SpeedController *GetLeftMotor();
+	SpeedController *GetRightMotor();
 };
 
 #endif
