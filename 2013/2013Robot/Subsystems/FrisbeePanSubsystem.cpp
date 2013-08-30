@@ -13,18 +13,27 @@
 #define LOAD_COUNT		120
 
 
-FrisbeePanSubsystem::FrisbeePanSubsystem(SensorSubsystem *sensorSubsystem) : Subsystem("FrisbeePanSubsystem") {
+FrisbeePanSubsystem::FrisbeePanSubsystem(SensorSubsystem *sensorSubsystem) : PIDSubsystem("FrisbeePanSubsystem",0,0,0) {
 	printf("FrisbeePanSubsystem:: constructor started\n");
 	this->panIngestBeltMotor = new Jaguar(PWM_SLOT, PAN_INGEST_BELT_MOTOR);
 	this->panLateralBeltMotor = new Jaguar(PWM_SLOT, PAN_LATERAL_BELT_MOTOR);
 	this->panTiltMotor = new Jaguar(PWM_SLOT, PAN_LIFT_MOTOR);
 	this->sensorSubsystem = sensorSubsystem;
 	this->initializationCount = 0;
+	LiveWindow::GetInstance()->AddActuator("FrisbeePanSubsystem", "PID Controller", this->GetPIDController());
 	printf("FrisbeePanSubsystem:: constructor completed\n");
 }
     
 void FrisbeePanSubsystem::InitDefaultCommand() {
 	SetDefaultCommand(new FrisbeePanSupervisorCommand());
+}
+
+double FrisbeePanSubsystem::ReturnPIDInput() {
+	return this->sensorSubsystem->GetPanLiftEncoder()->PIDGet();
+}
+
+void FrisbeePanSubsystem::UsePIDOutput(double output) {
+	this->panTiltMotor->PIDWrite(output);
 }
 
 SpeedController *FrisbeePanSubsystem::GetLiftMotor()
@@ -72,4 +81,8 @@ void FrisbeePanSubsystem::SetMode(FrisbeePanMode mode)
 FrisbeePanSubsystem::FrisbeePanMode FrisbeePanSubsystem::GetMode()
 {
 	return this->mode;
+}
+
+PIDController *FrisbeePanSubsystem::GetPanTiltPIDController() {
+	return this->GetPIDController();
 }
