@@ -8,7 +8,8 @@
 #define INGEST_TILT_COUNT	130
 
 // Setpoint for loading station tilt
-#define LOAD_TILT_COUNT		200
+//Was 200
+#define LOAD_TILT_COUNT		150
 
 // Setpoint for stowed tilt
 #define	STOW_TILT_COUNT		280

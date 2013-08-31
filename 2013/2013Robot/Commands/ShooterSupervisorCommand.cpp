@@ -29,7 +29,7 @@ void ShooterSupervisorCommand::Initialize() {
 	float rpmMaximum = 5500;	
 	this->controller = new PIDController(pGain, iGain, dGain, feedForwardValue, rpmSource, shooterSubsystem->GetMotor());
 	this->controller->SetInputRange(-rpmMaximum, rpmMaximum);
-	this->controller->SetOutputRange(-0.7, 0.75);
+	this->controller->SetOutputRange(-0.85, 0.75);
 
 	this->timer->Reset();
 	this->timer->Start();
