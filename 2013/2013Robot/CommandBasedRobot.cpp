@@ -3,35 +3,34 @@
 #include "Commands/ExampleCommand.h"
 #include "Commands/CenterAutonomousCommandGroup.h"
 #include "Commands/LeftPyramidAutonomousCommandGroup.h"
-//#include "Commands/ShooterTiltSupervisorCommand.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {
 private:
 	Command *autonomousCommand;
-	Command *shooterTiltCommand;
 	LiveWindow *lw;
+	SendableChooser *chooser;
 	
 	virtual void RobotInit() {
 		printf("3081 Robot code compiled on %s at %s\n",__DATE__, __TIME__);
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
+		this->chooser = new SendableChooser();
+		this->chooser->AddDefault("Center Autonomous", new CenterAutonomousCommandGroup());
+		this->chooser->AddObject("Left Autonomous", new LeftPyramidAutonomousCommandGroup());
 		this->autonomousCommand = NULL;
-		//this->shooterTiltCommand = NULL;
 		//SmartDashboard::PutData(Scheduler::GetInstance());
 	}
 	
 	virtual void AutonomousInit() {
 		printf("Starting autonomous initialization\n");
-		//if(this->shooterTiltCommand != NULL) {
-		//			this->shooterTiltCommand->Cancel();
-		//		}
 				
 		if (DriverStation::GetInstance()->GetDigitalIn(1))
 		{
-			this->autonomousCommand = new CenterAutonomousCommandGroup();
+			this->autonomousCommand = (Command *) this->chooser->GetSelected();
+			this->autonomousCommand->Start();
 		}
-		this->autonomousCommand->Start();
+		
 		printf("Autonomous initialization completed.\n");
 	}
 	
@@ -45,9 +44,6 @@ private:
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		//if(this->shooterTiltCommand != NULL) {
-		//	this->shooterTiltCommand->Cancel();
-		//}
 		
 		if (this->autonomousCommand != NULL)
 		{
@@ -61,8 +57,6 @@ private:
 	}
 	
 	virtual void TestInit() {
-		//this->shooterTiltCommand = new ShooterTiltSupervisorCommand();
-		//this->shooterTiltCommand->Start();
 	}
 	
 	virtual void TestPeriodic() {
@@ -71,4 +65,3 @@ private:
 };
 
 START_ROBOT_CLASS(CommandBasedRobot);
-
