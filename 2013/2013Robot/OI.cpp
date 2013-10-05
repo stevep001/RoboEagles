@@ -21,6 +21,7 @@
 #include "Commands/SetTestShootingPowerCommand.h"
 #include "Commands/ShootAllCommandGroup.h"
 #include "Commands/ShootOnceAndIndexCommand.h"
+#include "Commands/TurnSpecifiedDegreesPIDCommand.h"
 #include "FrisbeeArrivalButton.h"
 
 OI::OI() {
@@ -88,6 +89,21 @@ OI::OI() {
 	
 	this->shooterTilt45Button = new JoystickButton(this->testJoystick, SHOOTER_TILT_45_BUTTON);
 	this->shooterTilt45Button->WhenPressed(new SetShooterTiltCommand(45));
+	
+	//Test Joystick 2
+	this->testJoystick2 = new Joystick(TEST_JOYSTICK_PORT_TWO);
+	
+	this->testPidTurnNeg45Button = new JoystickButton(this->testJoystick2, TEST_TURN_NEG_45);
+	this->testPidTurnNeg45Button->WhenPressed(new TurnSpecifiedDegreesPIDCommand(-45));
+	
+	this->testPidTurnNeg90Button = new JoystickButton(this->testJoystick2, TEST_TURN_NEG_90);
+	this->testPidTurnNeg90Button->WhenPressed(new TurnSpecifiedDegreesPIDCommand(-90));
+	
+	this->testPidTurnPos45Button = new JoystickButton(this->testJoystick2, TEST_TURN_POS_45);
+	this->testPidTurnPos45Button->WhenPressed(new TurnSpecifiedDegreesPIDCommand(45));
+	
+	this->testPidTurnPos90Button = new JoystickButton(this->testJoystick2, TEST_TURN_POS_90);
+	this->testPidTurnPos90Button->WhenPressed(new TurnSpecifiedDegreesPIDCommand(90));
 	
 	// Buttons for smart dashboard
 	SmartDashboard::PutData("Move next firing position", new MoveToNextFiringPositionCommand());

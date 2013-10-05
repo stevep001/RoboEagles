@@ -35,7 +35,11 @@ private:
 	Button *shootAllFrisbeesCommand;
 	Button *frisbeeArrivalButton;
 	
-	
+	//Test Joystick 2
+	Button *testPidTurnPos45Button;
+	Button *testPidTurnNeg45Button;
+	Button *testPidTurnPos90Button;
+	Button *testPidTurnNeg90Button;
 
 	
 	

@@ -95,6 +95,7 @@
 #define DRIVE_JOYSTICK_PORT 1
 #define	SHOOTER_JOYSTICK_PORT	2
 #define TEST_JOYSTICK_PORT 3
+#define TEST_JOYSTICK_PORT_TWO 4
 
 // Driver joystick buttons
 #define DEPLOY_PAN_BUTTON			2
@@ -123,6 +124,11 @@
 #define PB_BOTTOM_BUTTON	7
 #define	TEST_VISION_BUTTON	8
 
+// Test Joystick Buttons
 
+#define TEST_TURN_POS_45 1
+#define TEST_TURN_NEG_45 2
+#define TEST_TURN_POS_90 3
+#define TEST_TURN_NEG_90 4
 
 #endif
