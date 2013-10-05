@@ -6,12 +6,7 @@
 
 class ShooterSupervisorCommand: public CommandBase {
 private:
-	PIDController *controller;
-	Timer *timer;
-	double lastTime;
-	int lastCountEncoder1;
-	int lastCountEncoder2;
-	RpmSource *rpmSource;
+	float m_speed;
 public:
 	ShooterSupervisorCommand();
 	~ShooterSupervisorCommand();

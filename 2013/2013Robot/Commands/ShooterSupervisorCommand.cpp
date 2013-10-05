@@ -1,15 +1,13 @@
 #include "ShooterSupervisorCommand.h"
 #include "../RpmSource.h"
 
-#define NORMAL_POWER	(5500)
-#define LOFT_POWER		(4200)
-#define TEST_POWER		(2000)
+#define NORMAL_POWER	(-0.94)
+#define LOFT_POWER		(-0.86)
+#define TEST_POWER		(-0.86)
 
 ShooterSupervisorCommand::ShooterSupervisorCommand() {
 	printf("ShooterSupervisorCommand: constructing\n");
 	Requires(shooterSubsystem);
-	this->rpmSource = new RpmSource();
-	this->timer = new Timer();
 	printf("ShooterSupervisorCommand: constructed\n");
 }
 
@@ -20,82 +18,38 @@ ShooterSupervisorCommand::~ShooterSupervisorCommand() {
 // Called just before this Command runs the first time
 void ShooterSupervisorCommand::Initialize() {
 	printf("ShooterSupervisorCommand: initialize\n");
-	// PID tuning parameters
-	float pGain = .001;
-	float iGain = .0001;
-	float dGain = 0;
-	float feedForwardValue = .0002;
-	
-	float rpmMaximum = 5500;	
-	this->controller = new PIDController(pGain, iGain, dGain, feedForwardValue, rpmSource, shooterSubsystem->GetMotor());
-	this->controller->SetInputRange(-rpmMaximum, rpmMaximum);
-	this->controller->SetOutputRange(-0.85, 0.75);
-
-	this->timer->Reset();
-	this->timer->Start();
-	this->lastTime = timer->Get();
-	this->lastCountEncoder1 = sensorSubsystem->GetShooterEncoder1Value();
-//	this->lastCountEncoder2 = sensorSubsystem->GetShooterEncoder2Value();
-	
-	controller->SetSetpoint(- NORMAL_POWER);
-//	controller->SetSetpoint(-5000);
-//	controller->SetSetpoint(-4200);		// This is a good setting for lofting frisbees into the pyramid
-	controller->Enable();
+	m_speed = 0;
 	printf("ShooterSupervisorCommand: initialize completed\n");
 }
 
 void ShooterSupervisorCommand::Execute() {
-	double countsPerRevolution = 200;
-
-	double currentTime = timer->Get();
-	double timeDifference = currentTime - lastTime;
-	lastTime = currentTime;
-	
-	int currentCount = sensorSubsystem->GetShooterEncoder1Value();
-	int countDifference = currentCount - lastCountEncoder1;
-	lastCountEncoder1 = currentCount;
-
-	double rpm = countDifference * (60.0 / countsPerRevolution) / timeDifference;
-	rpmSource->inputRpm(rpm);
-
 	switch (shooterSubsystem->GetShootingPower())
 	{
 	case ShooterSubsystem::Low:
-		controller->SetSetpoint(- LOFT_POWER);
+		//controller->SetSetpoint(- LOFT_POWER);
+		m_speed = LOFT_POWER;
 		break;
 	case ShooterSubsystem::Test:
-		controller->SetSetpoint(- TEST_POWER);
+		//controller->SetSetpoint(- TEST_POWER);
+		m_speed = TEST_POWER;
 		break;
 	case ShooterSubsystem::Normal:
 	default:
-		controller->SetSetpoint(- NORMAL_POWER);
+		//controller->SetSetpoint(- NORMAL_POWER);
+		m_speed = NORMAL_POWER;
 		break;
 	}
-	
-	//printf("RPM %f count %d; difference %d; timeDifference %f\n", rpm, currentCount, countDifference, timeDifference);
-	
-	//printf("setpoint %f RPM %f result %f error %f \n", controller->GetSetpoint(), rpm, controller->Get(), controller->GetError());
-	SmartDashboard::PutNumber("Shooter RPM", rpm);
-	SmartDashboard::PutNumber("Count Difference", countDifference);
-	SmartDashboard::PutNumber("Current count", currentCount);
-	SmartDashboard::PutNumber("Time difference", timeDifference);
-	SmartDashboard::PutNumber("Motor speed", shooterSubsystem->GetMotor()->Get());
-	
-	SmartDashboard::PutNumber("PID target", this->controller->Get());
-
-//	int currentCount2 = sensorSubsystem->GetShooterEncoder2Value();
-//	int countDifference2 = currentCount2 - lastCountEncoder2;
-//	lastCountEncoder2 = currentCount2;
-//
-//	SmartDashboard::PutNumber("Encoder 2 difference", countDifference2);
+	SmartDashboard::PutNumber("Shooter Motor speed", shooterSubsystem->GetMotor()->Get());
 	
 	if (pizzaBoxSubsystem->FiringSoon())
 	{
-		controller->Enable();
+		//controller->Enable();
+		shooterSubsystem->GetMotor()->Set(m_speed);
 	}
 	else
 	{
-		controller->Disable();
+		//controller->Disable();
+		shooterSubsystem->GetMotor()->Set(0);
 	}
 }
 
@@ -117,13 +71,5 @@ void ShooterSupervisorCommand::Interrupted() {
 
 void ShooterSupervisorCommand::Cleanup()
 {
-	if (timer != NULL)
-		timer->Stop();
-	
-	if (controller != NULL)
-	{
-		controller->Disable();
-		delete controller;
-		controller = NULL;
-	}	
+	shooterSubsystem->GetMotor()->Set(0);	
 }
