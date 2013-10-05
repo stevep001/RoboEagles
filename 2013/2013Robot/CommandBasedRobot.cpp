@@ -2,7 +2,9 @@
 #include "Commands/Command.h"
 #include "Commands/ExampleCommand.h"
 #include "Commands/CenterAutonomousCommandGroup.h"
-#include "Commands/LeftPyramidAutonomousCommandGroup.h"
+#include "Commands/FrontPyramidHighGoalCommandGroup.h"
+#include "Commands/FrontPyramidMiddleGoalCommandGroup.h"
+#include "Commands/AutoDoNothingCommand.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {
@@ -16,10 +18,14 @@ private:
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
 		this->chooser = new SendableChooser();
+		
 		this->chooser->AddDefault("Center Autonomous", new CenterAutonomousCommandGroup());
-		this->chooser->AddObject("Left Autonomous", new LeftPyramidAutonomousCommandGroup());
+		this->chooser->AddObject("Right Front Py. High Goal", new FrontPyramidHighGoalCommandGroup(FrontPyramidHighGoalCommandGroup::kRight));
+		this->chooser->AddObject("Left Front Py. Middle Goal", new FrontPyramidHighGoalCommandGroup(FrontPyramidHighGoalCommandGroup::kLeft));
+		this->chooser->AddObject("Pyramid Front Side Middle Goal", new FrontPyramidMiddleGoalCommandGroup());
+		this->chooser->AddObject("Do nothing", new AutoDoNothingCommand());
 		this->autonomousCommand = NULL;
-		//SmartDashboard::PutData(Scheduler::GetInstance());
+		SmartDashboard::PutData("Autonomus Mode Chooser", chooser);
 	}
 	
 	virtual void AutonomousInit() {
