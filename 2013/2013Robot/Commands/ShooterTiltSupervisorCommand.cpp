@@ -39,7 +39,7 @@ void ShooterTiltSupervisorCommand::Initialize() {
 	shooterTiltSubsystem->GetTiltPIDController()->SetInputRange(0, TILT_MAX_COUNT);
 	
 	//this->controller->SetOutputRange(-1, 1);
-	shooterTiltSubsystem->GetTiltPIDController()->SetOutputRange(-1, 0);
+	shooterTiltSubsystem->GetTiltPIDController()->SetOutputRange(-1, 1);
 	
 	this->initializationTimer->Stop();
 	this->initializationTimer->Reset();
@@ -130,7 +130,8 @@ void ShooterTiltSupervisorCommand::Execute() {
 	//this->controller->SetSetpoint(setpoint);
 	shooterTiltSubsystem->GetTiltPIDController()->SetSetpoint(setpoint);
 	SmartDashboard::PutNumber("Tilt setpoint", setpoint);
-	SmartDashboard::PutNumber("Tilt PID output", this->controller->Get());
+	//SmartDashboard::PutNumber("Tilt PID output", this->controller->Get());
+	SmartDashboard::PutNumber("Tilt PID Output", shooterTiltSubsystem->GetTiltPIDController()->GetSetpoint());
 	SmartDashboard::PutNumber("Tilt encoder output", shooterTiltSubsystem->GetTiltEncoder()->Get());
 	float tiltError = setpoint - shooterTiltSubsystem->GetTiltEncoder()->Get();
 	SmartDashboard::PutNumber("Tilt error", tiltError);

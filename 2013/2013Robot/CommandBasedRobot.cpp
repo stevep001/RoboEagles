@@ -13,6 +13,7 @@ private:
 	LiveWindow *lw;
 	
 	virtual void RobotInit() {
+		printf("3081 Robot code compiled on %s at %s\n",__DATE__, __TIME__);
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
 		this->autonomousCommand = NULL;
