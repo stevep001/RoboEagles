@@ -3,6 +3,9 @@
 
 #include "Commands/CommandGroup.h"
 
+#define LEFT_DEGREES_TO_TURN (20)
+#define RIGHT_DEGREES_TO_TURN (-20)
+
 /**
  *
  *
@@ -10,7 +13,11 @@
  */
 class FrontPyramidHighGoalCommandGroup: public CommandGroup {
 public:	
-	FrontPyramidHighGoalCommandGroup();
+	enum Side {
+		kRight,
+		kLeft
+	};
+	FrontPyramidHighGoalCommandGroup(Side side);
 };
 
 #endif
