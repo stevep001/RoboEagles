@@ -419,7 +419,7 @@ void VisionSubsystemV2::ProcessCameraImage() {
 	HSLImage *cameraImage;
 	cameraImage = VisionSubsystemV2::getCameraImage();
 	VisionSubsystemV2::processImage(cameraImage);
-	delete cameraImage;
+	cameraImage = NULL;
 	this->isImageProcessed = true;
 }
 
@@ -428,7 +428,7 @@ void VisionSubsystemV2::ProcesscRIOImage() {
 	HSLImage *cRIOImage;
 	cRIOImage = VisionSubsystemV2::getImageFromcRio();
 	VisionSubsystemV2::processImage(cRIOImage);
-	delete cRIOImage;
+	cRIOImage = NULL;
 	this->isImageProcessed = true;
 }
 
