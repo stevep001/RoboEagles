@@ -7,6 +7,6 @@ DrivetrainPIDOutput::DrivetrainPIDOutput(RobotDrive *chassisRobotDrive) {
 }
 
 void DrivetrainPIDOutput::PIDWrite(float output) {
-	printf("[DrivetrainPIDOutput] PID Write: L %f, R %f\n", -output, output);
+	//printf("[DrivetrainPIDOutput] PID Write: L %f, R %f\n", -output, output);
 	this->drive->TankDrive(-output, output);
 }

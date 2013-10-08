@@ -3,7 +3,7 @@
 
 #include "WPILib.h"
 
-class DrivetrainPIDOutput : public PIDOutput {
+class DrivetrainPIDOutput : public PIDOutput{
 private:
 	RobotDrive *drive;
 public:

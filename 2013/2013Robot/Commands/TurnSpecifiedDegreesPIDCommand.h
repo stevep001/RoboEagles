@@ -9,7 +9,7 @@
  *
  * @author nowireless
  */
-class TurnSpecifiedDegreesPIDCommand: public CommandBase {
+class TurnSpecifiedDegreesPIDCommand: public CommandBase, public PIDOutput{
 private:
 	PIDController *controller;
 	DrivetrainPIDOutput *pidOutput;
@@ -32,6 +32,7 @@ public:
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
+	void PIDWrite(float output);
 };
 
 #endif

@@ -14,14 +14,14 @@ void TurnSpecifiedDegreesPIDCommand::Initialize() {
 	printf("[TurnSpecifiedDegreesPIDCommand] Reseting Gyro\n");
 	sensorSubsystem->GetHorizontalGyro()->Reset();
 	
-	this->pGain = 0.0;
+	this->pGain = 0.06;
 	this->iGain = 0.0;
 	this->dGain = 0.0;
 	this->feedforward = 0.0;
 	
 	this->pidOutput = new DrivetrainPIDOutput(chassis->GetRobotDrive());
 	printf("[TurnSpecifiedDegreesPIDCommand] Ccreating new Pid controller with P:%f,I:%f,D:%f\n",pGain,iGain,dGain);
-	this->controller = new PIDController(pGain, iGain, dGain, feedforward, sensorSubsystem->GetHorizontalGyro(), this->pidOutput);
+	this->controller = new PIDController(pGain, iGain, dGain, feedforward, sensorSubsystem->GetHorizontalGyro(), this);
 	
 	this->pidGyroMin = -180.0;
 	this->pidGyroMax = 180.0;
@@ -67,4 +67,8 @@ void TurnSpecifiedDegreesPIDCommand::cleanUp() {
 		delete this->controller;
 		this->controller = NULL;
 	}
+}
+
+void TurnSpecifiedDegreesPIDCommand::PIDWrite(float output) {
+	chassis->GetRobotDrive()->TankDrive(-output, output);
 }
