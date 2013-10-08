@@ -21,7 +21,7 @@ private:
 		
 		this->chooser->AddDefault("Center Autonomous", new CenterAutonomousCommandGroup());
 		this->chooser->AddObject("Right Front Py. High Goal", new FrontPyramidHighGoalCommandGroup(FrontPyramidHighGoalCommandGroup::kRight));
-		this->chooser->AddObject("Left Front Py. Middle Goal", new FrontPyramidHighGoalCommandGroup(FrontPyramidHighGoalCommandGroup::kLeft));
+		this->chooser->AddObject("Left Front Py. High Goal", new FrontPyramidHighGoalCommandGroup(FrontPyramidHighGoalCommandGroup::kLeft));
 		this->chooser->AddObject("Pyramid Front Side Middle Goal", new FrontPyramidMiddleGoalCommandGroup());
 		this->chooser->AddObject("Do nothing", new AutoDoNothingCommand());
 		this->autonomousCommand = NULL;
