@@ -1,6 +1,6 @@
 #ifndef FRISBEEPANSUBSYSTEM_H
 #define FRISBEEPANSUBSYSTEM_H
-#include "Commands/Subsystem.h"
+#include "Commands/PIDSubsystem.h"
 #include "WPILib.h"
 #include "SensorSubsystem.h"
 
@@ -9,7 +9,7 @@
  *
  * @author speterson
  */
-class FrisbeePanSubsystem: public Subsystem {
+class FrisbeePanSubsystem: public PIDSubsystem {
 public:
 	enum FrisbeePanMode {
 		Pickup,
@@ -34,6 +34,8 @@ private:
 public:
 	FrisbeePanSubsystem(SensorSubsystem *sensorSubsystem);
 	void InitDefaultCommand();
+	double ReturnPIDInput();
+	void UsePIDOutput(double output);
 	void UpPanTilt();
 	void StopPanTilt();
 	void RunIntake();
@@ -43,6 +45,8 @@ public:
 	void SetMode(FrisbeePanMode mode);
 	SpeedController *GetLiftMotor();
 	FrisbeePanMode GetMode();
+	
+	PIDController *GetPanTiltPIDController();
 };
 
 #endif

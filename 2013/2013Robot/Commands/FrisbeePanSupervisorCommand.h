@@ -10,7 +10,7 @@
  */
 class FrisbeePanSupervisorCommand: public CommandBase {
 private:
-	PIDController *controller;
+	//PIDController *controller;
 	bool OnTarget(float setpoint, float currentValue, float tolerance);
 	int initialCalibrationCount;
 	Timer *ingestTimer;

@@ -45,12 +45,15 @@
 
 FrisbeePanSupervisorCommand::FrisbeePanSupervisorCommand() {
 	Requires(frisbeePanSubsystem);
-	this->controller = new PIDController(0, 0, 0,
-			sensorSubsystem->GetPanLiftEncoder(), frisbeePanSubsystem->GetLiftMotor());
-	this->controller->SetInputRange(0, TILT_MAX_COUNT);
-	this->controller->SetOutputRange(-1, 1);
+	/*this->controller = new PIDController(0, 0, 0,
+			sensorSubsystem->GetPanLiftEncoder(), frisbeePanSubsystem->GetLiftMotor());*/
+	//this->controller->SetInputRange(0, TILT_MAX_COUNT);
+	frisbeePanSubsystem->GetPanTiltPIDController()->SetInputRange(0,TILT_MAX_COUNT);
+	//this->controller->SetOutputRange(-1, 1);
+	frisbeePanSubsystem->GetPanTiltPIDController()->SetOutputRange(-1,1);
 	
-	this->controller->SetPID(P_GAIN, I_GAIN, 0);
+	//this->controller->SetPID(P_GAIN, I_GAIN, 0);
+	frisbeePanSubsystem->GetPanTiltPIDController()->SetPID(P_GAIN, I_GAIN, 0);
 	this->ingestTimer = new Timer();
 }
 
@@ -67,7 +70,8 @@ void FrisbeePanSupervisorCommand::Execute() {
 	{
 	case FrisbeePanSubsystem::EnteringCalibration:
 		printf("FrisbeePanSupervisorCommand: EnteringCalibration\n");
-		this->controller->Disable();
+		//this->controller->Disable();
+		frisbeePanSubsystem->GetPanTiltPIDController()->Disable();
 		frisbeePanSubsystem->StopIntake();
 
 		this->initialCalibrationCount = sensorSubsystem->GetPanLiftEncoderCount();
@@ -104,17 +108,19 @@ void FrisbeePanSupervisorCommand::Execute() {
 	case FrisbeePanSubsystem::Ingest:
 		printf("FrisbeePanSupervisorCommand: ingesting\n");
 
-		if (!this->controller->IsEnabled())
+		if (!frisbeePanSubsystem->GetPanTiltPIDController()->IsEnabled())
 		{
-			this->controller->Reset();
-			this->controller->SetSetpoint(INGEST_TILT_COUNT);
-			this->controller->Enable();
+			//this->controller->Reset();
+			frisbeePanSubsystem->GetPanTiltPIDController()->Reset();
+			//this->controller->SetSetpoint(INGEST_TILT_COUNT);
+			frisbeePanSubsystem->GetPanTiltPIDController()->SetSetpoint(INGEST_TILT_COUNT);
+			//this->controller->Enable();
 		}
 		else
 		{
 			if (sensorSubsystem->IsFrisbeeInLoader())
 			{
-				if (this->OnTarget(this->controller->GetSetpoint(), INGEST_TILT_COUNT, INGEST_TOLERANCE))
+				if (this->OnTarget(frisbeePanSubsystem->GetPanTiltPIDController()->GetSetpoint(), INGEST_TILT_COUNT, INGEST_TOLERANCE))
 				{
 					frisbeePanSubsystem->RunIntake();
 				}
@@ -139,7 +145,7 @@ void FrisbeePanSupervisorCommand::Execute() {
 				{
 					this->ingestTimer->Stop();
 					this->ingestTimer->Reset();
-					this->controller->Disable();
+					frisbeePanSubsystem->GetPanTiltPIDController()->Disable();
 					frisbeePanSubsystem->SetMode(FrisbeePanSubsystem::Pickup);
 				}
 				frisbeePanSubsystem->RunIntake();
@@ -148,9 +154,9 @@ void FrisbeePanSupervisorCommand::Execute() {
 		break;
 	case FrisbeePanSubsystem::Load:
 		printf("FrisbeePanSupervisorCommand: Load target count %d\n", LOAD_TILT_COUNT);
-		this->controller->Reset();
-		this->controller->SetSetpoint(LOAD_TILT_COUNT);
-		this->controller->Enable();
+		frisbeePanSubsystem->GetPanTiltPIDController()->Reset();
+		frisbeePanSubsystem->GetPanTiltPIDController()->SetSetpoint(LOAD_TILT_COUNT);
+		frisbeePanSubsystem->GetPanTiltPIDController()->Enable();
 		frisbeePanSubsystem->RunIntake();
 		frisbeePanSubsystem->SetMode(FrisbeePanSubsystem::RunLoad);
 		
@@ -163,16 +169,16 @@ void FrisbeePanSupervisorCommand::Execute() {
 		// us to exit the loading mode and return to pickup mode.
 		printf("FrisbeePanSupervisorCommand: ExitLoad\n");
 		
-		this->controller->Reset();
+		frisbeePanSubsystem->GetPanTiltPIDController()->Reset();
 		frisbeePanSubsystem->StopIntake();
 		
 		frisbeePanSubsystem->SetMode(FrisbeePanSubsystem::Pickup);
 		break;
 	case FrisbeePanSubsystem::Stow:
 //		printf("FrisbeePanSupervisorCommand: Stow\n");
-		this->controller->Reset();
-		this->controller->SetSetpoint(STOW_TILT_COUNT);
-		this->controller->Enable();
+		frisbeePanSubsystem->GetPanTiltPIDController()->Reset();
+		frisbeePanSubsystem->GetPanTiltPIDController()->SetSetpoint(STOW_TILT_COUNT);
+		frisbeePanSubsystem->GetPanTiltPIDController()->Enable();
 		frisbeePanSubsystem->StopIntake();
 		frisbeePanSubsystem->SetMode(FrisbeePanSubsystem::RunStow);
 		break;
@@ -182,7 +188,7 @@ void FrisbeePanSupervisorCommand::Execute() {
 		break;
 
 	case FrisbeePanSubsystem::Pickup:
-		this->controller->Reset();
+		frisbeePanSubsystem->GetPanTiltPIDController()->Reset();
 		
 		if (sensorSubsystem->IsFrisbeeInLoader())
 		{
@@ -208,8 +214,8 @@ void FrisbeePanSupervisorCommand::Execute() {
 		break;
 	}
 
-	SmartDashboard::PutNumber("Ingest Tilt setpoint\n", this->controller->GetSetpoint());
-	SmartDashboard::PutNumber("Ingest Tilt Power", this->controller->Get());
+	SmartDashboard::PutNumber("Ingest Tilt setpoint\n", frisbeePanSubsystem->GetPanTiltPIDController()->GetSetpoint());
+	SmartDashboard::PutNumber("Ingest Tilt Power", frisbeePanSubsystem->GetPanTiltPIDController()->Get());
 }
 
 bool FrisbeePanSupervisorCommand::OnTarget(float setpoint, float currentValue, float tolerance)
