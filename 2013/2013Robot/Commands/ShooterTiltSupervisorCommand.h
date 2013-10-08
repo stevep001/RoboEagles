@@ -10,7 +10,7 @@
  */
 class ShooterTiltSupervisorCommand: public CommandBase {
 private:
-	//PIDController *controller;
+	PIDController *controller;
 	void Cleanup();
 	Timer *initializationTimer;
 	

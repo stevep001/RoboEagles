@@ -120,7 +120,8 @@ int SensorSubsystem::GetRightEncoderValue() {
 }
 
 int SensorSubsystem::GetTiltEncoderValue() {
-	return this->tiltEncoder->Get();
+	//return this->tiltEncoder->Get();
+	return 0;
 }
 
 //Encoder *SensorSubsystem::GetTiltEncoder()
