@@ -65,6 +65,9 @@ public:
 	int GetPanLiftEncoderCount();
 	Encoder* GetPanLiftEncoder();
 	
+	Encoder *GetLeftDriveEncoder();
+	Encoder *GetRightDriveEncoder();
+	
 	Gyro* GetHorizontalGyro();
 };
 

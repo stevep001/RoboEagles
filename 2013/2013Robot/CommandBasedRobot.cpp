@@ -8,13 +8,16 @@
 class CommandBasedRobot : public IterativeRobot {
 private:
 	Command *autonomousCommand;
-	Command *shooterTiltCommand;
 	LiveWindow *lw;
+	SendableChooser *chooser;
 	
 	virtual void RobotInit() {
 		printf("3081 Robot code compiled on %s at %s\n",__DATE__, __TIME__);
 		CommandBase::init();
 		lw = LiveWindow::GetInstance();
+		this->chooser = new SendableChooser();
+		this->chooser->AddDefault("Center Autonomous", new CenterAutonomousCommandGroup());
+		this->chooser->AddObject("Left Autonomous", new LeftPyramidAutonomousCommandGroup());
 		this->autonomousCommand = NULL;
 		//SmartDashboard::PutData(Scheduler::GetInstance());
 	}
@@ -24,9 +27,10 @@ private:
 				
 		if (DriverStation::GetInstance()->GetDigitalIn(1))
 		{
-			this->autonomousCommand = new CenterAutonomousCommandGroup();
+			this->autonomousCommand = (Command *) this->chooser->GetSelected();
+			this->autonomousCommand->Start();
 		}
-		this->autonomousCommand->Start();
+		
 		printf("Autonomous initialization completed.\n");
 	}
 	
@@ -61,4 +65,3 @@ private:
 };
 
 START_ROBOT_CLASS(CommandBasedRobot);
-

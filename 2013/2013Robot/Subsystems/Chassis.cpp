@@ -49,3 +49,11 @@ void Chassis::TankDrive(float rateLeft, float rateRight){
 RobotDrive *Chassis::GetRobotDrive() {
 	return this->drive;
 }
+
+SpeedController *Chassis::GetLeftMotor() {
+	return this->leftMotor;
+}
+
+SpeedController *Chassis::GetRightMotor() {
+	return this->rightMotor;
+}
