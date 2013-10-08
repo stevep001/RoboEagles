@@ -8,8 +8,8 @@
 #define INGEST_TILT_COUNT	130
 
 // Setpoint for loading station tilt
-//Was 200
-#define LOAD_TILT_COUNT		150
+//Was 200, 150 for horizontal  
+#define LOAD_TILT_COUNT		200
 
 // Setpoint for stowed tilt
 #define	STOW_TILT_COUNT		280
@@ -30,7 +30,7 @@
 
 // was -.0004
 // was 0
-#define I_GAIN	(-0.0002)		//Pid gain
+#define I_GAIN	(0.0)		//Pid gain
 
 // The pan is lowered in two power levels;  the first is to get it started from the top,
 // and the second is to get it down below the top.
@@ -53,7 +53,8 @@ FrisbeePanSupervisorCommand::FrisbeePanSupervisorCommand() {
 	frisbeePanSubsystem->GetPanTiltPIDController()->SetOutputRange(-1,1);
 	
 	//this->controller->SetPID(P_GAIN, I_GAIN, 0);
-	frisbeePanSubsystem->GetPanTiltPIDController()->SetPID(P_GAIN, I_GAIN, 0);
+	double feedforward = -0.0015;
+	frisbeePanSubsystem->GetPanTiltPIDController()->SetPID(P_GAIN, I_GAIN,0,feedforward);
 	this->ingestTimer = new Timer();
 }
 
