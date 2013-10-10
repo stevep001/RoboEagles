@@ -116,6 +116,7 @@ void FrisbeePanSupervisorCommand::Execute() {
 			//this->controller->SetSetpoint(INGEST_TILT_COUNT);
 			frisbeePanSubsystem->GetPanTiltPIDController()->SetSetpoint(INGEST_TILT_COUNT);
 			//this->controller->Enable();
+			frisbeePanSubsystem->GetPanTiltPIDController()->Enable();
 		}
 		else
 		{

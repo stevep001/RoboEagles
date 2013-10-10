@@ -1,7 +1,7 @@
 #include "ShooterSupervisorCommand.h"
 #include "../RpmSource.h"
 
-#define NORMAL_POWER	(-0.94)
+#define NORMAL_POWER	(-0.96)
 #define LOFT_POWER		(-0.86)
 #define TEST_POWER		(-0.86)
 
