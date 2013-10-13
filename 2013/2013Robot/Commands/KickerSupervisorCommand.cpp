@@ -1,6 +1,6 @@
 #include "KickerSupervisorCommand.h"
 
-#define	MOTOR_SPEED	.8
+#define	MOTOR_SPEED	.76
 
 KickerSupervisorCommand::KickerSupervisorCommand() {
 	Requires(kickerSubsystem);

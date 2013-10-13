@@ -9,7 +9,7 @@
 
 // Setpoint for loading station tilt
 //Was 200, 150 for horizontal  
-#define LOAD_TILT_COUNT		200
+#define LOAD_TILT_COUNT		157
 
 // Setpoint for stowed tilt
 #define	STOW_TILT_COUNT		280

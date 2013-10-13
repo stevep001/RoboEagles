@@ -14,7 +14,7 @@ CenterAutonomousCommandGroup::CenterAutonomousCommandGroup() {
 	AddSequential(new WaitCommand(1));
 	printf("Adding shooter tilt command at 30\n");
 	// was 26, autonomous was high
-	AddSequential(new SetShooterTiltCommand(30));
+	AddSequential(new SetShooterTiltCommand(28));
 		
 	//printf("Driving Back 45 inches");
 	//AddSequential(new DriveForwardCommand(75));
