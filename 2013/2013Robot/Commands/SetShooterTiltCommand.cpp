@@ -3,6 +3,7 @@
 SetShooterTiltCommand::SetShooterTiltCommand(float angle) {
 	printf("SetShooterTiltCommand: constructing\n");
 	this->angle = angle;
+	this->m_vision = NULL;
 	printf("SetShooterTiltCommand: constructed\n");
 }
 
@@ -15,7 +16,9 @@ SetShooterTiltCommand::SetShooterTiltCommand(ProcessVisionCommand *processVision
 
 // Called just before this Command runs the first time
 void SetShooterTiltCommand::Initialize() {
-	this->angle = m_vision->GetTiltAngle();
+	if (m_vision != NULL) {
+		this->angle = m_vision->GetTiltAngle();
+	}
 	shooterTiltSubsystem->SetAngle(this->angle);
 }
 

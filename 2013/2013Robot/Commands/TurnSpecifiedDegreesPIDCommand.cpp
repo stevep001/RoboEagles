@@ -6,6 +6,7 @@ TurnSpecifiedDegreesPIDCommand::TurnSpecifiedDegreesPIDCommand(float degrees) {
 	printf("[TurnSpecifiedDegreesPIDCommand] Starting construction\n");
 	Requires(chassis);
 	this->setPoint = degrees;
+	this->m_vision = NULL;
 	printf("[TurnSpecifiedDegreesPIDCommand] Has constructed with set point %f\n",setPoint);
 }
 
@@ -21,8 +22,9 @@ TurnSpecifiedDegreesPIDCommand::TurnSpecifiedDegreesPIDCommand(ProcessVisionComm
 void TurnSpecifiedDegreesPIDCommand::Initialize() {
 	printf("[TurnSpecifiedDegreesPIDCommand] Reseting Gyro\n");
 	
-	this->setPoint = m_vision->GetAzimuth();
-
+	if (m_vision != NULL) {
+		this->setPoint = m_vision->GetAzimuth();
+	}
 	sensorSubsystem->GetHorizontalGyro()->Reset();
 	
 	this->pGain = 0.06;
@@ -54,6 +56,9 @@ void TurnSpecifiedDegreesPIDCommand::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool TurnSpecifiedDegreesPIDCommand::IsFinished() {
+	if(!this->m_vision->AreTargetsVisable()) {
+		return true;
+	}
 	return this->controller->OnTarget();
 }
 
