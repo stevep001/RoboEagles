@@ -6,7 +6,14 @@ TurnSpecifiedDegreesPIDCommand::TurnSpecifiedDegreesPIDCommand(float degrees) {
 	printf("[TurnSpecifiedDegreesPIDCommand] Starting construction\n");
 	Requires(chassis);
 	this->setPoint = degrees;
-	printf("[TurnSpecifiedDegreesPIDCommand] Has constructed\n");
+	printf("[TurnSpecifiedDegreesPIDCommand] Has constructed with set point %f\n",setPoint);
+}
+
+TurnSpecifiedDegreesPIDCommand::TurnSpecifiedDegreesPIDCommand(ProcessVisionCommand *processVision) {
+	printf("[TurnSpecifiedDegreesPIDCommand] Starting construction\n");
+	Requires(chassis);
+	this->setPoint = processVision->GetAzimuth();
+	printf("[TurnSpecifiedDegreesPIDCommand] Has constructed with set point %f\n",setPoint);
 }
 
 // Called just before this Command runs the first time
@@ -19,7 +26,6 @@ void TurnSpecifiedDegreesPIDCommand::Initialize() {
 	this->dGain = 0.0;
 	this->feedforward = 0.0;
 	
-	this->pidOutput = new DrivetrainPIDOutput(chassis->GetRobotDrive());
 	printf("[TurnSpecifiedDegreesPIDCommand] Ccreating new Pid controller with P:%f,I:%f,D:%f\n",pGain,iGain,dGain);
 	this->controller = new PIDController(pGain, iGain, dGain, feedforward, sensorSubsystem->GetHorizontalGyro(), this);
 	

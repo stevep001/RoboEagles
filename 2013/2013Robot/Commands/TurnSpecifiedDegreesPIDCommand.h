@@ -2,7 +2,8 @@
 #define TURNSPECIFIEDDEGREESPIDCOMMAND_H
 
 #include "../CommandBase.h"
-#include "../DrivetrainPIDoutput.h"
+#include "ProcessVisionCommand.h"
+//#include "../DrivetrainPIDoutput.h"
 
 /**
  *
@@ -12,7 +13,6 @@
 class TurnSpecifiedDegreesPIDCommand: public CommandBase, public PIDOutput{
 private:
 	PIDController *controller;
-	DrivetrainPIDOutput *pidOutput;
 	void cleanUp();
 	float pGain;
 	float iGain;
@@ -27,6 +27,7 @@ private:
 	float setPoint;
 public:
 	TurnSpecifiedDegreesPIDCommand(float degrees);
+	TurnSpecifiedDegreesPIDCommand(ProcessVisionCommand *processVision);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

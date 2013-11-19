@@ -6,7 +6,7 @@
 VisionTargetingCommandGroup::VisionTargetingCommandGroup() {
 	this->processVision = new ProcessVisionCommand();
 	AddSequential(processVision);
-	AddSequential(new TurnSpecifiedDegreesPIDCommand(processVision->GetAzimuth()));
+	AddSequential(new TurnSpecifiedDegreesPIDCommand(processVision));
 	AddSequential(new SetShooterTiltCommand(processVision->GetTiltAngle()));
 	
 	double delay = 3.0;
