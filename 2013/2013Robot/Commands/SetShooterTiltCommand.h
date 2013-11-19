@@ -2,6 +2,7 @@
 #define SETSHOOTERTILTCOMMAND_H
 
 #include "../CommandBase.h"
+#include "ProcessVisionCommand.h"
 
 /**
  *
@@ -13,6 +14,7 @@ private:
 	float angle;
 public:
 	SetShooterTiltCommand(float angle);
+	SetShooterTiltCommand(ProcessVisionCommand *processVision);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

@@ -4,5 +4,5 @@
 
 ShootAllCommandGroup::ShootAllCommandGroup() {
 	AddSequential(new ShootFrisbeeAndIndexCommand());
-	AddSequential(new SetShooterTiltCommand(0));
+	AddSequential(new SetShooterTiltCommand(0.0));
 }

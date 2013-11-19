@@ -67,7 +67,7 @@ OI::OI() {
 	this->pizzaBoxDownButton->WhenPressed(new MovePBBottomCommand());
 	
 	this->tiltToZeroButton = new JoystickButton(this->shooterJoystick, TILT_TO_ZERO_BUTTON);
-	this->tiltToZeroButton->WhenPressed(new SetShooterTiltCommand(0));
+	this->tiltToZeroButton->WhenPressed(new SetShooterTiltCommand(0.0));
 	
 	// Test joystick 1
 	this->testJoystick = new Joystick(TEST_JOYSTICK_PORT);
