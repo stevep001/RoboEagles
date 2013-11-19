@@ -15,9 +15,18 @@ TurnSpecifiedDegreesCommand::TurnSpecifiedDegreesCommand(float degreesToTurn)
 	this->degreesToTurn = degreesToTurn;
 }
 
+TurnSpecifiedDegreesCommand::TurnSpecifiedDegreesCommand(ProcessVisionCommand *processVision) 
+	: CommandBase("TurnSpecifiedDegreesCommand") {
+	Requires(chassis);
+	this->degreesToTurn = 0;
+	m_vision = processVision;
+}
+
+
 // Called just before this Command runs the first time
 void TurnSpecifiedDegreesCommand::Initialize() {
 	this->finished = false;
+	this->degreesToTurn = m_vision->GetAzimuth();
 	this->startingAngle = sensorSubsystem->GetHorizontalAngle();
 	this->goalAngle = startingAngle + this->degreesToTurn;
 	printf("TurnSpecifiedDegreesCommand %f\n", this->degreesToTurn);

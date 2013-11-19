@@ -2,6 +2,7 @@
 #define TURNSPECIFIEDDEGREESCOMMAND_H
 
 #include "../CommandBase.h"
+#include "ProcessVisionCommand.h"
 
 /**
  *
@@ -15,8 +16,10 @@ private:
 	float degreesToTurn;
 	bool finished;
 	
+	ProcessVisionCommand *m_vision;
 public:
 	TurnSpecifiedDegreesCommand(float degreesToTurn);
+	TurnSpecifiedDegreesCommand(ProcessVisionCommand *processVision);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
