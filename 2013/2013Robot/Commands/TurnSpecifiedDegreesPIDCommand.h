@@ -25,6 +25,8 @@ private:
 	float setPointTolerance;
 	
 	float setPoint;
+	
+	ProcessVisionCommand *m_vision;
 public:
 	TurnSpecifiedDegreesPIDCommand(float degrees);
 	TurnSpecifiedDegreesPIDCommand(ProcessVisionCommand *processVision);

@@ -12,13 +12,17 @@ TurnSpecifiedDegreesPIDCommand::TurnSpecifiedDegreesPIDCommand(float degrees) {
 TurnSpecifiedDegreesPIDCommand::TurnSpecifiedDegreesPIDCommand(ProcessVisionCommand *processVision) {
 	printf("[TurnSpecifiedDegreesPIDCommand] Starting construction\n");
 	Requires(chassis);
-	this->setPoint = processVision->GetAzimuth();
+	this->setPoint = 0;
+	this->m_vision = processVision;
 	printf("[TurnSpecifiedDegreesPIDCommand] Has constructed with set point %f\n",setPoint);
 }
 
 // Called just before this Command runs the first time
 void TurnSpecifiedDegreesPIDCommand::Initialize() {
 	printf("[TurnSpecifiedDegreesPIDCommand] Reseting Gyro\n");
+	
+	this->setPoint = m_vision->GetAzimuth();
+
 	sensorSubsystem->GetHorizontalGyro()->Reset();
 	
 	this->pGain = 0.06;

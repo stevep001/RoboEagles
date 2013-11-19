@@ -12,6 +12,8 @@
 class SetShooterTiltCommand: public CommandBase {
 private:
 	float angle;
+	
+	ProcessVisionCommand *m_vision;
 public:
 	SetShooterTiltCommand(float angle);
 	SetShooterTiltCommand(ProcessVisionCommand *processVision);
