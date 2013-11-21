@@ -12,4 +12,6 @@ VisionTargetingCommandGroup::VisionTargetingCommandGroup() {
 	double delay = 3.0;
 	AddSequential(new WaitCommand(delay));
 	AddSequential(new ShootFrisbeeAndIndexCommand());
+	
+	AddSequential(new SetShooterTiltCommand(0.0));
 }
