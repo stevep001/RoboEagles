@@ -26,11 +26,11 @@
 // PID tuning values
 // was -0.006
 // was -.0055
-#define	P_GAIN	(-.006)	//Pid gain
+#define	P_GAIN	(-.0057)	//Pid gain
 
 // was -.0004
 // was 0
-#define I_GAIN	(0.0)		//Pid gain
+#define I_GAIN	(-0.00019)		//Pid gain
 
 // The pan is lowered in two power levels;  the first is to get it started from the top,
 // and the second is to get it down below the top.
@@ -53,7 +53,7 @@ FrisbeePanSupervisorCommand::FrisbeePanSupervisorCommand() {
 	frisbeePanSubsystem->GetPanTiltPIDController()->SetOutputRange(-1,1);
 	
 	//this->controller->SetPID(P_GAIN, I_GAIN, 0);
-	double feedforward = -0.0015;
+	double feedforward = -0.0005;
 	frisbeePanSubsystem->GetPanTiltPIDController()->SetPID(P_GAIN, I_GAIN,0,feedforward);
 	this->ingestTimer = new Timer();
 }
@@ -160,6 +160,7 @@ void FrisbeePanSupervisorCommand::Execute() {
 		frisbeePanSubsystem->GetPanTiltPIDController()->SetSetpoint(LOAD_TILT_COUNT);
 		frisbeePanSubsystem->GetPanTiltPIDController()->Enable();
 		frisbeePanSubsystem->RunIntake();
+		//frisbeePanSubsystem->StopIntake();
 		frisbeePanSubsystem->SetMode(FrisbeePanSubsystem::RunLoad);
 		
 		break;
@@ -218,6 +219,7 @@ void FrisbeePanSupervisorCommand::Execute() {
 
 	SmartDashboard::PutNumber("Ingest Tilt setpoint\n", frisbeePanSubsystem->GetPanTiltPIDController()->GetSetpoint());
 	SmartDashboard::PutNumber("Ingest Tilt Power", frisbeePanSubsystem->GetPanTiltPIDController()->Get());
+	SmartDashboard::PutNumber("Ingest PID Error", frisbeePanSubsystem->GetPanTiltPIDController()->GetError());
 }
 
 bool FrisbeePanSupervisorCommand::OnTarget(float setpoint, float currentValue, float tolerance)
