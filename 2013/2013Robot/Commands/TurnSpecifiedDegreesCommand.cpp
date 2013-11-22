@@ -71,8 +71,10 @@ void TurnSpecifiedDegreesCommand::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool TurnSpecifiedDegreesCommand::IsFinished() {
-	if(!this->m_vision->AreTargetsVisable()) {
-		return true;
+	if(this->m_vision != NULL) {
+		if(!this->m_vision->AreTargetsVisable()) {
+			return true;
+		}
 	}
 	return finished;	
 }

@@ -56,8 +56,10 @@ void TurnSpecifiedDegreesPIDCommand::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool TurnSpecifiedDegreesPIDCommand::IsFinished() {
-	if(!this->m_vision->AreTargetsVisable()) {
-		return true;
+	if(this->m_vision != NULL) {
+		if(!this->m_vision->AreTargetsVisable()) {
+			return true;
+		}
 	}
 	return this->controller->OnTarget();
 }

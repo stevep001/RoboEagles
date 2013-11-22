@@ -12,8 +12,9 @@ ProcessVisionCommand::ProcessVisionCommand() {
 void ProcessVisionCommand::Initialize() {
 	timer = new Timer();
 	
-	distance = -1.0;
-	azimuth = -1.0;
+	distance = 0;
+	azimuth = 0;
+	shooterTiltAngle = 0.0;
 	
 	visionSubsystemV2->ProcessCameraImage();
 	timer->Reset();
@@ -91,7 +92,7 @@ float ProcessVisionCommand::computeTiltAngle(float distance){
 	} else if ((distance <= TILT_ANGLE_38) && (distance >= TILT_ANGLE_40)) {
 		tiltAngle = 38;
 	} else {
-		tiltAngle = -1;
+		tiltAngle = 0;
 	}
 	return tiltAngle;
 }
