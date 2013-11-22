@@ -445,14 +445,14 @@ bool VisionSubsystemV2::checkImageForProcessing(HSLImage *image) {
 void VisionSubsystemV2::ProcessCameraImage() {
 	this->isImageProcessed = false;
 	HSLImage *cameraImage;
-	cameraImage = VisionSubsystemV2::getImageFromcRio();
+	cameraImage = VisionSubsystemV2::getCameraImage();
 	
 	if(checkImageForProcessing(cameraImage)) {
 		#ifndef _WIN32
 		VisionSubsystemV2::processImage(cameraImage);
 		#endif
 	} else {
-		printf("[VisionSubsystemV2](ProcessCameraImage) Image did not pass test aborting processing");
+		printf("[VisionSubsystemV2](ProcessCameraImage) Image Is NULL or is unworkable\n");
 	}
 
 	delete cameraImage;
