@@ -11,11 +11,12 @@ ProcessVisionCommand::ProcessVisionCommand() {
 // Called just before this Command runs the first time
 void ProcessVisionCommand::Initialize() {
 	timer = new Timer();
-
+	
 	distance = 0;
 	azimuth = 0;
 	shooterTiltAngle = 0.0;
-
+	targetsVisable = false;
+	
 	visionSubsystemV2->ProcessCameraImage();
 	timer->Reset();
 	timer->Start();
@@ -36,28 +37,34 @@ void ProcessVisionCommand::End() {
 	timer->Stop();
 	printf("[ProcessVisionCommand] It took %f seconds to process\n",
 			timer->Get());
-	if (visionSubsystemV2->IsHighTargetVisable()
-			|| visionSubsystemV2->IsMiddleTargetVisable()
-			|| visionSubsystemV2->IsSecondMiddleTargetVisable()) {
-		targetsVisable = true;
-	} else {
-		targetsVisable = false;
-	}
+	if (!visionSubsystemV2->IsImageNULL()) {
+		if (visionSubsystemV2->IsHighTargetVisable()
+				|| visionSubsystemV2->IsMiddleTargetVisable()
+				|| visionSubsystemV2->IsSecondMiddleTargetVisable()) {
+			targetsVisable = true;
+		} else {
+			targetsVisable = false;
+		}
 
-	if (visionSubsystemV2->IsHighTargetVisable()) {
-		distance = visionSubsystemV2->GetHighTargetDistance();
-		azimuth = visionSubsystemV2->GetHighTargetAzimuth();
-		shooterTiltAngle = computeTiltAngle(distance, High);
-	} else if (visionSubsystemV2->IsMiddleTargetVisable()) {
-		distance = visionSubsystemV2->GetMiddleTargetDistance();
-		azimuth = visionSubsystemV2->GetMiddleTargetAzimuth();
-		shooterTiltAngle = computeTiltAngle(distance, Middle);
-	} else if (visionSubsystemV2->IsSecondMiddleTargetVisable()) {
-		distance = visionSubsystemV2->GetSecondMiddleTargetDistance();
-		azimuth = visionSubsystemV2->GetSecondMiddleTargetAzimuth();
-		shooterTiltAngle = computeTiltAngle(distance, Middle);
+		if (visionSubsystemV2->IsHighTargetVisable()) {
+			distance = visionSubsystemV2->GetHighTargetDistance();
+			azimuth = visionSubsystemV2->GetHighTargetAzimuth();
+			shooterTiltAngle = computeTiltAngle(distance, High);
+		} else if (visionSubsystemV2->IsMiddleTargetVisable()) {
+			distance = visionSubsystemV2->GetMiddleTargetDistance();
+			azimuth = visionSubsystemV2->GetMiddleTargetAzimuth();
+			shooterTiltAngle = computeTiltAngle(distance, Middle);
+		} else if (visionSubsystemV2->IsSecondMiddleTargetVisable()) {
+			distance = visionSubsystemV2->GetSecondMiddleTargetDistance();
+			azimuth = visionSubsystemV2->GetSecondMiddleTargetAzimuth();
+			shooterTiltAngle = computeTiltAngle(distance, Middle);
+		}
+		printf("[ProcessVisionCommand] Target Distance:%f Azimuth:%f, Shooter Angle %f\n",
+			this->distance, this->azimuth, this->shooterTiltAngle);
+	} else {
+		printf("[ProcessVisionCommand] Image is null, can not proceed\n");
+		this->targetsVisable = false;
 	}
-	printf("[ProcessVisionCommand] Target Distance:%f Azimuth:%f, Shooter Angle %f\n",this->distance, this->azimuth, this->shooterTiltAngle);
 	printf("[ProcessVisionCommand] Ending\n");
 }
 

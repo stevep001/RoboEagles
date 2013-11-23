@@ -455,6 +455,7 @@ void VisionSubsystemV2::ProcessCameraImage() {
 	} else {
 		printf("[VisionSubsystemV2](ProcessCameraImage) Image Is NULL or is unworkable\n");
 		this->isImageNULL = true;
+		zeroOutStats();
 	}
 
 	delete cameraImage;
