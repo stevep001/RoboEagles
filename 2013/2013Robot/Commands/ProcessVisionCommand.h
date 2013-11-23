@@ -27,11 +27,15 @@
  */
 class ProcessVisionCommand: public CommandBase {
 private:
+	enum Target {
+		High,
+		Middle
+	};
 	Timer *timer;
 	float distance;
 	float azimuth;
 	float shooterTiltAngle;
-	float computeTiltAngle(float distance);
+	float computeTiltAngle(float distance, Target target);
 	bool targetsVisable;
 public:
 	ProcessVisionCommand();
