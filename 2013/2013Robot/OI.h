@@ -22,6 +22,8 @@ private:
 	Button *tiltToZeroButton;
 	//Button *tiltAngle;
 	Button *tiltTo26DegreeButton;
+	Button *startVisionTargetingButton;
+	Button *killVisionTargetingButton;
 	
 	// Test joystick
 	Button *pbTopButton;

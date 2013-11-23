@@ -22,6 +22,8 @@
 #include "Commands/ShootAllCommandGroup.h"
 #include "Commands/ShootOnceAndIndexCommand.h"
 #include "Commands/TurnSpecifiedDegreesPIDCommand.h"
+#include "Commands/VisionTargetingCommandGroup.h"
+#include "Commands/KillVisionTargetingCommandGroupCommand.h"
 #include "FrisbeeArrivalButton.h"
 
 OI::OI() {
@@ -68,6 +70,13 @@ OI::OI() {
 	
 	this->tiltToZeroButton = new JoystickButton(this->shooterJoystick, TILT_TO_ZERO_BUTTON);
 	this->tiltToZeroButton->WhenPressed(new SetShooterTiltCommand(0.0));
+	
+	VisionTargetingCommandGroup *visionTargeting = new VisionTargetingCommandGroup();
+	this->startVisionTargetingButton = new JoystickButton(this->shooterJoystick, START_VISION_BUTTON);
+	this->startVisionTargetingButton->WhenPressed(visionTargeting);
+	
+	this->killVisionTargetingButton = new JoystickButton(this->shooterJoystick, KILL_VISION_BUTTON);
+	this->killVisionTargetingButton->WhenPressed(new KillVisionTargetingCommandGroupCommand(visionTargeting));
 	
 	// Test joystick 1
 	this->testJoystick = new Joystick(TEST_JOYSTICK_PORT);
