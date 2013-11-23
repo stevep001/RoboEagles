@@ -444,6 +444,7 @@ bool VisionSubsystemV2::checkImageForProcessing(HSLImage *image) {
  */
 void VisionSubsystemV2::ProcessCameraImage() {
 	this->isImageProcessed = false;
+	this->isImageNULL = false;
 	HSLImage *cameraImage;
 	cameraImage = VisionSubsystemV2::getCameraImage();
 	
@@ -453,6 +454,7 @@ void VisionSubsystemV2::ProcessCameraImage() {
 		#endif
 	} else {
 		printf("[VisionSubsystemV2](ProcessCameraImage) Image Is NULL or is unworkable\n");
+		this->isImageNULL = true;
 	}
 
 	delete cameraImage;
@@ -494,6 +496,10 @@ void VisionSubsystemV2::ProcessImageFromFileSystem(const char *filename) {
 
 bool VisionSubsystemV2::IsImageProcessed() {
 	return this->isImageProcessed;
+}
+
+bool VisionSubsystemV2::IsImageNULL() {
+	return this->isImageNULL;
 }
 
 bool VisionSubsystemV2::IsHighTargetVisable() {

@@ -100,6 +100,7 @@ private:
 
 
 	bool isImageProcessed;
+	bool isImageNULL;
 	
 	bool isHighTargetVisable;
 	double highTargetPositionX;
@@ -169,7 +170,7 @@ public:
 	void ProcessImageFromFileSystem(const char *filename);
 
 	bool IsImageProcessed();
-	
+	bool IsImageNULL();
 	
 	bool IsHighTargetVisable();
 	double GetHighTargetDistance();
